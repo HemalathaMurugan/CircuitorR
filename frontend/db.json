@@ -1,0 +1,87 @@
+ 
+{
+            
+        "AndGates": [
+            {
+                "id": 1,
+                "name": "AND",
+                "input1": null,
+                "input2": null,
+                "output":null,
+                "input1_wire_id":null,
+                "input2_wire_id":null,
+                "output_wire_id":null
+            },
+            {
+                "id": 2,
+                "name": "AND",
+                "input1": null,
+                "input2": null,
+                "output":null,
+                "input1_wire_id":null,
+                "input2_wire_id":null,
+                "ouput_wire_id":null
+            }
+        
+            ],
+        
+        
+        "OrGates": [
+            {
+                "id": 1,
+                "name": "OR",
+                "input1": null,
+                "input2": null,
+                "output":null,
+                "input1_wire_id":null,
+                "input2_wire_id":null,
+                "output_wire_id": null
+            }
+            ],
+        
+        
+        "NotGates": [
+            
+            {
+                "id": 1,
+                "name": "NOT",
+                "input": null,
+                "output":null,
+                "input_wire_id":null,
+                "output_wire_id":null   
+            }
+            ],
+        
+    
+
+            "wires": [
+            
+                {
+                    "id": 1,
+                    "name": "WIRE",
+                    "left_gate_id": null,
+                    "right_gate_id":null,
+                    "direct_input_id":null,
+                    "direct_output_id":null
+                },
+                {
+                    "id": 2,
+                    "name": "WIRE",
+                    "left_gate_id": null,
+                    "right_gate_id":null,
+                    "direct_input_id":null,
+                    "direct_output_id":null
+                },
+                {
+                    "id": 3,
+                    "name": "WIRE",
+                    "left_gate_id": null,
+                    "right_gate_id":null,
+                    "direct_input_id":null,
+                    "direct_output_id":null
+                }
+            ]
+}
+    
+
+
