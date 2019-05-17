@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
-
+import {Button} from 'semantic-ui-react'
 import './App.css';
 import CircuitContainer from './containers/CircuitContainer';
 import GatesContainer from './containers/GatesContainer';
 import InputOptionsContainer from './containers/InputOptionsContainer'
+import { Grid,  Segment} from 'semantic-ui-react'
 
 class  App extends Component{
 
@@ -61,16 +62,27 @@ class  App extends Component{
     //console.log(this)
   return (
     <div>
-      <CircuitContainer AndGates={this.state.AndGates} 
-                        OrGates={this.state.OrGates}
-                        NotGates={this.state.NotGates} 
-                        wires={this.state.wires}
-      />
-      <GatesContainer />
-      {/* <InputOptionsContainer /> */}
+      <div className="App">
+       
+        <header className="App-header">
+             <Segment>
+               
+                    <div className="ui container" >
+                    <CircuitContainer AndGates={this.state.AndGates} 
+                                      OrGates={this.state.OrGates}
+                                      NotGates={this.state.NotGates} 
+                                      wires={this.state.wires}
+                    />
+                    </div>
+                  
+              </Segment>
+        </header>
+      </div>
+      
     </div>
   );
   }
 }
 
 export default App;
+//yet to render GatesContainer and InputOptionsContainer once they are defined
