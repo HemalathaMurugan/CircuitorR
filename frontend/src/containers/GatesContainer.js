@@ -7,8 +7,21 @@ import React, {Component} from 'react';
 export default class GatesContainer extends Component{
     render(){
         return(
-            <div>
-                
+            <div>Users can choose from these options
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/or-gate-md.png')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/and2.png')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/not2.png')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/nand2.png')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/exor.png')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/exnor.jpeg')} />
+                <br></br>
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/and2.png')} />
+                <br></br>
             </div>
         )
     }

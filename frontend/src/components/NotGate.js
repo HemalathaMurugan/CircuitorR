@@ -1,10 +1,14 @@
 import React from 'react'
 
-export default class extends React.Component {
+export default class NotGate extends React.Component {
+    
     render(){
+        console.log(this.props)
         return(
             <div>
-                Not Gate
+                <img src={require('../assets/not2.png')} alt="HTML5"
+                 style={{width: "70px",position:"absolute", height:"50px", top: this.props.location.y, left: this.props.location.x}}
+                 />
             </div>
         )
     }
