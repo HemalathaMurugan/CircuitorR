@@ -19,7 +19,7 @@ export default class CircuitContainer extends Component {
     //     return this.props.wires.map((wire, index)=> wire)
     // }
     render(){
-        //console.log(this.props)
+        console.log(this.props)
         return(
             <div className="whats going on">
                 <Circuit gates={this.props.gates} wires={this.props.wires}

@@ -1,10 +1,10 @@
-import React,{Component} from 'react';
-import {Button, GridColumn} from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Button, GridColumn } from 'semantic-ui-react'
 import './App.css';
 import CircuitContainer from './containers/CircuitContainer';
 import GatesContainer from './containers/GatesContainer';
 import InputOptionsContainer from './containers/InputOptionsContainer'
-import { Grid,  Segment} from 'semantic-ui-react'
+import { Grid, Segment } from 'semantic-ui-react'
 import ReactDOM from 'react-dom'
 
 //db.json accepts the keys to be strictly strings and does not accept comment lines
@@ -46,7 +46,7 @@ import ReactDOM from 'react-dom'
 //   ],
 //   wires: [
 //     {
-      
+
 //       inputID: 0,
 //       outputID: 2,
 //       // location: {
@@ -77,90 +77,74 @@ import ReactDOM from 'react-dom'
 //   ]
 // }
 
-class  App extends Component{
+class App extends Component {
 
   state = {
     gates: [],
     wires: []
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch('http://localhost:3000/gates')
-    .then(res=> res.json())
-    .then((gatesData) => {
+      .then(res => res.json())
+      .then((gatesData) => {
         console.log(gatesData)
-       this.setState({
-         gates: [...this.state.gates, gatesData]
-       })
-    })
+        this.setState({
+          gates: gatesData
+        })
+      })
 
     fetch('http://localhost:3000/wires')
-    .then(res=> res.json())
-    .then((wiresData) => {
+      .then(res => res.json())
+      .then((wiresData) => {
         console.log(wiresData)
-       this.setState({
-         wires: [...this.state.wires, wiresData]
-       })
-    })
+        this.setState({
+          wires:  wiresData
+        })
+      })
+  }
 
-    
-}
+  render() {
+    console.log('State:', this.state.gates)
+    console.log('Wires:', this.state.wires)
+    return (
+      <div>
+        <div className="App">
 
-  render(){
-    console.log(this.state.gates)
-    console.log(this.state.wires)
-  return (
-    <div>
-      <div className="App">
-       
-        <header className="App-header">
-             <Segment>
-               <Grid celled>
+          <header className="App-header">
+            <Segment>
+              <Grid celled>
                 <Grid.Row>
-                      <Grid.Column width={3}>
-                          <div className="ui container">
-                        
-                          <GatesContainer />
-                          </div>
-                      </Grid.Column>
+                  <Grid.Column width={3}>
+                    <div className="ui container">
+                      <GatesContainer />
+                    </div>
+                  </Grid.Column>
+                  <Grid.Column width={13}>
+                    <div className="ui container" >
+                      <CircuitContainer gates={this.state.gates} wires={this.state.wires}/>
+                    </div>
+                  </Grid.Column>
+                </Grid.Row>
 
-
-                      <Grid.Column width={13}>
-                          <div className="ui container" >
-                          <CircuitContainer gates={this.state.gates} 
-                                           wires = {this.state.wires}
-                          />
-                          </div>
-                      </Grid.Column>
-
-                        
-                  </Grid.Row>
-
-                  <Grid.Row>
-
-                      <Grid.Column width={3}>
-                          Input option Container is to rendered here
-                      </Grid.Column>
-
-                      <Grid.Column width={10}>
-                          Waveforms are to be rendered here. may be with a waveform container
-                      </Grid.Column>
-
-                      <Grid.Column width={3}>
-                          If you want to add an extra column you can add like this
-                      </Grid.Column>
-
-
-                  </Grid.Row>
-
-                </Grid> 
-              </Segment>
-              <div style={{width: "500px", height: "500px", border: "red"}}>{()=>this.getCircuitOutput()}</div>
-        </header>
+                <Grid.Row>
+                  <Grid.Column width={3}>
+                    Input option Container is to rendered here
+                  </Grid.Column>
+                  <Grid.Column width={10}>
+                    Waveforms are to be rendered here. may be with a waveform container
+                  </Grid.Column>
+                  <Grid.Column width={3}>
+                    If you want to add an extra column you can add like this
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Segment>
+            <div style={{ width: "500px", height: "500px", border: "red" }}>{() => this.getCircuitOutput()}</div>
+          </header>
+        </div>
       </div>
-      
-    </div>
-  );
+    );
   }
 
   getCircuitOutput = () => {
@@ -195,17 +179,17 @@ class  App extends Component{
 
     if (gate.type === "and") {
       return value1 && value2
-    } else if(gate.type === "or"){
+    } else if (gate.type === "or") {
       return value1 || value2
-    } else if(gate.type === "not"){
+    } else if (gate.type === "not") {
       return !value1
-    } else if(gate.type === "exor"){
-      return value1!==value2
-    } else if(gate.type === "exnor"){
-      return !(value1!==value2)
-    } else if(gate.type === "nand"){
+    } else if (gate.type === "exor") {
+      return value1 !== value2
+    } else if (gate.type === "exnor") {
+      return !(value1 !== value2)
+    } else if (gate.type === "nand") {
       return !(value1 && value2)
-    } else if(gate.type === "nor"){
+    } else if (gate.type === "nor") {
       return !(value1 || value2)
     }
   }

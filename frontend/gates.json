@@ -1,5 +1,4 @@
-{
-  "gates": [
+gates : [
     {
       "id": 0,
       "type": "and",
@@ -36,23 +35,4 @@
         "y": 160
       }
     }
-  ],
-  "wires": [
-    {
-      "inputID": 0,
-      "outputID": 2
-    },
-    {
-      "inputID": 1,
-      "outputID": 2
-    },
-    {
-      "inputID": 2,
-      "outputID": 3
-    },
-    {
-      "inputID": 3,
-      "outputID": "display"
-    }
   ]
-}
