@@ -90,6 +90,14 @@ export default class extends React.Component {
         )
     }
 
+    renderNandGates = (gates) => {
+        return gates.filter((gate)=>gate.type==="nand")
+        .map((gate, index)=> 
+            <OrGate  key = {index} actualGate={gate} id={gate.id} location={gate.location}/>
+
+        )
+    }
+
     renderNotGates = (gates) => {
         return gates.filter((gate)=>gate.type==="not")
         .map((gate, index)=> 
@@ -146,6 +154,7 @@ export default class extends React.Component {
                 
             }
 
+            //This happens only with a not gate
             if(inputGate.location.y === outputGate.location.y){
                 x = inputGate.location.x + 70;
                 y = inputGate.location.y + 24; //since, half width of gate is 25px and wire's half width is 1px
@@ -182,10 +191,8 @@ export default class extends React.Component {
         console.log(this.props.wires)
         return(
             <div>The circuit created by the user by drag and drop
-                
-                { this.renderAndGates(this.props.gates) }
-                
-                    
+                { this.renderNandGates(this.props.gates)}
+                { this.renderAndGates(this.props.gates) }    
                 {this.renderOrGates(this.props.gates)}
                 {this.renderNotGates(this.props.gates)}
                 {this.renderWires(this.props.gates, this.props.wires)}

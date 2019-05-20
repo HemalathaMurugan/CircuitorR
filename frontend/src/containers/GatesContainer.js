@@ -12,15 +12,15 @@ export default class GatesContainer extends Component{
                 <br></br>
                 <img style={{height:"50px", width:"70px"}} src={require('../assets/and2.png')} />
                 <br></br>
-                <img style={{height:"50px", width:"70px"}} src={require('../assets/not2.png')} />
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/not1.jpeg')} />
                 <br></br>
-                <img style={{height:"50px", width:"70px"}} src={require('../assets/nand2.png')} />
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/nand.png')} />
                 <br></br>
-                <img style={{height:"50px", width:"70px"}} src={require('../assets/exor.png')} />
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/exor2.png')} />
                 <br></br>
-                <img style={{height:"50px", width:"70px"}} src={require('../assets/exnor.jpeg')} />
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/xnor.png')} />
                 <br></br>
-                <img style={{height:"50px", width:"70px"}} src={require('../assets/and2.png')} />
+                <img style={{height:"50px", width:"70px"}} src={require('../assets/nor.png')} />
                 <br></br>
             </div>
         )

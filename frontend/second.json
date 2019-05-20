@@ -1,0 +1,64 @@
+{
+  "gates": [
+    {
+      "id": 0,
+      "type": "and",
+      "location": {
+        "x": 200,
+        "y": 200
+      },
+      "fixedInput1": 0,
+      "fixedInput2": 1
+    },
+    {
+      "id": 1,
+      "type": "and",
+      "location": {
+        "x": 200,
+        "y": 120
+      },
+      "fixedInput1": 0,
+      "fixedInput2": 1
+    },
+    {
+      "id": 2,
+      "type": "nand",
+      "location": {
+        "x": 350,
+        "y": 160
+      }
+    },
+   {
+     "id":3,
+     "type": "not",
+     "location": {
+       "x": 50,
+       "y": 160
+     },
+     "fixedInput1": 0
+   }
+    
+  ],
+  "wires": [
+    {
+      "inputID": 3,
+      "outputID": 0
+    },
+    {
+      "inputID": 0,
+      "outputID": 2
+    },
+    {
+      "inputID": 1,
+      "outputID": 2
+    },
+    {
+      "inputID": 2,
+      "outputID": 3
+    },
+    {
+      "inputID": 3,
+      "outputID": "display"
+    }
+  ]
+}

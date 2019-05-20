@@ -140,59 +140,13 @@ class App extends Component {
                 </Grid.Row>
               </Grid>
             </Segment>
-            <div style={{ width: "500px", height: "500px", border: "red" }}>{() => this.getCircuitOutput()}</div>
+           
           </header>
         </div>
       </div>
     );
   }
 
-  getCircuitOutput = () => {
-    const outputWire = this.state.wires.find(wire => wire.outputID === "display")
-    const outputValue = this.getSignal(outputWire)
-    if (!outputValue) {
-      return "1"
-    } else {
-      return "0"
-    }
-  }
-
-  getSignal = (wire) => {
-    // console.log(wire)
-    const gate = this.state.gates.find(gate => gate.id === wire.inputID)
-    const inputWires = this.state.wires.filter(wire => wire.outputID === gate.id)
-    return this.performGateCalculation(inputWires[0], inputWires[1], gate)
-  }
-
-  performGateCalculation = (inputWire1, inputWire2, gate) => {
-    let value1 = null
-    let value2 = null
-    console.log(gate)
-    console.log(gate.fixedInput1, gate.fixedInput2)
-    if (gate.fixedInput1 !== undefined && gate.fixedInput2 !== undefined) {
-      value1 = gate.fixedInput1
-      value2 = gate.fixedInput2
-    } else {
-      if (inputWire1 !== undefined) value1 = this.getSignal(inputWire1)
-      if (inputWire2 !== undefined) value2 = this.getSignal(inputWire2)
-    }
-
-    if (gate.type === "and") {
-      return value1 && value2
-    } else if (gate.type === "or") {
-      return value1 || value2
-    } else if (gate.type === "not") {
-      return !value1
-    } else if (gate.type === "exor") {
-      return value1 !== value2
-    } else if (gate.type === "exnor") {
-      return !(value1 !== value2)
-    } else if (gate.type === "nand") {
-      return !(value1 && value2)
-    } else if (gate.type === "nor") {
-      return !(value1 || value2)
-    }
-  }
 }
 
 export default App;
