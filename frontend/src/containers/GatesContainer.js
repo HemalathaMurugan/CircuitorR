@@ -74,9 +74,9 @@ export default class GatesContainer extends Component{
                 <img    id="wire"
                         draggable = "true" 
                         style={{height:"50px", width:"70px", padding: "0px"}}
-                        src={require('../assets/or-gate-md.png')} 
-                        onDragStart={null}
-                        onDragEnd={null}
+                        src={require('../assets/wire.svg')} 
+                        onDragStart={(e)=>this.props.handleWireDragStart(e)}
+                        onDragEnd={(e)=>this.props.handleWireDragEnd(e)}
                 />
                 <br></br>
 

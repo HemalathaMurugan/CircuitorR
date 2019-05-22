@@ -83,7 +83,6 @@ class App extends Component {
 
     handleDragEnd = (e) => {
       
-      
       let circuit = document.getElementById("circuit-created")
 
       //some logs . Please bear with it some days. Until everything works fine 
@@ -131,6 +130,22 @@ class App extends Component {
       })
   }
 
+  handleWireDragStart = (e) => {
+    let mouseX = e.clientX
+    let mouseY = e.clientY
+    let circuit = document.getElementById("circuit-created")
+    let wireX = e.target.getBoundingClientRect().left
+    let wireY = e.target.getBoundingClientRect().top
+
+    //On the first drag end, that should be the input gate (inputID)
+    //On the second drag end, that should be the output gate (outputID)
+
+  }
+
+  handleWireDragEnd = (e) => {
+    console.log('got here- wire drag ENDS')
+  }
+
 
   render() {
    
@@ -147,6 +162,8 @@ class App extends Component {
                     <div className="ui container">
                       <GatesContainer handleDragStart={this.handleDragStart}
                                       handleDragEnd = {this.handleDragEnd}
+                                      handleWireDragStart = {this.handleWireDragStart}
+                                      handleWireDragEnd = {this.handleWireDragEnd}
                       />
                       
                     </div>

@@ -36,6 +36,46 @@
         "y": 160
       },
       "fixedInput1": 0
+    },
+    {
+      "type": "exnor",
+      "location": {
+        "x": 136,
+        "y": 210
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 4
+    },
+    {
+      "type": "exor",
+      "location": {
+        "x": -21,
+        "y": 160
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 5
+    },
+    {
+      "type": "nand",
+      "location": {
+        "x": 129,
+        "y": 108
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 6
+    },
+    {
+      "type": "exor",
+      "location": {
+        "x": 70,
+        "y": 224
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 7
     }
   ],
   "wires": [

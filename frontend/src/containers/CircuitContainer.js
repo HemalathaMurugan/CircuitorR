@@ -3,10 +3,11 @@ import Circuit from '../components/Circuit'
 
 export default class CircuitContainer extends Component {
 
+  //Please dont remove the following comments at any cost!
   
   //when this function was invoked in the render function of this component, it threw errors.
   //because fetch was not complete. So this.props.wires and this.props.wires were undefined before the fetch even works.
-  // so the ternary on the line where the function was invoked fixed the problem.
+  //so the ternary on the line where the function was invoked fixed the problem.
   getCircuitOutput = () => {
     
     const outputWire = this.props.wires.find(wire => wire.outputID === "display")
