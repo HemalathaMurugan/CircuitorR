@@ -7,7 +7,7 @@
         "x": 200,
         "y": 200
       },
-      "fixedInput1": 0,
+      "fixedInput1": 1,
       "fixedInput2": 1
     },
     {
@@ -17,7 +17,7 @@
         "x": 200,
         "y": 120
       },
-      "fixedInput1": 0,
+      "fixedInput1": 1,
       "fixedInput2": 1
     },
     {
@@ -28,21 +28,20 @@
         "y": 160
       }
     },
-   {
-     "id":3,
-     "type": "not",
-     "location": {
-       "x": 50,
-       "y": 160
-     },
-     "fixedInput1": 0
-   }
-    
+    {
+      "id": 3,
+      "type": "not",
+      "location": {
+        "x": 50,
+        "y": 160
+      },
+      "fixedInput1": 0
+    }
   ],
   "wires": [
     {
       "inputID": 3,
-      "outputID": 0
+      "outputID": 1
     },
     {
       "inputID": 0,

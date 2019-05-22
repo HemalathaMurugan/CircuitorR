@@ -14,7 +14,6 @@ export default class AndGate extends React.Component {
     // }
 
     render(){
-        console.log(this.props.location)
         return(
             <div>
                 <img src={require('../assets/and2.png')} alt="HTML5"

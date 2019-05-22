@@ -2,23 +2,27 @@ import React from 'react'
 import AndGate from './AndGate'
 import OrGate from './OrGate'
 import NotGate from './NotGate'
+import ExorGate from './ExorGate'
+import ExnorGate from './ExnorGate'
+import NandGate from './NandGate'
+import NorGate from './NorGate'
 import Wire from './Wire'
 import ReactDOM from 'react-dom'
 
 const circuitRoot = document.getElementById("circuit");
 
 export default class extends React.Component {
-    constructor(){
+    constructor() {
         super();
         //creating a new div that wraps the component
         this.el = document.createElement("div");
     }
 
-    componentDidMount(){
+    componentDidMount() {
         circuitRoot.appendChild(this.el)
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         circuitRoot.removeChild(this.el)
     }
 
@@ -42,9 +46,9 @@ export default class extends React.Component {
     //     ],
     //     wires: []
     // }
-    
+
     // render(){
-        
+
     //     return(
     //         <div>
     //             {this.props.gates.filter((gate)=>gate.type==="and")
@@ -63,7 +67,7 @@ export default class extends React.Component {
         // let gatesOutputjson = gates[0]
         // const andGate = gatesOutputjson.filter((gate) => gate.type === 'and')
         // console.log(andGate);
-    
+
         // gates.filter((gatesArray) =>  {
         //     gatesArray.filter(function(gate) {
         //         gate.type === 'and'
@@ -75,59 +79,83 @@ export default class extends React.Component {
 
         // console.log("Gates[0]:::", gates[0])
         // console.log("Gates:::", gates);
-        return gates.filter((gate)=>gate.type==="and")
-        .map((gate, index)=> 
-            <AndGate  actualGate={gate} id={gate.id} location={gate.location}/>
+        return gates.filter((gate) => gate.type === "and")
+            .map((gate, index) =>
+                <AndGate actualGate={gate} id={gate.id} location={gate.location} />
 
-        )
+            )
     }
 
     renderOrGates = (gates) => {
-        return gates.filter((gate)=>gate.type==="or")
-        .map((gate, index)=> 
-            <OrGate  key = {index} actualGate={gate} id={gate.id} location={gate.location}/>
+        return gates.filter((gate) => gate.type === "or")
+            .map((gate, index) =>
+                <OrGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
 
-        )
+            )
     }
 
     renderNandGates = (gates) => {
-        return gates.filter((gate)=>gate.type==="nand")
-        .map((gate, index)=> 
-            <OrGate  key = {index} actualGate={gate} id={gate.id} location={gate.location}/>
+        return gates.filter((gate) => gate.type === "nand")
+            .map((gate, index) =>
+                <NandGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
 
-        )
+            )
     }
 
     renderNotGates = (gates) => {
-        return gates.filter((gate)=>gate.type==="not")
-        .map((gate, index)=> 
-            <NotGate  actualGate={gate} id={gate.id} location={gate.location}/>
+        return gates.filter((gate) => gate.type === "not")
+            .map((gate, index) =>
+                <NotGate actualGate={gate} id={gate.id} location={gate.location} />
 
-        )
+            )
+    }
+
+    renderNorGates = (gates) => {
+        return gates.filter((gate) => gate.type === "nor")
+            .map((gate, index) =>
+                <NorGate actualGate={gate} id={gate.id} location={gate.location} />
+
+            )
+    }
+
+    renderExorGates = (gates) => {
+        return gates.filter((gate) => gate.type === "exor")
+            .map((gate, index) =>
+                <ExorGate actualGate={gate} id={gate.id} location={gate.location} />
+
+            )
+    }
+
+    renderExnorGates = (gates) => {
+        return gates.filter((gate) => gate.type === "exnor")
+            .map((gate, index) =>
+                <ExnorGate actualGate={gate} id={gate.id} location={gate.location} />
+
+            )
     }
 
     renderWires = (gates, wires) => {
-        
-        return wires.map((wire, index)=> {
-            const inputGate = gates.find( gate => gate.id === wire.inputID)
-            const outputGate = gates.find( gate => gate.id === wire.outputID)
+
+        return wires.map((wire, index) => {
+            const inputGate = gates.find(gate => gate.id === wire.inputID)
+            const outputGate = gates.find(gate => gate.id === wire.outputID)
             if (!outputGate) return null
 
             let x, y, width, height, bT, bR, bL, bB;
 
             //The following is actually the below one from the top of what you see
             //i.e, as the value of y incereases, the location what do we see decreases
-           
-             // Output gate is above the input gate:
+
+            // Output gate is above the input gate:
 
             //Note: slight adjustment is to be done to rectify the line positions depending on the 
             //input wires of the gate images. We can do that once we finalise the images of the gates
-            if(inputGate.location.y > outputGate.location.y){
+            if (inputGate.location.y > outputGate.location.y) {
                 x = inputGate.location.x + 70;
-               
+
                 width = outputGate.location.x - inputGate.location.x - 70;
                 height = inputGate.location.y - outputGate.location.y;
-                y = inputGate.location.y + 26 - height; 
+                y = inputGate.location.y + 26 - height;
                 //other two cases we had 24 because( (50/2)-(2/2))->(gateheight/2 - wireheight/2)
                 //this case 26 because (gateheight/2 + wireheight/2)->(50/2)+(2/2)
                 bL = null;
@@ -138,70 +166,71 @@ export default class extends React.Component {
                 // bB = "solid";
                 // bT = "solid";
                 // bR = "solid";
-                
+
             }
 
-             // InputGate is above the outputGate
-             if(inputGate.location.y < outputGate.location.y){
+            // InputGate is above the outputGate
+            if (inputGate.location.y < outputGate.location.y) {
                 x = inputGate.location.x + 70;
-                y = inputGate.location.y + 24;
+                y = inputGate.location.y + 24 ;
                 width = outputGate.location.x - inputGate.location.x - 70;
-                height = outputGate.location.y - inputGate.location.y ;
+                height = outputGate.location.y - inputGate.location.y;
                 bL = null;
                 bB = null;
                 bT = "solid";
                 bR = "solid";
-                
+
             }
 
             //This happens only with a not gate
-            if(inputGate.location.y === outputGate.location.y){
+            if (inputGate.location.y === outputGate.location.y) {
                 x = inputGate.location.x + 70;
                 y = inputGate.location.y + 24; //since, half width of gate is 25px and wire's half width is 1px
                 width = outputGate.location.x - inputGate.location.x - 70;
                 height = 0;
-                bT= null;
-                bB= "solid";
-                bL= "solid";
+                bT = null;
+                bB = "solid";
+                bL = "solid";
                 bR = "solid";
-               
+
             }
-            
-            return <Wire 
-                wire={wire} 
+
+            return <Wire
+                wire={wire}
                 x={x}
                 y={y}
                 width={width}
                 height={height}
-                bT = {bT}
-                bR = {bR}
-                bL = {bL}
-                bB = {bB}
+                bT={bT}
+                bR={bR}
+                bL={bL}
+                bB={bB}
             />
-        } )
+        })
     }
 
 
-    render(){
-        console.log(this.props)
-       
+    render() {
+
         //this.el = document.createElement("div");
         // const {children} = this.props;
         // return ReactDOM.createCircuit(children, this.el)
-        console.log(this.props.wires)
-        return(
-            <div>The circuit created by the user by drag and drop
-                { this.renderNandGates(this.props.gates)}
-                { this.renderAndGates(this.props.gates) }    
+        return (
+            <div id="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>The circuit created by the user by drag and drop
+                {this.renderExorGates(this.props.gates)}
+                {this.renderExnorGates(this.props.gates)}
+                {this.renderNorGates(this.props.gates)}
+                {this.renderNandGates(this.props.gates)}
+                {this.renderAndGates(this.props.gates)}
                 {this.renderOrGates(this.props.gates)}
                 {this.renderNotGates(this.props.gates)}
                 {this.renderWires(this.props.gates, this.props.wires)}
             </div>
         )
-        
+
         // return(
         //     <div>
-               
+
         //         {/* {this.renderAndGates()} */}
         //         <OrGate ors={this.props.OrGates} />
         //         <NotGate nots={this.props.NotGates} />

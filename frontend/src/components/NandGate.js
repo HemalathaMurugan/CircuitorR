@@ -3,7 +3,6 @@ import React from 'react'
 export default class NandGate extends React.Component {
     
     render(){
-        console.log(this.props)
         return(
             <div>
                 <img src={require('../assets/nand.png')} alt="HTML5"

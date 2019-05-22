@@ -3,7 +3,6 @@ import React from 'react'
 export default class ExorGate extends React.Component {
     
     render(){
-        console.log(this.props)
         return(
             <div>
                 <img src={require('../assets/exor.png')} alt="HTML5"

@@ -2,9 +2,9 @@ import React from 'react'
 
 export default class OrGAte extends React.Component {
     render(){
-        console.log(this.props)
-        console.log(this.props.actualGate.location.y)
-        console.log(this.props.actualGate.location.x)     
+        // console.log(this.props)
+        // console.log(this.props.actualGate.location.y)
+        // console.log(this.props.actualGate.location.x)     
                 
         return(
             <div>

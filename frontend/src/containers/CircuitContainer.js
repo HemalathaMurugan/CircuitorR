@@ -11,7 +11,6 @@ export default class CircuitContainer extends Component {
     
     const outputWire = this.props.wires.find(wire => wire.outputID === "display")
     const outputValue = this.getSignal(outputWire)
-    console.log("ouput wire:", outputWire)
     if (!outputValue) {
       return "1"
     } else {
@@ -29,8 +28,6 @@ export default class CircuitContainer extends Component {
   performGateCalculation = (inputWire1, inputWire2, gate) => {
     let value1 = null
     let value2 = null
-    console.log(gate)
-    console.log(gate.fixedInput1, gate.fixedInput2)
     if (gate.fixedInput1 !== undefined && gate.fixedInput2 !== undefined) {
       value1 = gate.fixedInput1
       value2 = gate.fixedInput2
@@ -58,15 +55,20 @@ export default class CircuitContainer extends Component {
     }
   }
 
+  handleClick = (e) => {
+    console.log('Current posotion check:::',e.clientX, e.clientY)
+    // onClick = {(e)=>this.handleClick(e)}>
+  }
 
     render(){
         //console.log(this.props)
         //console.log("ouput: ", ()=> this.getCircuitOutput())
         return(
-            <div className="whats going on">
-                <Circuit gates={this.props.gates} wires={this.props.wires}
-                />
-                 <p style={{ width: "500px", height: "500px" }}>Ouput: {((this.props.wires.length  > 0) && (this.props.gates.length > 0))? this.getCircuitOutput() : null}</p>
+            <div className="circuit-container">
+                <Circuit gates={this.props.gates} wires={this.props.wires}  
+                /> 
+                <br></br>
+                 <p style={{ width: "500px", height: "500px" }}> Ouput: {((this.props.wires.length  > 0) && (this.props.gates.length > 0))? this.getCircuitOutput() : null}</p>
             </div>
         )
     }

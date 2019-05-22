@@ -3,7 +3,6 @@ import React from 'react'
 export default class NorGate extends React.Component {
     
     render(){
-        console.log(this.props)
         return(
             <div>
                 <img src={require('../assets/not2.png')} alt="HTML5"
