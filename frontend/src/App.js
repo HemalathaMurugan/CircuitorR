@@ -3,6 +3,7 @@ import { Button, GridColumn } from 'semantic-ui-react'
 import './App.css';
 import CircuitContainer from './containers/CircuitContainer';
 import GatesContainer from './containers/GatesContainer';
+import ErrorsContainer from './containers/ErrorsContainer'
 import InputOptionsContainer from './containers/InputOptionsContainer'
 import { Grid, Segment } from 'semantic-ui-react'
 import ReactDOM from 'react-dom'
@@ -267,7 +268,9 @@ class App extends Component {
                     Waveforms are to be rendered here. may be with a waveform container
                   </Grid.Column>
                   <Grid.Column width={3}>
-                    If you want to add an extra column you can add like this
+                    <div id="errors-container">
+                      <ErrorsContainer />
+                    </div>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
