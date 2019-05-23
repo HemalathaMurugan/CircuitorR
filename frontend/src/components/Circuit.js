@@ -44,8 +44,7 @@ export default class extends React.Component {
         // console.log("Gates:::", gates);
         return gates.filter((gate) => gate.type === "and")
             .map((gate, index) =>
-                <AndGate actualGate={gate} id={gate.id} location={gate.location} />
-
+                <AndGate  actualGate={gate} id={gate.id} location={gate.location} />
             )
     }
 
@@ -53,7 +52,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "or")
             .map((gate, index) =>
                 <OrGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 
@@ -61,7 +59,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "nand")
             .map((gate, index) =>
                 <NandGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 
@@ -69,7 +66,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "not")
             .map((gate, index) =>
                 <NotGate actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 
@@ -77,7 +73,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "nor")
             .map((gate, index) =>
                 <NorGate actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 
@@ -85,7 +80,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "exor")
             .map((gate, index) =>
                 <ExorGate actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 
@@ -93,7 +87,6 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "exnor")
             .map((gate, index) =>
                 <ExnorGate actualGate={gate} id={gate.id} location={gate.location} />
-
             )
     }
 

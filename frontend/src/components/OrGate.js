@@ -8,8 +8,9 @@ export default class OrGAte extends React.Component {
                 
         return(
             <div>
-                <img src={require('../assets/or-gate-md.png')} alt="HTML5"
-                 style={{width: "70px", height:"50px",position:"absolute", top: this.props.location.y, left: this.props.location.x}}
+                <img    id="existing-or"   
+                        src={require('../assets/or-gate-md.png')} alt="HTML5"
+                        style={{width: "70px", height:"50px",position:"absolute", top: this.props.location.y, left: this.props.location.x}}
                  />
             </div>
         )

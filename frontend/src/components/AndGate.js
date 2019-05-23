@@ -16,8 +16,10 @@ export default class AndGate extends React.Component {
     render(){
         return(
             <div>
-                <img src={require('../assets/and2.png')} alt="HTML5"
-                 style={{position: "absolute", width: "70px", height:"50px", top: this.props.location.y, left: this.props.location.x}}
+                <img    id="existing-and"
+                        src={require('../assets/and2.png')} alt="HTML5"
+                        style={{position: "absolute", width: "70px", height:"50px", top: this.props.location.y, left: this.props.location.x}}
+                    
                  />
             </div>
         )

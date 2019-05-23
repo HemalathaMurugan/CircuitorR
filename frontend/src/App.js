@@ -23,7 +23,12 @@ class App extends Component {
       offsetX: 0,
       offsetY: 0,
       inputID: null,
-      outputID: null
+      outputID: null,
+      endLocation: {
+        x: 0,
+        y: 0
+      }
+
     }
   }
 
@@ -64,7 +69,7 @@ class App extends Component {
           id: newId,
           offsetX: i_offsetX,
           offsetY: i_offsetY,
-          gateType: e.target.id
+          gateType: e.target.id //this id is the one set in the gate image container to determine its type
         }
       })
     
@@ -141,9 +146,8 @@ class App extends Component {
 
   }
 
-  handleWireDragEnd = (e) => {
-    console.log('got here- wire drag ENDS')
-   
+  handleWireDragging = (e) => {
+   // console.log('got here wire dragging - ondrag event listener works')
     let circuit = document.getElementById("circuit-created")
     let mouseX = e.clientX
     let mouseY = e.clientY 
@@ -151,81 +155,81 @@ class App extends Component {
     let wireRectRight = wireRectLeft + 70
     let wireRectTop = mouseY - 50 - circuit.getBoundingClientRect().y  + this.state.currentlyDraggingWire.offsetY
     let wireRectBottom = wireRectTop + 50
-    console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
+    //console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
     this.state.gates.forEach(gate => {
       let gateLeft = gate.location.x
       let gateRight = gate.location.x + 70
       let gateTop = gate.location.y
       let gateBottom = gate.location.y + 50
-
-      //-----------may be these lines should be ondrag pr mousemove
-      // const div = document.getElementById(gate.type)
-      // div.addEventListener(onClick => {
-      //------here should come the fetch and setState of the new wire
-      // })
-      //---------------------------
-
-
-      // if(gate.id == 4){
-      //   console.log(gateLeft, gateRight, gateTop, gateBottom)
-      //   console.log('Clause 1', wireRectLeft < gateRight)
-      //   console.log('Clause 2', (wireRectRight > gateLeft))
-      //   console.log('Clause 3', (wireRectTop < gateBottom))
-      //   console.log('Clause 4', (wireRectBottom > gateTop))
-      // }
-
       if ((wireRectLeft < gateRight) && (wireRectRight > gateLeft) && 
           (wireRectTop < gateBottom) && (wireRectBottom > gateTop)) {
-        console.log('condition true')
-        if(this.state.currentlyDraggingWire.inputID === null){
-          console.log('GOT HERE - 12:30 AM ')
-        this.setState({
-          currentlyDraggingWire: {
-            offsetX: this.state.currentlyDraggingWire.offsetX,
-            offsetY: this.state.currentlyDraggingWire.offsetY,
-            inputID: gate.id,
-            outputID: null
-          }
+        
+          console.log('condition true')
+       
+          console.log('mouse Positions x and y: ', e.clientX, e.clientY)
+          if(this.state.currentlyDraggingWire.inputID === null){
 
-        })
-        } else {
-          this.setState({
-            currentlyDraggingWire:{
-              offsetX: this.state.currentlyDraggingWire.offsetX,
-              offsetY: this.state.currentlyDraggingWire.offsetY,
-              inputID: this.state.currentlyDraggingWiregate.inputID,
-              outputID: gate.id
-            }  
-          })
-          const newWire = {
-            inputID: this.state.currentlyDraggingWire.inputID,
-            outputID: this.state.currentlyDraggingWire.outputID
-          }
-          this.setState({
-            wires: [...this.state.wires, newWire]
-          })
+                this.setState({
+                  currentlyDraggingWire: {
+                    offsetX: this.state.currentlyDraggingWire.offsetX,
+                    offsetY: this.state.currentlyDraggingWire.offsetY,
+                    inputID: gate.id,
+                    outputID: null
+                  }
+                })          
+               
+          } else {
+                    
+                    this.setState({
+                      currentlyDraggingWire: {
+                        offsetX: this.state.currentlyDraggingWire.offsetX,
+                        offsetY: this.state.currentlyDraggingWire.offsetY,
+                        inputID: this.state.currentlyDraggingWire.inputID,
+                        outputID: gate.id
+                      }
+                    })
 
-          fetch('http://localhost:3000/wires',{
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json',
-              Accept: 'application/json'
-            },
-            body: JSON.stringify(newWire)
-          })
-          
-        }
-      }
+                    
+                  }
+       }
+    })
+
+  }
+
+  handleWireDragEnd = (e) => {
+    console.log('got here- wire drag ENDS')
+    const newWire = {
+      inputID: this.state.currentlyDraggingWire.inputID,
+      outputID: this.state.currentlyDraggingWire.outputID
+    }
+
+    this.setState({
+      wires: [...this.state.wires, newWire]
+    })
+
+    fetch('http://localhost:3000/wires', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(newWire)
+    })
+  }
+    
+
+      //Josh said the mouse pointer is going to be the output gate until a real gate is clicked 
+
+      
+
+       
       //console.log(this.state.currentlyDraggingWire)
 
       //once this state is set properly add event listener to each of the existing gate or in this gate(within this loop) , so as to detect the onclick -> onclicking this, would again confirm that this is the input gate 
       //check within the onclick event listener whether this is an inputID ;If not, set this as the output id
 
       //gate.onClick(console.log('got here - gate onclick'))
-
-    })
-  }
-
+    
   //Ideas for drawing wires: on drag of pointer -> create a rectangular div like the ones we did for wire 
   // and rightside edge and top/bottom(depending on the position of gates and pointers)could be moved 
   //like a dragging with right side edge increasing, can be shown as the pointer is dragged
@@ -302,6 +306,7 @@ class App extends Component {
                                       handleDragEnd = {this.handleDragEnd}
                                       handleWireDragStart = {this.handleWireDragStart}
                                       handleWireDragEnd = {this.handleWireDragEnd}
+                                      handleWireDragging = {this.handleWireDragging}
                       />
                       
                     </div>
@@ -340,3 +345,11 @@ export default App;
 //yet to render (~~GatesContainer and )InputOptionsContainer once they are defined
 //point to remember
 //db.json accepts the keys to be strictly strings and does not accept comment lines
+//logging technique used to display true or false
+// if(gate.id == 4){
+      //   console.log(gateLeft, gateRight, gateTop, gateBottom)
+      //   console.log('Clause 1', wireRectLeft < gateRight)
+      //   console.log('Clause 2', (wireRectRight > gateLeft))
+      //   console.log('Clause 3', (wireRectTop < gateBottom))
+      //   console.log('Clause 4', (wireRectBottom > gateTop))
+      // }

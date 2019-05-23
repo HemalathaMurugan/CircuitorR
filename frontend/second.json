@@ -38,14 +38,54 @@
       "fixedInput1": 0
     },
     {
-      "type": "or",
+      "type": "nor",
       "location": {
-        "x": 43,
-        "y": 250
+        "x": 96,
+        "y": 348
       },
       "fixedInput1": null,
       "fixedInput2": null,
       "id": 4
+    },
+    {
+      "type": "or",
+      "location": {
+        "x": 113,
+        "y": 503
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 5
+    },
+    {
+      "type": "and",
+      "location": {
+        "x": 272,
+        "y": 427
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 6
+    },
+    {
+      "type": "or",
+      "location": {
+        "x": 284,
+        "y": 275
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 7
+    },
+    {
+      "type": "or",
+      "location": {
+        "x": 404,
+        "y": 260
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 8
     }
   ],
   "wires": [

@@ -8,6 +8,7 @@ export default class extends React.Component {
         //passing borders as props so as to display the borders depending upon the positions of input and output gate
         return(
             <div
+                id="existing-wire"
                 style={{
                 position:'absolute',
                 borderColorTop: "black",

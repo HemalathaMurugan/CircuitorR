@@ -15,6 +15,7 @@ export default class GatesContainer extends Component{
                         src={require('../assets/or-gate-md.png')} 
                         onDragStart={(e)=>this.props.handleDragStart(e)}
                         onDragEnd={(e)=> this.props.handleDragEnd(e)}
+                
                 />
                 <br></br>
                 OR
@@ -101,6 +102,7 @@ export default class GatesContainer extends Component{
                         style={{height:"50px", width:"50px", padding: "0px"}}
                         src={require('../assets/pointer.png')} 
                         onDragStart={(e)=>this.props.handleWireDragStart(e)}
+                        onDrag = {(e) => this.props.handleWireDragging(e)}
                         onDragEnd={(e)=>this.props.handleWireDragEnd(e)}
                 />
                 <br></br>
