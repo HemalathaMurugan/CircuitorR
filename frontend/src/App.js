@@ -75,8 +75,6 @@ class App extends Component {
     
     }
 
-  
-
     handleDragEnd = (e) => {
       let circuit = document.getElementById("circuit-created")
       //some logs . Please bear with it some days. Until everything works fine 
@@ -149,11 +147,11 @@ class App extends Component {
   handleWireDragging = (e) => {
    // console.log('got here wire dragging - ondrag event listener works')
     let circuit = document.getElementById("circuit-created")
-    let mouseX = e.clientX
-    let mouseY = e.clientY 
-    let wireRectLeft = mouseX - 70 - circuit.getBoundingClientRect().x - (2*this.state.currentlyDraggingWire.offsetX)
-    let wireRectRight = wireRectLeft + 70
-    let wireRectTop = mouseY - 50 - circuit.getBoundingClientRect().y  + this.state.currentlyDraggingWire.offsetY
+    //let mouseX = e.clientX
+    //let mouseY = e.clientY 
+    let wireRectLeft = e.clientX - circuit.getBoundingClientRect().x - (2*this.state.currentlyDraggingWire.offsetX) + 52
+    let wireRectRight = wireRectLeft + 50 //since i fixed wire's width as 50 not 70(as in the gate)
+    let wireRectTop = e.clientY - circuit.getBoundingClientRect().y  - (2*this.state.currentlyDraggingWire.offsetY)
     let wireRectBottom = wireRectTop + 50
     //console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
     this.state.gates.forEach(gate => {
@@ -161,8 +159,9 @@ class App extends Component {
       let gateRight = gate.location.x + 70
       let gateTop = gate.location.y
       let gateBottom = gate.location.y + 50
-      if ((wireRectLeft < gateRight) && (wireRectRight > gateLeft) && 
-          (wireRectTop < gateBottom) && (wireRectBottom > gateTop)) {
+
+      if((wireRectLeft < gateRight) && (wireRectRight > gateLeft) && 
+          (wireRectTop < gateBottom) && (wireRectBottom > gateTop)){
         
           console.log('condition true')
        
@@ -177,7 +176,7 @@ class App extends Component {
                     outputID: null
                   }
                 })          
-               
+               //setstate with wires output gate's x and y as mouse pointers x and y -> modify wire frontend for this
           } else {
                     
                     this.setState({
@@ -187,9 +186,7 @@ class App extends Component {
                         inputID: this.state.currentlyDraggingWire.inputID,
                         outputID: gate.id
                       }
-                    })
-
-                    
+                    })      
                   }
        }
     })
