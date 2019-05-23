@@ -14,12 +14,16 @@ class App extends Component {
   state = {
     gates: [],
     wires: [],
-    currentlyDragging: {
-      x: 0,
-      y: 0,
+    currentlyDraggingGate: {
       offsetX: 0,
       offsetY: 0,
       gateType: null
+    },
+    currentlyDraggingWire: {
+      offsetX: 0,
+      offsetY: 0,
+      inputID: null,
+      outputID: null
     }
   }
 
@@ -45,32 +49,19 @@ class App extends Component {
 
 
   handleDragStart = (e) => {
-
-    
       let mouseX = e.clientX //current x position of mouse
       console.log(e.target)
-      
       console.log('rect', e.target.getBoundingClientRect())
       let gateX = e.target.getBoundingClientRect().left //current x position of gate 
-      
-
       let mouseY = e.clientY
-
       let gateY = e.target.getBoundingClientRect().top
-
       let i_offsetX =  (mouseX - gateX)
       let i_offsetY =  (mouseY - gateY)
-
       //console.log('offset', i_offsetX, i_offsetY)
-     
-
       let newId = this.state.gates.length + 1
-      
       this.setState({
-        currentlyDragging: {
+        currentlyDraggingGate: {
           id: newId,
-          x: e.target.x,
-          y: e.target.y,
           offsetX: i_offsetX,
           offsetY: i_offsetY,
           gateType: e.target.id
@@ -82,29 +73,24 @@ class App extends Component {
   
 
     handleDragEnd = (e) => {
-      
       let circuit = document.getElementById("circuit-created")
-
       //some logs . Please bear with it some days. Until everything works fine 
-
-      console.log('Before:', e.pageX - circuit.getBoundingClientRect().x, e.clientY - circuit.getBoundingClientRect().y - this.state.currentlyDragging.offsetY )
+      console.log('Before:', e.pageX - circuit.getBoundingClientRect().x, e.clientY - circuit.getBoundingClientRect().y - this.state.currentlyDraggingGate.offsetY )
       console.log(e.clientY)
       console.log(e.clientX) 
       console.log(circuit.getBoundingClientRect().y)
-      console.log(this.state.currentlyDragging.offsetY)
+      console.log(this.state.currentlyDraggingGate.offsetY)
 
-            let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDragging.offsetY) + 52
+            let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDraggingGate.offsetY) + 52
 
-            let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDragging.offsetX)
-            
+            let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDraggingGate.offsetX)      
       console.log('After: ', finalPositionX, finalPositionY)
 
       let newFixedInput1 = null;
       let newFixedInput2 = null;
-
       const gate = {
-        "id": this.state.currentlyDragging.newId,
-        "type": this.state.currentlyDragging.gateType,
+        "id": this.state.currentlyDraggingGate.newId,
+        "type": this.state.currentlyDraggingGate.gateType,
         "location": {
           "x": finalPositionX,
           "y": finalPositionY
@@ -112,7 +98,6 @@ class App extends Component {
         "fixedInput1": newFixedInput1,
         "fixedInput2": newFixedInput2
       }
-
       this.setState({ gates: [ ...this.state.gates, gate ]})
 
       //I forgot the setState with the new gate initially. So it was showing up after reloading the page
@@ -133,22 +118,175 @@ class App extends Component {
   handleWireDragStart = (e) => {
     let mouseX = e.clientX
     let mouseY = e.clientY
-    let circuit = document.getElementById("circuit-created")
     let wireX = e.target.getBoundingClientRect().left
     let wireY = e.target.getBoundingClientRect().top
 
     //On the first drag end, that should be the input gate (inputID)
     //On the second drag end, that should be the output gate (outputID)
+    //My understanding of Josh's suggestion -> 
+    //add onclick on each of the gate. If clicked , set that as inputId (if !inputId)
+    //if this gate's Id !== inputId, set this as inputId. else-> set this gate in putputId
+    //lets try that in ten mins
+    let i_offsetX =  mouseX - wireX
+    let i_offsetY =  mouseY - wireY
+    let newID = this.state.wires.length + 1
+    this.setState({
+      currentlyDraggingWire: {
+        offsetX: i_offsetX,
+        offsetY: i_offsetY,
+        inputID: null, 
+        outputID: null
+      }
+    })
 
   }
 
   handleWireDragEnd = (e) => {
     console.log('got here- wire drag ENDS')
+   
+    let circuit = document.getElementById("circuit-created")
+    let mouseX = e.clientX
+    let mouseY = e.clientY 
+    let wireRectLeft = mouseX - 70 - circuit.getBoundingClientRect().x - (2*this.state.currentlyDraggingWire.offsetX)
+    let wireRectRight = wireRectLeft + 70
+    let wireRectTop = mouseY - 50 - circuit.getBoundingClientRect().y  + this.state.currentlyDraggingWire.offsetY
+    let wireRectBottom = wireRectTop + 50
+    console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
+    this.state.gates.forEach(gate => {
+      let gateLeft = gate.location.x
+      let gateRight = gate.location.x + 70
+      let gateTop = gate.location.y
+      let gateBottom = gate.location.y + 50
+
+      //-----------may be these lines should be ondrag pr mousemove
+      // const div = document.getElementById(gate.type)
+      // div.addEventListener(onClick => {
+      //------here should come the fetch and setState of the new wire
+      // })
+      //---------------------------
+
+
+      // if(gate.id == 4){
+      //   console.log(gateLeft, gateRight, gateTop, gateBottom)
+      //   console.log('Clause 1', wireRectLeft < gateRight)
+      //   console.log('Clause 2', (wireRectRight > gateLeft))
+      //   console.log('Clause 3', (wireRectTop < gateBottom))
+      //   console.log('Clause 4', (wireRectBottom > gateTop))
+      // }
+
+      if ((wireRectLeft < gateRight) && (wireRectRight > gateLeft) && 
+          (wireRectTop < gateBottom) && (wireRectBottom > gateTop)) {
+        console.log('condition true')
+        if(this.state.currentlyDraggingWire.inputID === null){
+          console.log('GOT HERE - 12:30 AM ')
+        this.setState({
+          currentlyDraggingWire: {
+            offsetX: this.state.currentlyDraggingWire.offsetX,
+            offsetY: this.state.currentlyDraggingWire.offsetY,
+            inputID: gate.id,
+            outputID: null
+          }
+
+        })
+        } else {
+          this.setState({
+            currentlyDraggingWire:{
+              offsetX: this.state.currentlyDraggingWire.offsetX,
+              offsetY: this.state.currentlyDraggingWire.offsetY,
+              inputID: this.state.currentlyDraggingWiregate.inputID,
+              outputID: gate.id
+            }  
+          })
+          const newWire = {
+            inputID: this.state.currentlyDraggingWire.inputID,
+            outputID: this.state.currentlyDraggingWire.outputID
+          }
+          this.setState({
+            wires: [...this.state.wires, newWire]
+          })
+
+          fetch('http://localhost:3000/wires',{
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify(newWire)
+          })
+          
+        }
+      }
+      //console.log(this.state.currentlyDraggingWire)
+
+      //once this state is set properly add event listener to each of the existing gate or in this gate(within this loop) , so as to detect the onclick -> onclicking this, would again confirm that this is the input gate 
+      //check within the onclick event listener whether this is an inputID ;If not, set this as the output id
+
+      //gate.onClick(console.log('got here - gate onclick'))
+
+    })
   }
 
+  //Ideas for drawing wires: on drag of pointer -> create a rectangular div like the ones we did for wire 
+  // and rightside edge and top/bottom(depending on the position of gates and pointers)could be moved 
+  //like a dragging with right side edge increasing, can be shown as the pointer is dragged
+
+
+
+  DUMMY_handleWireDragEnd =(e) => {
+
+    let circuit = document.getElementById("circuit-created")
+    let mouseX = e.clientX
+    let mouseY = e.clientY 
+    //Remember ->all gates have 50x70 dimension. Wire's dimension is 50x50
+    let wireRectLeft = mouseX - 50 - circuit.getBoundingClientRect().x - (2*this.state.currentlyDraggingWire.offsetX)
+    let wireRectRight = wireRectLeft + 50
+    let wireRectTop = mouseY - 50 - circuit.getBoundingClientRect().y  + this.state.currentlyDraggingWire.offsetY
+    let wireRectBottom = wireRectTop + 50
+    console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
+    this.state.gates.forEach(gate => {
+      let gateLeft = gate.location.x
+      let gateRight = gate.location.x + 70
+      let gateTop = gate.location.y
+      let gateBottom = gate.location.y + 50
+
+      //point of start wire---------
+      let wireCenterX = wireRectLeft + 25
+      let wireCenterY = wireRectRight + 25
+      let gateRightSideCenterX = gateRight 
+      let gateRightSideCenterY = gateTop + 25
+      //-----------------------NOT IN USE FOR NOW
+
+      if((wireCenterX== gateRightSideCenterX) && (wireCenterY==gateRightSideCenterY)){
+        if(this.state.currentlyDraggingWire.inputID === null){
+        
+        this.setState({
+          currentlyDraggingWire: {
+            offsetX: this.state.currentlyDraggingWire.offsetX,
+            offsetY: this.state.currentlyDraggingWire.offsetY,
+            inputID: gate.id,
+            outputID: null
+          }
+        })
+        } else {
+          this.setState({
+            currentlyDraggingWire: {
+              offsetX: this.state.currentlyDraggingWire.offsetX,
+              offsetY: this.state.currentlyDraggingWire.offsetY,
+              inputID: this.state.currentlyDraggingWire.inputID,
+              outputID: gate.id
+            }
+          })
+          console.log('got here- FRONTEND WIRE IS DRAWN')
+        }
+      }
+
+      
+
+    })
+  }
 
   render() {
-   
+    
     return (
       <div>
         <div className="App">

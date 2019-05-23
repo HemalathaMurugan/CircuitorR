@@ -26,48 +26,10 @@ export default class extends React.Component {
         circuitRoot.removeChild(this.el)
     }
 
-    // state = {
-    //     gates: [
-    //     {
-    //         id: 0,
-    //         type: "And",
-    //         location: "whatever"
-    //     },
-    //     {
-    //         id: 1,
-    //         type: "And",
-    //         location: "whatever"
-    //     },
-    //     {
-    //         id: 2,
-    //         type: "or",
-    //         location: "whatever"
-    //     }
-    //     ],
-    //     wires: []
-    // }
-
-    // render(){
-
-    //     return(
-    //         <div>
-    //             {this.props.gates.filter((gate)=>gate.type==="and")
-    //             .map((gate, index)=> {
-    //                 <AndGate  id={gate.id} location={gate.location}/>
-
-    //             })}
-    //             {/* <AndGate ands = {this.props.AndGates} />
-    //             <OrGate ors={this.props.OrGates} />
-    //             <NotGate nots={this.props.NotGates} />
-    //             <Wire wires = {this.props.wires} /> */}
-    //         </div>
-    //     )
-    // }
+    
+    
     renderAndGates = (gates) => {
-        // let gatesOutputjson = gates[0]
-        // const andGate = gatesOutputjson.filter((gate) => gate.type === 'and')
-        // console.log(andGate);
-
+        //My biggest mistake
         // gates.filter((gatesArray) =>  {
         //     gatesArray.filter(function(gate) {
         //         gate.type === 'and'
@@ -76,7 +38,8 @@ export default class extends React.Component {
         // .map((gate, index)=> 
         //     <AndGate  actualGate={gate} id={gate.id} location={gate.location}/>
         // )
-
+        //setState was using spread operator. so it was stored as a nested array.
+        //map or filter iterator could not iterate inside of that nested array despite giving index [0] on that nested array
         // console.log("Gates[0]:::", gates[0])
         // console.log("Gates:::", gates);
         return gates.filter((gate) => gate.type === "and")
@@ -144,7 +107,7 @@ export default class extends React.Component {
             let x, y, width, height, bT, bR, bL, bB;
 
             //The following is actually the below one from the top of what you see
-            //i.e, as the value of y incereases, the location what do we see decreases
+            //i.e, as the value of y increases, the location what do we see decreases
 
             // Output gate is above the input gate:
 
@@ -162,11 +125,7 @@ export default class extends React.Component {
                 bB = "solid";
                 bT = null;
                 bR = "solid";
-                // bL = "solid";
-                // bB = "solid";
-                // bT = "solid";
-                // bR = "solid";
-
+               
             }
 
             // InputGate is above the outputGate
