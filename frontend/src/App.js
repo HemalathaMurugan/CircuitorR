@@ -92,7 +92,7 @@ class App extends Component {
       let newFixedInput1 = null;
       let newFixedInput2 = null;
       const gate = {
-        "id": this.state.currentlyDraggingGate.newId,
+        "id": this.state.currentlyDraggingGate.id,
         "type": this.state.currentlyDraggingGate.gateType,
         "location": {
           "x": finalPositionX,
@@ -168,25 +168,25 @@ class App extends Component {
           console.log('mouse Positions x and y: ', e.clientX, e.clientY)
           if(this.state.currentlyDraggingWire.inputID === null){
 
-                this.setState({
-                  currentlyDraggingWire: {
+                //this.setState({
+                  this.state.currentlyDraggingWire = {
                     offsetX: this.state.currentlyDraggingWire.offsetX,
                     offsetY: this.state.currentlyDraggingWire.offsetY,
                     inputID: gate.id,
                     outputID: null
                   }
-                })          
+                //})          
                //setstate with wires output gate's x and y as mouse pointers x and y -> modify wire frontend for this
           } else {
                     
-                    this.setState({
-                      currentlyDraggingWire: {
+                    ///this.setState({
+                      this.state.currentlyDraggingWire = {
                         offsetX: this.state.currentlyDraggingWire.offsetX,
                         offsetY: this.state.currentlyDraggingWire.offsetY,
                         inputID: this.state.currentlyDraggingWire.inputID,
                         outputID: gate.id
                       }
-                    })      
+                   // })      
                   }
        }
     })
@@ -195,11 +195,13 @@ class App extends Component {
 
   handleWireDragEnd = (e) => {
     console.log('got here- wire drag ENDS')
+    let newID = this.state.wires.length + 1
     const newWire = {
+      id: newID,
       inputID: this.state.currentlyDraggingWire.inputID,
       outputID: this.state.currentlyDraggingWire.outputID
     }
-
+    console.log(newWire)
     this.setState({
       wires: [...this.state.wires, newWire]
     })
@@ -216,12 +218,6 @@ class App extends Component {
     
 
       //Josh said the mouse pointer is going to be the output gate until a real gate is clicked 
-
-      
-
-       
-      //console.log(this.state.currentlyDraggingWire)
-
       //once this state is set properly add event listener to each of the existing gate or in this gate(within this loop) , so as to detect the onclick -> onclicking this, would again confirm that this is the input gate 
       //check within the onclick event listener whether this is an inputID ;If not, set this as the output id
 
@@ -233,58 +229,6 @@ class App extends Component {
 
 
 
-  DUMMY_handleWireDragEnd =(e) => {
-
-    let circuit = document.getElementById("circuit-created")
-    let mouseX = e.clientX
-    let mouseY = e.clientY 
-    //Remember ->all gates have 50x70 dimension. Wire's dimension is 50x50
-    let wireRectLeft = mouseX - 50 - circuit.getBoundingClientRect().x - (2*this.state.currentlyDraggingWire.offsetX)
-    let wireRectRight = wireRectLeft + 50
-    let wireRectTop = mouseY - 50 - circuit.getBoundingClientRect().y  + this.state.currentlyDraggingWire.offsetY
-    let wireRectBottom = wireRectTop + 50
-    console.log('Left:',wireRectLeft, 'Right:',wireRectRight, 'Top:',wireRectTop, 'Bottom:',wireRectBottom)
-    this.state.gates.forEach(gate => {
-      let gateLeft = gate.location.x
-      let gateRight = gate.location.x + 70
-      let gateTop = gate.location.y
-      let gateBottom = gate.location.y + 50
-
-      //point of start wire---------
-      let wireCenterX = wireRectLeft + 25
-      let wireCenterY = wireRectRight + 25
-      let gateRightSideCenterX = gateRight 
-      let gateRightSideCenterY = gateTop + 25
-      //-----------------------NOT IN USE FOR NOW
-
-      if((wireCenterX== gateRightSideCenterX) && (wireCenterY==gateRightSideCenterY)){
-        if(this.state.currentlyDraggingWire.inputID === null){
-        
-        this.setState({
-          currentlyDraggingWire: {
-            offsetX: this.state.currentlyDraggingWire.offsetX,
-            offsetY: this.state.currentlyDraggingWire.offsetY,
-            inputID: gate.id,
-            outputID: null
-          }
-        })
-        } else {
-          this.setState({
-            currentlyDraggingWire: {
-              offsetX: this.state.currentlyDraggingWire.offsetX,
-              offsetY: this.state.currentlyDraggingWire.offsetY,
-              inputID: this.state.currentlyDraggingWire.inputID,
-              outputID: gate.id
-            }
-          })
-          console.log('got here- FRONTEND WIRE IS DRAWN')
-        }
-      }
-
-      
-
-    })
-  }
 
   render() {
     

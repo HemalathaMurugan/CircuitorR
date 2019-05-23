@@ -35,6 +35,36 @@
         "x": 440,
         "y": 160
       }
+    },
+    {
+      "type": "and",
+      "location": {
+        "x": 117,
+        "y": 336
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 4
+    },
+    {
+      "type": "nand",
+      "location": {
+        "x": 129,
+        "y": 535
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 5
+    },
+    {
+      "type": "nor",
+      "location": {
+        "x": 357,
+        "y": 421
+      },
+      "fixedInput1": null,
+      "fixedInput2": null,
+      "id": 6
     }
   ],
   "wires": [
@@ -53,6 +83,12 @@
     {
       "inputID": 3,
       "outputID": "display"
+    },
+    {
+      "id": 5
+    },
+    {
+      "id": 6
     }
   ]
 }

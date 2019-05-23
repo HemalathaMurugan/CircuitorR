@@ -10,13 +10,13 @@ export default class CircuitContainer extends Component {
   //so the ternary on the line where the function was invoked fixed the problem.
   getCircuitOutput = () => {
     
-    const outputWire = this.props.wires.find(wire => wire.outputID === "display")
-    const outputValue = this.getSignal(outputWire)
-    if (!outputValue) {
-      return "1"
-    } else {
-      return "0"
-    }
+    // const outputWire = this.props.wires.find(wire => wire.outputID === "display")
+    // const outputValue = this.getSignal(outputWire)
+    // if (!outputValue) {
+    //   return "1"
+    // } else {
+    //   return "0"
+    // }
   }
 
   getSignal = (wire) => {

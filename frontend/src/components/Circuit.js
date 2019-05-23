@@ -42,55 +42,88 @@ export default class extends React.Component {
         //map or filter iterator could not iterate inside of that nested array despite giving index [0] on that nested array
         // console.log("Gates[0]:::", gates[0])
         // console.log("Gates:::", gates);
+        if(gates === {} || gates === []){
+            return null
+        } else{
         return gates.filter((gate) => gate.type === "and")
             .map((gate, index) =>
                 <AndGate  actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderOrGates = (gates) => {
+        if(gates === {} || gates === []){
+            return null
+        } else{
         return gates.filter((gate) => gate.type === "or")
             .map((gate, index) =>
                 <OrGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderNandGates = (gates) => {
+        if(gates === {} || gates === []){
+            return null
+        } else{
+
         return gates.filter((gate) => gate.type === "nand")
             .map((gate, index) =>
                 <NandGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderNotGates = (gates) => {
+        if(gates === {} || gates === []){
+            return null
+        } else{
         return gates.filter((gate) => gate.type === "not")
             .map((gate, index) =>
                 <NotGate actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderNorGates = (gates) => {
+        if(gates === {} || gates === []){
+            return null
+        } else{
         return gates.filter((gate) => gate.type === "nor")
             .map((gate, index) =>
                 <NorGate actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderExorGates = (gates) => {
+        if(gates == {} || gates == []){
+            return null
+        } else if(!typeof gates === "object"){
+        console.log(gates)
         return gates.filter((gate) => gate.type === "exor")
             .map((gate, index) =>
                 <ExorGate actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderExnorGates = (gates) => {
+        if(gates === {} || gates === []){
+            return null
+        } else{
         return gates.filter((gate) => gate.type === "exnor")
             .map((gate, index) =>
                 <ExnorGate actualGate={gate} id={gate.id} location={gate.location} />
             )
+        }
     }
 
     renderWires = (gates, wires) => {
+        if(gates === {} || gates === [] && wires.length === 0){
+            return null
+        } else{
 
         return wires.map((wire, index) => {
             const inputGate = gates.find(gate => gate.id === wire.inputID)
@@ -159,6 +192,14 @@ export default class extends React.Component {
                 bB={bB}
             />
         })
+        }
+    }
+
+    renderAllGatesWires = () => {
+        // if(!typeof this.props.gates === "object" || !typeof this.props.wires === "object"){
+
+        
+        //}
     }
 
 
