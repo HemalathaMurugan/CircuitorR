@@ -64,21 +64,27 @@ app.get('/users/:id', (req, res) =>{
 // })
 
 
- 
+//  User.destroy({ where: {  }})
 app.post ('/login', (req, res) => {
    
     User.findOne({where: {username: req.body.username}})
     .then(user => {
-        let hash = user.password_digest
-        bcrypt.compare(req.body.password, hash, (err, res)=>{
-           if (res == true){
-          
-                jwt.sign({user:user}, 'secretkey', (err, token)=>{
-                    io.emit('login', user, token)
-                })         
-           
-           }}
-        )
+        if(user.authenticate(req.body.password)){
+            res.json(user)
+        } else {
+            res.json({ message: 'Nope'})
+        }
+    })
+})
+
+app.post ('/users', (req, res) => {
+    let user = User.build(req.body)
+    user.password = req.body.password
+
+    user.save().then(user => {
+        //if(user.authenticate(req.body.password))
+            res.json(user)
+        //}
     })
 })
 
