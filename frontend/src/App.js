@@ -7,8 +7,10 @@ import ErrorsContainer from './containers/ErrorsContainer'
 import InputOptionsContainer from './containers/InputOptionsContainer'
 import { Grid, Segment } from 'semantic-ui-react'
 import ReactDOM from 'react-dom'
+import io from 'socket.io-client';
 
 
+window.socket = io('http://localhost:80/');
 
 class App extends Component {
 
@@ -34,6 +36,11 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // window.socket.on("connection", () => {
+      window.socket.on("renderGate", (gate) => {
+        this.setState({ gates: [ ...this.state.gates, gate ]})
+      })
+    // })
     fetch('http://localhost:3000/gates')
       .then(res => res.json())
       .then((gatesData) => {
@@ -64,7 +71,10 @@ class App extends Component {
       let i_offsetX =  (mouseX - gateX)
       let i_offsetY =  (mouseY - gateY)
       //console.log('offset', i_offsetX, i_offsetY)
-      let newId = this.state.gates.length + 1
+      let newId = Math.max(...this.state.gates.map(gate => gate.id)) + 1
+      //we modified this line because the gate id were formed asynchronously when multiple users on sockets do drag and drop
+      //so id dupication was happening with the fetch requests
+      //Math.max gives the id (which is highest in number) and post the gates in the right order
       this.setState({
         currentlyDraggingGate: {
           id: newId,
@@ -102,13 +112,8 @@ class App extends Component {
         "fixedInput1": newFixedInput1,
         "fixedInput2": newFixedInput2
       }
-      this.setState({ gates: [ ...this.state.gates, gate ]})
-
-      //I forgot the setState with the new gate initially. So it was showing up after reloading the page
-      //reason being, update was happening on the backend only. So reload could render elements updates in db.json
-      //setState would make the changes to appear in the frontend as well. Thats the advantage of setState. 
-      //We can update the changes both on the server and on the frontend with the use of fetch-post request and seState simultaneously
-
+      window.socket.emit("gateDrop", gate)
+      console.log(gate.id)
       fetch('http://localhost:3000/gates',{
         method: 'POST',
         headers: {
@@ -117,6 +122,13 @@ class App extends Component {
         },
         body: JSON.stringify(gate)
       })
+      //this.setState({ gates: [ ...this.state.gates, gate ]})
+
+      //I forgot the setState with the new gate initially. So it was showing up after reloading the page
+      //reason being, update was happening on the backend only. So reload could render elements updates in db.json
+      //setState would make the changes to appear in the frontend as well. Thats the advantage of setState. 
+      //We can update the changes both on the server and on the frontend with the use of fetch-post request and seState simultaneously
+
   }
 
   handleWireDragStart = (e) => {

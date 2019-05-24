@@ -119,6 +119,276 @@
       },
       "fixedInput1": null,
       "fixedInput2": null
+    },
+    {
+      "id": 13,
+      "type": "or",
+      "location": {
+        "x": 90,
+        "y": 28
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 14,
+      "type": "and",
+      "location": {
+        "x": 67,
+        "y": 175
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 16,
+      "type": "exnor",
+      "location": {
+        "x": 31,
+        "y": 323
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 19,
+      "type": "exor",
+      "location": {
+        "x": -129,
+        "y": 257
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 23,
+      "type": "exor",
+      "location": {
+        "x": 69,
+        "y": 246
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 18,
+      "type": "or",
+      "location": {
+        "x": 26,
+        "y": 85
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 21,
+      "type": "exnor",
+      "location": {
+        "x": 77,
+        "y": 483
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 24,
+      "type": "nand",
+      "location": {
+        "x": 12,
+        "y": 407
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 22,
+      "type": "or",
+      "location": {
+        "x": 10,
+        "y": 7
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 26,
+      "type": "exor",
+      "location": {
+        "x": 375,
+        "y": 73
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 29,
+      "type": "exor",
+      "location": {
+        "x": 416,
+        "y": 52
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 33,
+      "type": "and",
+      "location": {
+        "x": 347,
+        "y": 71
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 25,
+      "type": "or",
+      "location": {
+        "x": 211,
+        "y": 46
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 27,
+      "type": "or",
+      "location": {
+        "x": 293,
+        "y": 195
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 28,
+      "type": "or",
+      "location": {
+        "x": 170,
+        "y": 443
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 30,
+      "type": "or",
+      "location": {
+        "x": 289,
+        "y": 41
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 31,
+      "type": "or",
+      "location": {
+        "x": 194,
+        "y": 156
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 32,
+      "type": "or",
+      "location": {
+        "x": 401,
+        "y": 33
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 34,
+      "type": "or",
+      "location": {
+        "x": 140,
+        "y": 215
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 35,
+      "type": "or",
+      "location": {
+        "x": 215,
+        "y": 217
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 36,
+      "type": "or",
+      "location": {
+        "x": 323,
+        "y": 330
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 37,
+      "type": "or",
+      "location": {
+        "x": 394,
+        "y": 144
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 38,
+      "type": "or",
+      "location": {
+        "x": 157,
+        "y": 77
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 39,
+      "type": "and",
+      "location": {
+        "x": 84,
+        "y": 138
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 40,
+      "type": "or",
+      "location": {
+        "x": 13,
+        "y": 81
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 41,
+      "type": "and",
+      "location": {
+        "x": 185,
+        "y": 200
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 42,
+      "type": "or",
+      "location": {
+        "x": 17,
+        "y": 190
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
     }
   ],
   "wires": [
@@ -208,6 +478,11 @@
       "id": 20,
       "inputID": 9,
       "outputID": 4
+    },
+    {
+      "id": 21,
+      "inputID": 24,
+      "outputID": 22
     }
   ]
 }

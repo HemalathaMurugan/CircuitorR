@@ -75,7 +75,11 @@ module.exports = User;
 sequelize.sync();
 //this will create user table
 
-User.hasMany(Circuit, {as: 'Circuits'})
+// console.log(Circuit)
+// User.hasMany(Circuit, {as: 'Circuits'})
+// User.hasMany(Gate, {through: 'Circuit'})
+// User.hasMany(Wire, {through: 'Circuit'})
+
 //because of has many -> this line adds userid automatically
 //My project's relationship structure :
 //---- A User has many circuits 
