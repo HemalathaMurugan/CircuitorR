@@ -16,6 +16,7 @@ import NewUser from './components/NewUser';
 import UserCircuitsContainer from './containers/UserCircuitsContainer';
 import IndividualCircuit from './components/IndividualCircuit';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import NewCircuit from './components/NewCircuit';
 
 
 //window.socket = io('http://localhost:80/');
@@ -28,9 +29,10 @@ export default class App extends Component {
           <Switch>
               <Route path="/home" component={Home}/>
               <Route exact path="/login" component={Login} />
-              <Route exact path="/new" component={NewUser} />
+              <Route exact path="/newaccount" component={NewUser} />
               <Route exact path="/circuits" component={UserCircuitsContainer} />
               <Route exact path="/circuits/:id" component={IndividualCircuit} />
+              <Route exact path="/newCircuit" component={NewCircuit} />
           </Switch>
       </BrowserRouter>
       )
