@@ -247,9 +247,9 @@ export default class  NewCircuit extends React.Component{
 
 
   render() {
-    if(localStorage.getItem('token') === null){
+    // if(localStorage.getItem('token') === null){
 
-    } else {
+    // } else {
     return (
     
      
@@ -261,7 +261,7 @@ export default class  NewCircuit extends React.Component{
             <Segment>
               <Grid celled>
                 <Grid.Row>
-                  {/* {()=>this.newTechnique()} */}
+                  
                   <Grid.Column width={3}>
                     <div className="ui container">
                       <GatesContainer handleDragStart={this.handleDragStart}
@@ -300,10 +300,10 @@ export default class  NewCircuit extends React.Component{
         </div>
         
       
-      //</Router>
+      
     );
     }
-  }
+  //}
 
 }
 

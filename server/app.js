@@ -57,15 +57,15 @@ app.get('/users/:id', (req, res) =>{
 })
 
 //create users
-// app.post('/users', urlencodedParser, async (req, res) => {
-//     bcrypt.hash(req.body.password, 10, (err, hash)=>{
-//       User.create({username: req.body.username, password_digest: hash })
-//     })   
-// })
+app.post('/users', async (req, res) => {
+    bcrypt.hash(req.body.password, 10, (err, hash)=>{
+      User.create({username: req.body.username, password_digest: hash, email: req.body.email })
+    })   
+})
 
 
 //  User.destroy({ where: {  }})
-app.post ('/login', (req, res) => {
+app.post('/login', (req, res) => {
    
     User.findOne({where: {username: req.body.username}})
     .then(user => {
@@ -82,9 +82,9 @@ app.post ('/users', (req, res) => {
     user.password = req.body.password
 
     user.save().then(user => {
-        //if(user.authenticate(req.body.password))
+        if(user.authenticate(req.body.password)){
             res.json(user)
-        //}
+        }
     })
 })
 

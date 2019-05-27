@@ -1,5 +1,5 @@
-// // const faker = require("faker")
-
+const faker = require("faker")
+const User = require('./models/User')
 for(let i=0; i<5 ; i++){
     User.create({
         username: faker.name.findName(),
