@@ -9,14 +9,19 @@ export default class CircuitContainer extends Component {
   //because fetch was not complete. So this.props.wires and this.props.wires were undefined before the fetch even works.
   //so the ternary on the line where the function was invoked fixed the problem.
   getCircuitOutput = () => {
-    
     // const outputWire = this.props.wires.find(wire => wire.outputID === "display")
     // const outputValue = this.getSignal(outputWire)
     // if (!outputValue) {
     //   return "1"
     // } else {
     //   return "0"
-    // }
+    // }----------------------- METHOD2 TO GET OUTPUT
+    //------------------------- iterate though all wires . If any gate is there whose id is not in the inputId of the wire
+    //that one is gonna give a direct output
+    const inputGates = this.props.wires.map((wire) => wire.inputID)
+    const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
+    console.log('inputGates IDs: ',inputGates)
+    console.log('outputGates: ', outputGates)
   }
 
   getSignal = (wire) => {

@@ -97,17 +97,19 @@ export default class extends React.Component {
         }
     }
 
+
     renderExorGates = (gates) => {
-        if(gates == {} || gates == []){
+        if(gates === {} || gates === []){
             return null
-        } else if(!typeof gates === "object"){
-        console.log(gates)
+        } else{
         return gates.filter((gate) => gate.type === "exor")
             .map((gate, index) =>
                 <ExorGate actualGate={gate} id={gate.id} location={gate.location} />
             )
         }
     }
+
+    
 
     renderExnorGates = (gates) => {
         if(gates === {} || gates === []){
@@ -195,12 +197,6 @@ export default class extends React.Component {
         }
     }
 
-    renderAllGatesWires = () => {
-        // if(!typeof this.props.gates === "object" || !typeof this.props.wires === "object"){
-
-        
-        //}
-    }
 
 
     render() {

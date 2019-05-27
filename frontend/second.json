@@ -1,431 +1,181 @@
 {
   "gates": [
     {
+      "id": 1,
       "type": "or",
       "location": {
-        "x": 135,
-        "y": 104
+        "x": 80,
+        "y": 48
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 1
+      "fixedInput2": null
     },
     {
-      "type": "and",
-      "location": {
-        "x": 292,
-        "y": 117
-      },
-      "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 2
-    },
-    {
-      "type": "not",
-      "location": {
-        "x": 411,
-        "y": 187
-      },
-      "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 3
-    },
-    {
-      "type": "nand",
-      "location": {
-        "x": 501,
-        "y": 306
-      },
-      "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 4
-    },
-    {
+      "id": 2,
       "type": "exor",
       "location": {
-        "x": 523,
-        "y": 96
+        "x": 307,
+        "y": 152
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 5
+      "fixedInput2": null
     },
     {
+      "id": 3,
+      "type": "exor",
+      "location": {
+        "x": 244,
+        "y": 132
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 4,
       "type": "and",
       "location": {
-        "x": 562,
-        "y": 116
+        "x": 110,
+        "y": 247
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 6
+      "fixedInput2": null
     },
     {
+      "id": 5,
       "type": "and",
       "location": {
-        "x": 92,
-        "y": 264
+        "x": 279,
+        "y": 161
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 7
+      "fixedInput2": null
     },
     {
+      "id": 6,
       "type": "or",
       "location": {
-        "x": 245,
-        "y": 276
+        "x": 130,
+        "y": 134
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 8
+      "fixedInput2": null
     },
     {
-      "type": "or",
-      "location": {
-        "x": 111,
-        "y": 384
-      },
-      "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 9
-    },
-    {
-      "type": "or",
-      "location": {
-        "x": 356,
-        "y": 415
-      },
-      "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 10
-    },
-    {
+      "id": 7,
       "type": "and",
       "location": {
-        "x": 539,
-        "y": 438
+        "x": 107,
+        "y": 365
       },
       "fixedInput1": null,
-      "fixedInput2": null,
-      "id": 11
+      "fixedInput2": null
+    },
+    {
+      "id": 8,
+      "type": "not",
+      "location": {
+        "x": 105,
+        "y": 465
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 9,
+      "type": "exnor",
+      "location": {
+        "x": 270,
+        "y": 324
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 10,
+      "type": "exor",
+      "location": {
+        "x": 282,
+        "y": 413
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 11,
+      "type": "exor",
+      "location": {
+        "x": 297,
+        "y": 427
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
     },
     {
       "id": 12,
-      "type": "or",
+      "type": "nand",
       "location": {
-        "x": 559,
-        "y": 224
+        "x": 332,
+        "y": 433
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
       "id": 13,
-      "type": "or",
+      "type": "nor",
       "location": {
-        "x": 90,
-        "y": 28
+        "x": 220,
+        "y": 517
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
       "id": 14,
-      "type": "and",
-      "location": {
-        "x": 67,
-        "y": 175
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 16,
-      "type": "exnor",
-      "location": {
-        "x": 31,
-        "y": 323
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 19,
       "type": "exor",
       "location": {
-        "x": -129,
-        "y": 257
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 23,
-      "type": "exor",
-      "location": {
-        "x": 69,
-        "y": 246
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 18,
-      "type": "or",
-      "location": {
-        "x": 26,
-        "y": 85
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 21,
-      "type": "exnor",
-      "location": {
-        "x": 77,
-        "y": 483
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 24,
-      "type": "nand",
-      "location": {
-        "x": 12,
-        "y": 407
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 22,
-      "type": "or",
-      "location": {
-        "x": 10,
-        "y": 7
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 26,
-      "type": "exor",
-      "location": {
-        "x": 375,
-        "y": 73
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 29,
-      "type": "exor",
-      "location": {
-        "x": 416,
-        "y": 52
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 33,
-      "type": "and",
-      "location": {
-        "x": 347,
-        "y": 71
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 25,
-      "type": "or",
-      "location": {
-        "x": 211,
-        "y": 46
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 27,
-      "type": "or",
-      "location": {
-        "x": 293,
-        "y": 195
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 28,
-      "type": "or",
-      "location": {
-        "x": 170,
-        "y": 443
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 30,
-      "type": "or",
-      "location": {
-        "x": 289,
-        "y": 41
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 31,
-      "type": "or",
-      "location": {
-        "x": 194,
-        "y": 156
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 32,
-      "type": "or",
-      "location": {
-        "x": 401,
-        "y": 33
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 34,
-      "type": "or",
-      "location": {
-        "x": 140,
+        "x": 23,
         "y": 215
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
-      "id": 35,
-      "type": "or",
+      "id": 15,
+      "type": "exor",
       "location": {
-        "x": 215,
-        "y": 217
+        "x": 178,
+        "y": 191
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
-      "id": 36,
-      "type": "or",
+      "id": 16,
+      "type": "exor",
       "location": {
-        "x": 323,
-        "y": 330
+        "x": 43,
+        "y": 176
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
-      "id": 37,
-      "type": "or",
+      "id": 17,
+      "type": "exor",
       "location": {
-        "x": 394,
-        "y": 144
+        "x": 438,
+        "y": 259
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
-      "id": 38,
-      "type": "or",
+      "id": 18,
+      "type": "exor",
       "location": {
-        "x": 157,
-        "y": 77
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 39,
-      "type": "and",
-      "location": {
-        "x": 84,
-        "y": 138
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 40,
-      "type": "or",
-      "location": {
-        "x": 13,
-        "y": 81
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 41,
-      "type": "and",
-      "location": {
-        "x": 185,
-        "y": 200
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 42,
-      "type": "or",
-      "location": {
-        "x": 17,
-        "y": 190
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 43,
-      "type": "nand",
-      "location": {
-        "x": 92,
-        "y": 587
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 44,
-      "type": "nor",
-      "location": {
-        "x": 241,
-        "y": 564
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 45,
-      "type": "nand",
-      "location": {
-        "x": -11,
-        "y": 562
-      },
-      "fixedInput1": null,
-      "fixedInput2": null
-    },
-    {
-      "id": 46,
-      "type": "nor",
-      "location": {
-        "x": 131,
-        "y": 522
+        "x": 41,
+        "y": 336
       },
       "fixedInput1": null,
       "fixedInput2": null
@@ -434,95 +184,13 @@
   "wires": [
     {
       "id": 1,
-      "inputID": 2,
-      "outputID": 2
+      "inputID": 4,
+      "outputID": 5
     },
     {
       "id": 2,
       "inputID": 1,
-      "outputID": 2
-    },
-    {
-      "id": 3,
-      "inputID": 2
-    },
-    {
-      "id": 4
-    },
-    {
-      "id": 5,
-      "inputID": null,
-      "outputID": null
-    },
-    {
-      "id": 6
-    },
-    {
-      "id": 7
-    },
-    {
-      "id": 8
-    },
-    {
-      "id": 9
-    },
-    {
-      "id": 10
-    },
-    {
-      "id": 11,
-      "inputID": 7,
-      "outputID": 8
-    },
-    {
-      "id": 12,
-      "inputID": 9,
-      "outputID": 10
-    },
-    {
-      "id": 13,
-      "inputID": 10,
-      "outputID": 11
-    },
-    {
-      "id": 14,
-      "inputID": 9,
-      "outputID": 6
-    },
-    {
-      "id": 15,
-      "inputID": 7,
       "outputID": 5
-    },
-    {
-      "id": 16,
-      "inputID": 9,
-      "outputID": 3
-    },
-    {
-      "id": 17,
-      "inputID": 9,
-      "outputID": 7
-    },
-    {
-      "id": 18,
-      "inputID": 9,
-      "outputID": 8
-    },
-    {
-      "id": 19,
-      "inputID": 7,
-      "outputID": 2
-    },
-    {
-      "id": 20,
-      "inputID": 9,
-      "outputID": 4
-    },
-    {
-      "id": 21,
-      "inputID": 24,
-      "outputID": 22
     }
   ]
 }

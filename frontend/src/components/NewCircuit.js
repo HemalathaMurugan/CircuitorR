@@ -125,7 +125,7 @@ export default class  NewCircuit extends React.Component{
         },
         body: JSON.stringify(gate)
       })
-      //this.setState({ gates: [ ...this.state.gates, gate ]})
+      this.setState({ gates: [ ...this.state.gates, gate ]})
 
       //I forgot the setState with the new gate initially. So it was showing up after reloading the page
       //reason being, update was happening on the backend only. So reload could render elements updates in db.json
