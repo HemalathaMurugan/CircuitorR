@@ -53,6 +53,21 @@ User.init(
               msg: "Email address already in use!"
             }
         },
+        password: {
+            type: Sequelize.VIRTUAL,
+            validate: {
+              notEmpty: true,
+              len: [6, 100]
+            },
+            set: function (value) {
+              let salt = bcrypt.genSaltSync(5)
+              let hash = bcrypt.hashSync(value, salt)
+              // eval(pry.it)
+              this.setDataValue('password', value)
+              this.password_digest = hash
+              console.log(hash)
+            }
+          },
         password_digest: {
             type: Sequelize.STRING
         }
@@ -74,6 +89,12 @@ module.exports = User;
 
 sequelize.sync();
 //this will create user table
+
+//associations/relatioships
+//User.hasMany(model.Circuit)
+// User.hasMany(Circuit, {as: 'Circuits'})
+// User.hasMany(model.Gate, {throught: 'Circuit'})
+// User.hasMany(model.Wire, {through: 'Circuit'})
 
 // console.log(Circuit)
 // User.hasMany(Circuit, {as: 'Circuits'})

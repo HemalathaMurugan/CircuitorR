@@ -8,6 +8,8 @@ import InputOptionsContainer from './containers/InputOptionsContainer'
 import { Grid, Segment } from 'semantic-ui-react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client';
+import Login from './components/Login';
+//import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
 window.socket = io('http://localhost:80/');
@@ -244,11 +246,16 @@ class App extends Component {
 
 
   render() {
-    
-    return (
-      <div>
-        <div className="App">
+    if(localStorage.getItem('token') === null){
 
+    } else {
+    return (
+     // <Router>
+     
+       
+        <div className="App">
+        {/* <Switch></Switch> */}
+        
           <header className="App-header">
             <Segment>
               <Grid celled>
@@ -290,8 +297,11 @@ class App extends Component {
            
           </header>
         </div>
-      </div>
+        
+      
+      //</Router>
     );
+    }
   }
 
 }
@@ -308,4 +318,4 @@ export default App;
       //   console.log('Clause 2', (wireRectRight > gateLeft))
       //   console.log('Clause 3', (wireRectTop < gateBottom))
       //   console.log('Clause 4', (wireRectBottom > gateTop))
-      // }
+      

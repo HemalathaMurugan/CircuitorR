@@ -389,6 +389,46 @@
       },
       "fixedInput1": null,
       "fixedInput2": null
+    },
+    {
+      "id": 43,
+      "type": "nand",
+      "location": {
+        "x": 92,
+        "y": 587
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 44,
+      "type": "nor",
+      "location": {
+        "x": 241,
+        "y": 564
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 45,
+      "type": "nand",
+      "location": {
+        "x": -11,
+        "y": 562
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
+    },
+    {
+      "id": 46,
+      "type": "nor",
+      "location": {
+        "x": 131,
+        "y": 522
+      },
+      "fixedInput1": null,
+      "fixedInput2": null
     }
   ],
   "wires": [

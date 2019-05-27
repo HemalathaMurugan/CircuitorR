@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     Circuit.associate = function(models){
         Circuit.hasMany(models.Gate);
         Circuit.hasMany(models.Wire);
+        Circuit.belongsTo(models.User);
     }
   
 }
