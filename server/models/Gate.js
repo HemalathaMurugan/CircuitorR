@@ -1,31 +1,21 @@
-'use strict';
+// 'use strict';
 
-module.exports = (sequelize, DataTypes) => {
-    const Gate = sequelize.define('Gate', {
-        id: DataTypes.STRING,
-        type: DataTypes.STRING,
-        fixedInput1: DataTypes.STRING.BINARY,
-        fixedInput1: DataTypes.STRING.BINARY,
-        //location which is an object in the frontend. Remember to retrieve this data and put it into objects
-        locationX: DataTypes.FLOAT,
-        locationY: DataTypes.FLOAT
-    }, {});
-    //associations/relationships
-    Gate.associate = function(models){
-        Gate.belongsTo(model.Circuit)
-    }
-}
+// module.exports = (sequelize, DataTypes) => {
+//     const Gate = sequelize.define('Gate', {
+//         id: DataTypes.STRING,
+//         type: DataTypes.STRING,
+//         fixedInput1: DataTypes.STRING.BINARY,
+//         fixedInput1: DataTypes.STRING.BINARY,
+//         //location which is an object in the frontend. Remember to retrieve this data and put it into objects
+//         locationX: DataTypes.FLOAT,
+//         locationY: DataTypes.FLOAT
+//     }, {});
+//     //associations/relationships
+//     Gate.associate = function(models){
+//         Gate.belongsTo(model.Circuit)
+//     }
+// }
 
-// {
-//     "id": 0,
-//     "type": "and",
-//     "location": {
-//       "x": 200,
-//       "y": 200
-//     },
-//     "fixedInput1": 0,
-//     "fixedInput2": 1
-//   },
 
 //use strict rules: 
 //------------------------------------
@@ -55,26 +45,44 @@ module.exports = (sequelize, DataTypes) => {
 //x = 3.14; // will throw an error -> using variables without declaring is not allowed
 
 //-------------------------------------ANOTHER WAY OF DOING IT
-// const Sequelize = require("sequelize");
+const Sequelize = require("sequelize");
+const DataTypes = Sequelize.DataTypes;
 
-// const sequelize = new Sequelize({
-//     dialect: "sqlite",
-//     storage: "./database.sqlite"
-// });
+const sequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./database.sqlite"
+});
 
-// const Model = Sequelize.Model;
+const Model = Sequelize.Model;
 
-// class Gate extends Model {
+class Gate extends Model {
 
-// }
+}
 
-// Gate.init({
-//     //columns 
-// },{
-//     sequelize,
-//     modelName: 'gate'
-// })
+Gate.init({
+   fixedInput1: {
+       type: DataTypes.STRING.BINARY,
+       allowNull: true
+   },
+   fixedInput2: {
+        type: DataTypes.STRING.BINARY,
+        allowNull: true
+   },
+    //location which is an object in the frontend. Remember to retrieve this data and put it into objects
+   locationX: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+   },
+   locationY: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    }
 
-// module.exports = Gate
+},{
+    sequelize,
+    modelName: 'gate'
+})
 
-// sequelize.sync()
+module.exports = Gate
+
+sequelize.sync()

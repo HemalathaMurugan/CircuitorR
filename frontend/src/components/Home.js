@@ -5,7 +5,7 @@ export default class Home extends React.Component{
     return(
       <div>
         Home page of a user:
-        This should all options for the users . Like their own circuits . Link to create new circuit etc
+        This should showv all options for the users . Like their own circuits . Link to create new circuit etc
       </div>
     )
   }

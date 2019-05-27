@@ -40,7 +40,7 @@ export default class App extends Component {
       <Router>
           <NavBar />
           <Switch>
-              <Route exact path="/" component={Home}/>
+              <Route exact path="/" component={Home}/> 
               <Route exact path="/login" render={() => <Login saveToken={this.saveToken} />} />
               <Route exact path="/newaccount" component={NewUser} />
               <Route exact path="/circuits" component={UserCircuitsContainer} />
@@ -59,3 +59,5 @@ export default class App extends Component {
     }
 }
 
+//<Route exact path="/" component={Home}/>  without exact path on this line will always take you to the home page
+//even if you give some other path 

@@ -1,74 +1,84 @@
 const faker = require("faker")
 const User = require('./models/User')
-for(let i=0; i<5 ; i++){
-    User.create({
-        username: faker.name.findName(),
-        password: faker.internet.password(),
-        email: faker.internet.email()
+const Circuit = require('./models/Circuit')
+const Gate = require('./models/Gate')
+const Wire = require('./models/Wire')
+
+;(async function(){
+
+    await User.destroy({ where: {} })
+    await Gate.destroy({ where: {} })
+    await Wire.destroy({ where: {} })
+    await Circuit.destroy({ where: {} })
+
+    for(let i=0; i<5 ; i++){
+        User.create({
+            username: faker.name.findName(),
+            password: faker.internet.password(),
+            email: faker.internet.email()
+        })
+    }
+    
+    let user1 = await User.create({
+        username: "hema2",
+        password: "password",
+        email: "hema2@gmail.com"
     })
-}
-
-User.create({
-    username: "hema",
-    password: "password",
-    email: "hema@gmail.com"
-})
-
-// Circuit.create({
-//     id:1,
-//     built: false,
-//     saved: false,
-//     userId: 5
-// })
-
-// Gate.create({
-//     id: 1,
-//     type: "and",
-//     fixedInput1: 1,
-//     fixedInput2: 1,
-//     locationX: 200,
-//     locationY: 120,
-//     circuitId: 1
-// })
-// Gate.create({
-//     id: 2,
-//     type: "or",
-//     fixedInput1: 0,
-//     fixedInput2: 1,
-//     locationX: 200,
-//     locationY: 220,
-//     circuitId: 1
-// })
-// Gate.create({
-//     id: 3,
-//     type: "or",
-//     fixedInput1: null,
-//     fixedInput2: null,
-//     locationX: 400,
-//     locationY: 180,
-//     circuitId: 1
-// })
-
-// Wire.create({
-//     id:1 ,
-//     inputID: 1,
-//     outputID:3,
-//     circuitId: 1
-// })
-// Wire.create({
-//     id:2 ,
-//     inputID: 2,
-//     outputID:3,
-//     circuitId: 1
-// })
-// Wire.create({
-//     id: 3,
-//     inputID: 3,
-//     outputID: "display",
-//     circuitId: 1
-// })
-
-
+    
+    let circuit1 = await Circuit.create({
+        id:1,
+        built: false,
+        saved: false,
+        userId: user1.id // foreign keys cannot be hard coded.It will throw error
+    })
+    
+    let gate1 = await Gate.create({
+        id: 1,
+        type: "and",
+        fixedInput1: 1,
+        fixedInput2: 1,
+        locationX: 200,
+        locationY: 120,
+        circuitId: circuit1.id
+    })
+    let gate2 = await Gate.create({
+        id: 2,
+        type: "or",
+        fixedInput1: 0,
+        fixedInput2: 1,
+        locationX: 200,
+        locationY: 220,
+        circuitId: circuit1.id
+    })
+    let gate3 = await Gate.create({
+        id: 3,
+        type: "or",
+        fixedInput1: null,
+        fixedInput2: null,
+        locationX: 400,
+        locationY: 180,
+        circuitId: circuit1.id
+    })
+    
+    Wire.create({
+        id:1 ,
+        InputID: gate1.id,
+        OutputID: gate3.id,
+        circuitId: circuit1.id
+    })
+    Wire.create({
+        id: 2,
+        InputID: gate2.id,
+        OutputID: gate3.id,
+        circuitId: circuit1.id
+    })
+    // Wire.create({
+    //     id: 3,
+    //     InputID: gate3.id,
+    //     outputID: "display",
+    //     circuitId: circuit1.id
+    // })
+})()
 
 // // // const faker = require("faker");
 

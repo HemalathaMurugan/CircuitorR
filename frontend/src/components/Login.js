@@ -1,5 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {
+    Button,
+    Form,
+    Message,
+    Container,
+    Header,
+    Icon,
+    Select,
+    Modal
+  } from "semantic-ui-react";
 
 export default class Login extends React.Component{
     state = {
@@ -46,19 +56,25 @@ export default class Login extends React.Component{
        
         return(
             <div className="login-form-container">
+            <Modal.Header
+                    style={{
+                        backgroundColor: "#1d1d1d",
+                        color: "white"
+                    }}
+                >
             <h1>Login</h1>
-            <form onSubmit={this.handleLoginSubmit}>
+            <Form onSubmit={this.handleLoginSubmit}>
               <div class="login-form">
                 <label for="username"><b>Username</b></label><br/>
-                <input onChange={this.handleChange} type="text" placeholder="Enter Username" name="username" required/>
+                <Form.Input onChange={this.handleChange} type="text" placeholder="Enter Username" name="username" required/>
                 <br/>
                 <br/>
                 <label for="password"><b>Password</b></label><br/>
-                <input onChange={this.handleChange} type="password" placeholder="Enter Password" name="password" required/>
+                <Form.Input onChange={this.handleChange} type="password" placeholder="Enter Password" name="password" required/>
                 <br/>
                 <br/>
                 <label for="email"><b>E-mail</b></label><br/>
-                <input onChange={this.handleChange} type="email" placeholder="Enter E-mail" name="email" required/>
+                <Form.Input onChange={this.handleChange} type="email" placeholder="Enter E-mail" name="email" required/>
                 <br/>
                 <br/>
                 <button button className="tiny ui inverted red basic button" type="submit" onSubmit={()=>this.handleLoginSubmit()}>Login</button>
@@ -69,7 +85,8 @@ export default class Login extends React.Component{
                 <button button className="tiny ui inverted red basic button" type="submit" >Create New Account</button>
                 </Link>
               </div>
-            </form>
+            </Form>
+            </Modal.Header>
           </div>
         );
         

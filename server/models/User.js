@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const Circuit = require('./Circuit')
 
 const sequelize = new Sequelize({
     dialect: "sqlite",
@@ -91,15 +90,9 @@ sequelize.sync();
 //this will create user table
 
 //associations/relatioships
-//User.hasMany(model.Circuit)
-// User.hasMany(Circuit, {as: 'Circuits'})
-// User.hasMany(model.Gate, {throught: 'Circuit'})
-// User.hasMany(model.Wire, {through: 'Circuit'})
 
-// console.log(Circuit)
-// User.hasMany(Circuit, {as: 'Circuits'})
-// User.hasMany(Gate, {through: 'Circuit'})
-// User.hasMany(Wire, {through: 'Circuit'})
+
+
 
 //because of has many -> this line adds userid automatically
 //My project's relationship structure :
