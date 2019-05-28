@@ -1,8 +1,15 @@
 import React,{Component} from 'react'
 import Circuit from '../components/Circuit'
+import ErrorsContainer from './ErrorsContainer';
+
 
 export default class CircuitContainer extends Component {
 
+  state = {
+    output: null
+  }
+  
+  
   //Please dont remove the following comments at any cost!
   
   //when this function was invoked in the render function of this component, it threw errors.
@@ -18,10 +25,33 @@ export default class CircuitContainer extends Component {
     // }----------------------- METHOD2 TO GET OUTPUT
     //------------------------- iterate though all wires . If any gate is there whose id is not in the inputId of the wire
     //that one is gonna give a direct output
-    const inputGates = this.props.wires.map((wire) => wire.inputID)
-    const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
-    console.log('inputGates IDs: ',inputGates)
-    console.log('outputGates: ', outputGates)
+      const inputGates = this.props.wires.map((wire) => wire.inputID)
+      const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
+      console.log('inputGates IDs: ',inputGates)
+      console.log('outputGates: ', outputGates)
+      let opwires = [];
+      let opvalues = [];
+      let opvalue = null;
+      let opwire = null;
+      // if(this.props.wires.length>0 && this.props.gates.length>0){
+          outputGates.forEach((gate)=> {
+          
+              opwire = this.props.wires.find((wire)=> wire.outputID === gate.id)
+              opwires.push(opwire)
+              opvalue = this.getSignal(opwire)
+              opvalues.push(opvalue)
+              console.log('Ouput Wires: ', opwires)
+              console.log('Output Values: ', opvalues)
+              
+              //return opvalue
+          })
+          // if (!opvalue){
+          //   return '0'
+          // } else {
+          //   return '1'
+          // }
+     
+    return opvalue
   }
 
   getSignal = (wire) => {
@@ -66,16 +96,58 @@ export default class CircuitContainer extends Component {
     // onClick = {(e)=>this.handleClick(e)}>
   }
 
+  handleBuild = () => {
+    //yet to set built=true -reminder
+    console.log('got build click')
+    let output;
+    if((this.props.wires.length>0) && (this.props.gates.length>0)){
+       this.setState({
+         output: this.getCircuitOutput()
+       })
+    //return <ErrorsContainer output={output}/>
+    }
+  }
+
     render(){
         //console.log(this.props)
         //console.log("ouput: ", ()=> this.getCircuitOutput())
         return(
-            <div className="circuit-container">
+          <div className="circuit-container">
+            <div>
                 <Circuit gates={this.props.gates} wires={this.props.wires}  
                 /> 
                 <br></br>
-                 <p style={{ width: "500px", height: "500px" }}> Ouput: {((this.props.wires.length  > 0) && (this.props.gates.length > 0))? this.getCircuitOutput() : null}</p>
+                
             </div>
+            <div class="topcorner">
+                  
+                <div class="ui buttons">
+                    <button class="ui labeled icon button">
+                      <i class="left chevron icon"></i>
+                      Undo
+                    </button>
+                    <button onClick={()=>this.handleBuild()} class="ui button">
+                      <i class="stop icon"></i>
+                      Build
+                    </button>
+                    <button class="ui right labeled icon button">
+                      Redo
+                      <i class="right chevron icon"></i>
+                    </button>
+                  </div>
+                  
+                  <div >
+                    Output: {this.state.output ? this.state.output : null}
+                        {/* <img src='../assets/dim.jpeg' class="visible content"/>
+                        <img src='../assets/bulbGlowing.svg' class="hidden content"/> */}
+                  </div>
+        
+
+              </div>
+            
+              
+            
+          </div>  
         )
     }
 }

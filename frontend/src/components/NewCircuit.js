@@ -1,7 +1,4 @@
-//after the user logins successfully, they get to see this page.
-//Actually this should be something like a 'newcircuit page'
-//when the user successfully login they should be able to see a page containing their circuits 
-//and then a button to create a new circuit
+
 import React from 'react';
 
 import CircuitContainer from '../containers/CircuitContainer';
@@ -91,16 +88,16 @@ export default class  NewCircuit extends React.Component{
 
     handleDragEnd = (e) => {
       let circuit = document.getElementById("circuit-created")
-      //some logs . Please bear with it some days. Until everything works fine 
+      
       console.log('Before:', e.pageX - circuit.getBoundingClientRect().x, e.clientY - circuit.getBoundingClientRect().y - this.state.currentlyDraggingGate.offsetY )
       console.log(e.clientY)
       console.log(e.clientX) 
       console.log(circuit.getBoundingClientRect().y)
       console.log(this.state.currentlyDraggingGate.offsetY)
 
-            let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDraggingGate.offsetY) + 52
+      let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDraggingGate.offsetY) + 52
 
-            let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDraggingGate.offsetX)      
+      let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDraggingGate.offsetX)      
       console.log('After: ', finalPositionX, finalPositionY)
 
       let newFixedInput1 = null;
@@ -142,7 +139,7 @@ export default class  NewCircuit extends React.Component{
 
     //On the first drag end, that should be the input gate (inputID)
     //On the second drag end, that should be the output gate (outputID)
-    //My understanding of Josh's suggestion -> 
+    //Second way could be :suggestion -> (if time permits)
     //add onclick on each of the gate. If clicked , set that as inputId (if !inputId)
     //if this gate's Id !== inputId, set this as inputId. else-> set this gate in putputId
     //lets try that in ten mins
@@ -233,7 +230,7 @@ export default class  NewCircuit extends React.Component{
   }
     
 
-      //Josh said the mouse pointer is going to be the output gate until a real gate is clicked 
+      //mouse pointer is going to be the output gate until a real gate is clicked 
       //once this state is set properly add event listener to each of the existing gate or in this gate(within this loop) , so as to detect the onclick -> onclicking this, would again confirm that this is the input gate 
       //check within the onclick event listener whether this is an inputID ;If not, set this as the output id
 
@@ -318,4 +315,4 @@ export default class  NewCircuit extends React.Component{
       //   console.log('Clause 2', (wireRectRight > gateLeft))
       //   console.log('Clause 3', (wireRectTop < gateBottom))
       //   console.log('Clause 4', (wireRectBottom > gateTop))
-      
+ 

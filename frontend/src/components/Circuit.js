@@ -130,7 +130,9 @@ export default class extends React.Component {
         return wires.map((wire, index) => {
             const inputGate = gates.find(gate => gate.id === wire.inputID)
             const outputGate = gates.find(gate => gate.id === wire.outputID)
-            if (!outputGate) return null
+            if (!outputGate) {
+                return null
+            } else {
 
             let x, y, width, height, bT, bR, bL, bB;
 
@@ -181,6 +183,7 @@ export default class extends React.Component {
                 bR = "solid";
 
             }
+        
 
             return <Wire
                 wire={wire}
@@ -193,7 +196,10 @@ export default class extends React.Component {
                 bL={bL}
                 bB={bB}
             />
+        }
         })
+    
+    
         }
     }
 
@@ -205,7 +211,7 @@ export default class extends React.Component {
         // const {children} = this.props;
         // return ReactDOM.createCircuit(children, this.el)
         return (
-            <div id="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>The circuit created by the user by drag and drop
+            <div id="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>
                 {this.renderExorGates(this.props.gates)}
                 {this.renderExnorGates(this.props.gates)}
                 {this.renderNorGates(this.props.gates)}
