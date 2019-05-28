@@ -42,7 +42,7 @@ export default class App extends Component {
           <Switch>
               <Route exact path="/" component={Home}/> 
               <Route exact path="/login" render={() => <Login saveToken={this.saveToken} />} />
-              <Route exact path="/newaccount" component={NewUser} />
+              <Route exact path="/newuser" component={NewUser} />
               <Route exact path="/circuits" component={UserCircuitsContainer} />
               <Route exact path="/circuits/:id" component={IndividualCircuit} />
               <Route exact path="/newcircuit" component={NewCircuit} />

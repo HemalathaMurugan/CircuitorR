@@ -5,11 +5,19 @@ import React from 'react';
 
 export default class UserCircuitsContainer extends React.Component{
     render(){
+        if(localStorage.getItem('token') === null){
+            return(
+                <div>
+                    Please Login
+                </div>
+            )
+        } else {
         return(
             <div>
                 A particular user whi has logged in when clicks and land here on this page
                 They should be able to circcuit cards of all their own circuits
             </div>
         )
+        }
     }
 }

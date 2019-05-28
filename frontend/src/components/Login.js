@@ -40,7 +40,9 @@ export default class Login extends React.Component{
        .then(res=> res.json())
        //the following function was checkAuth in previous project
        .then(user => {
-          localStorage.setItem('token', user.token)
+           console.log(user)
+          localStorage.setItem('token', user.token) 
+        //   localStorage.setItem('token', user.token)
           //this.props.history.push('/')
           this.props.saveToken(user.token)
         })

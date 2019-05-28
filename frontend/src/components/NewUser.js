@@ -5,6 +5,14 @@ import React from 'react'
 export default class NewUser extends React.Component {
 
     render(){
+        if(!(localStorage.getItem('token') === null)){
+            return(
+                <div>
+                    <br></br>
+                    You are already logged in! 
+                </div>
+            )
+        } else {
         return(
             <div className="new-user-form-container">
                 <h1>Create a New Account</h1>
@@ -26,5 +34,6 @@ export default class NewUser extends React.Component {
                 </form>
             </div>
         )
+        }
     }
 }

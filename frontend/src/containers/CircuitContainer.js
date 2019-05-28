@@ -1,12 +1,16 @@
 import React,{Component} from 'react'
 import Circuit from '../components/Circuit'
 import ErrorsContainer from './ErrorsContainer';
+import {Popup} from 'semantic-ui-react'
 
 
 export default class CircuitContainer extends Component {
 
   state = {
-    output: null
+    output: null,
+    inputGates: [],
+    saved: false,
+    built: false
   }
   
   
@@ -15,6 +19,8 @@ export default class CircuitContainer extends Component {
   //when this function was invoked in the render function of this component, it threw errors.
   //because fetch was not complete. So this.props.wires and this.props.wires were undefined before the fetch even works.
   //so the ternary on the line where the function was invoked fixed the problem.
+
+  
   getCircuitOutput = () => {
     // const outputWire = this.props.wires.find(wire => wire.outputID === "display")
     // const outputValue = this.getSignal(outputWire)
@@ -22,10 +28,10 @@ export default class CircuitContainer extends Component {
     //   return "1"
     // } else {
     //   return "0"
-    // }----------------------- METHOD2 TO GET OUTPUT
+    // }----------------------- METHOD2 TO GET OUTPUT -WITHOUT "display" STRING IN THE OUTPUT ID PLACE
     //------------------------- iterate though all wires . If any gate is there whose id is not in the inputId of the wire
     //that one is gonna give a direct output
-      const inputGates = this.props.wires.map((wire) => wire.inputID)
+      const inputGates = this.props.wires.map((wire) => wire.inputID) //this is the inputgate of that particular wire
       const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
       console.log('inputGates IDs: ',inputGates)
       console.log('outputGates: ', outputGates)
@@ -96,11 +102,14 @@ export default class CircuitContainer extends Component {
     // onClick = {(e)=>this.handleClick(e)}>
   }
 
+
   handleBuild = () => {
     //yet to set built=true -reminder
+    this.setState({ built: true })
     console.log('got build click')
     let output;
     if((this.props.wires.length>0) && (this.props.gates.length>0)){
+       this.findInputGates();
        this.setState({
          output: this.getCircuitOutput()
        })
@@ -108,12 +117,77 @@ export default class CircuitContainer extends Component {
     }
   }
 
+  chooseInput  = () => {
+    return(
+    <select name="inputs">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                           
+    </select>)
+  }
+
+  // findInputGates = () => {
+  //   // this.props.gates.forEach( gate => {
+  //   //   this.props.wires.forEach( wire => {
+  //   //     console.log(gate.location.x)
+  //   //    console.log(document.getElementById("existing-wire").getBoundingClientRect().x)
+  //   //   })
+  //   // })
+  // }
+
+  findInputGates = () =>{
+     let wires = document.getElementsByClassName("wire")
+     console.log(wires)
+     console.log(document.getElementsByClassName("wire"))
+    // for(let i=1; i < this.props.gates.length; i++){
+    //   for(let j=1; j <this.props.wires.length; j++){
+    //     this.props.gates[i].location.x
+    //     console.log()
+    //   }
+    // }
+  }
+
+  askInput = () => {
+    return (<i class="minus sign icon"
+               data-content="choose binary input" 
+               onClick={this.chooseInput} 
+               data-variation="mini"
+               data-position-left="200px"
+            ></i>)
+  }
+
+  saveCircuit = () => {
+    this.setState({ saved: true })
+    console.log('you reached me')
+    fetch('http://localhost:80/circuits', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        gates: this.props.gates,
+        wires: this.props.wires,
+        saved: this.state.saved,
+        built: this.state.built
+      })
+    })
+  }
+// {
+//       "id": 2,
+//       "type": "exor",
+//       "location": {
+//         "x": 355.6875,
+//         "y": 225.53125
+//       },
+//       "fixedInput1": null,
+//       "fixedInput2": null
+//     },
     render(){
-        //console.log(this.props)
-        //console.log("ouput: ", ()=> this.getCircuitOutput())
+        
         return(
           <div className="circuit-container">
             <div>
+              {/* {this.askInput()} */}
                 <Circuit gates={this.props.gates} wires={this.props.wires}  
                 /> 
                 <br></br>
@@ -126,9 +200,13 @@ export default class CircuitContainer extends Component {
                       <i class="left chevron icon"></i>
                       Undo
                     </button>
-                    <button onClick={()=>this.handleBuild()} class="ui button">
+                    <button onClick={this.handleBuild} class="ui button">
                       <i class="stop icon"></i>
                       Build
+                    </button>
+                    <button class="ui button" onClick={()=>this.saveCircuit()}>
+                      <i class="save icon"></i>
+                      Save 
                     </button>
                     <button class="ui right labeled icon button">
                       Redo

@@ -2,33 +2,33 @@
   "gates": [
     {
       "id": 1,
-      "type": "and",
+      "type": "or",
       "location": {
-        "x": 109.6875,
-        "y": 165
+        "x": 72.6875,
+        "y": 141.53125
       },
-      "fixedInput1": 1,
+      "fixedInput1": 0,
       "fixedInput2": 1
     },
     {
       "id": 2,
-      "type": "exnor",
+      "type": "exor",
       "location": {
-        "x": 276.6875,
-        "y": 252
+        "x": 355.6875,
+        "y": 225.53125
       },
       "fixedInput1": null,
       "fixedInput2": null
     },
     {
       "id": 3,
-      "type": "exor",
+      "type": "nor",
       "location": {
-        "x": 98.6875,
-        "y": 380
+        "x": 93.6875,
+        "y": 462.53125
       },
-      "fixedInput1": 1,
-      "fixedInput2": 0
+      "fixedInput1": 0,
+      "fixedInput2": 1
     }
   ],
   "wires": [
@@ -39,6 +39,11 @@
     },
     {
       "id": 2,
+      "inputID": 1,
+      "outputID": null
+    },
+    {
+      "id": 3,
       "inputID": 3,
       "outputID": 2
     }

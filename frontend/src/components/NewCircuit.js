@@ -17,6 +17,7 @@ export default class  NewCircuit extends React.Component{
   state = {
     gates: [],
     wires: [],
+    inputGates: [],
     currentlyDraggingGate: {
       offsetX: 0,
       offsetY: 0,
@@ -241,15 +242,17 @@ export default class  NewCircuit extends React.Component{
   //like a dragging with right side edge increasing, can be shown as the pointer is dragged
 
 
-
-
   render() {
-    // if(localStorage.getItem('token') === null){
-
-    // } else {
+    
+    if(localStorage.getItem('token') === null){
+        return(
+            <div>
+                Please Login
+            </div>
+        )
+    } else {
     return (
     
-     
        
         <div className="App">
        
@@ -279,14 +282,14 @@ export default class  NewCircuit extends React.Component{
 
                 <Grid.Row>
                   <Grid.Column width={3}>
-                    Input option Container is to rendered here
+                    <InputOptionsContainer gates={this.state.gates} />
                   </Grid.Column>
                   <Grid.Column width={10}>
                     Waveforms are to be rendered here. may be with a waveform container
                   </Grid.Column>
                   <Grid.Column width={3}>
                     <div id="errors-container">
-                      <ErrorsContainer />
+                      <ErrorsContainer inputGates={this.state.inputGates} />
                     </div>
                   </Grid.Column>
                 </Grid.Row>
@@ -300,7 +303,8 @@ export default class  NewCircuit extends React.Component{
       
     );
     }
-  //}
+    }
+  
 
 }
 
@@ -315,4 +319,3 @@ export default class  NewCircuit extends React.Component{
       //   console.log('Clause 2', (wireRectRight > gateLeft))
       //   console.log('Clause 3', (wireRectTop < gateBottom))
       //   console.log('Clause 4', (wireRectBottom > gateTop))
- 

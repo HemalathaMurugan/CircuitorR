@@ -4,7 +4,7 @@
     "password": null,
     "logging": true,
     "database": "sequelize_migrations",
-    "host": "127.0.0.1",
+    "host": "database.sqlite",
     "dialect": "sqlite"
   },
   "test": {
@@ -12,7 +12,7 @@
     "password": null,
     "logging": true,
     "database": "database_test",
-    "host": "127.0.0.1",
+    "host": "database.sqlite",
     "dialect": "sqlite"
   },
   "production": {
@@ -20,7 +20,7 @@
     "password": null,
     "logging": true,
     "database": "database_production",
-    "host": "127.0.0.1",
+    "host": "database.sqlite",
     "dialect": "sqlite"
   }
 }

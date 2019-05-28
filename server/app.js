@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const express = require("express")
 const cors = require('cors');
 const bodyParser = require("body-parser")// this will convert to json file
-const port = 3002
+//const port = 3002
 const faker = require("faker");
 // const server = http.createServer(app);
 // const http = require('http');
@@ -77,6 +77,14 @@ app.post('/login', (req, res) => {
     })
 })
 
+app.post('/circuits/:id/gates', (req, res)=> {
+    Circuit.findOne({ where: {id : req.params.id}})
+    .then( circuit => {
+        req.body.id 
+    })
+
+})
+
 app.post ('/users', (req, res) => {
     let user = User.build(req.body)
     user.password = req.body.password
@@ -88,6 +96,41 @@ app.post ('/users', (req, res) => {
     })
 })
 
+
+
+
+app.get('/circuits', (req, res) => {
+    Circuit.findAll() 
+    .then(circuits=> res.json(circuits))
+})
+//post or create a new circuit
+app.post('/circuits', async (req, res) => {
+    // console.log(req.body.gates)
+   let gates = req.body.gates
+   let wires = req.body.wires
+   console.log("I am here"+ gates)
+   console.log("I am here" + wires)
+   let circuit = await Circuit.create({built: req.body.built, saved: req.body.saved})
+    //console.log(circuit)
+   gates.forEach( gate => {
+        // Gate.create
+       let newGate = Gate.create({fixedInput1: gate.fixedInput1, fixedInput2: gate.fixedInput2,
+                     locationX: gate.location.x, locationY: gate.location.y } )
+           newGate.setCircuit(circuit)  //many belongs to one association        
+   })
+   wires.forEach( wire => {
+       let newWire = Wire.create({InputID: wire.inputID, OutputID: wire.outputID})
+       newWire.setWire(circuit)  
+   })
+    console.log('Successfuly created!')
+})
+ 
+
+//to update the circuit
+// app.patch('/circuits/:id', async (req, res) => {
+//     let circuit = await Circuit.findByPk(req.params.id)
+//     circuit.update(req.body)
+// })
 
 io.on('connection', function (socket) {  //wait for a connection
     socket.on('gateDrop', function (data) { //socket.on evenetlistener is gonna wait for the gatedrop from that particular socket(a client connection that did gateDrop) that made the connection 

@@ -7,7 +7,7 @@ export default class extends React.Component {
         const { x, y, width, height, bT, bR, bL, bB } = this.props
         //passing borders as props so as to display the borders depending upon the positions of input and output gate
         return(
-            <div
+            <div className="wire"
                 id="existing-wire"
                 style={{
                 position:'absolute',

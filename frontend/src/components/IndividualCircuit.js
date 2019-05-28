@@ -5,10 +5,18 @@ import React from 'react';
 
 export default class IndividualCircuit extends React.Component{
     render(){
+        if(localStorage.getItem('token') === null){
+            return(
+                <div>
+                    Please Login
+                </div>
+            )
+        } else {
         return(
             <div>
                 IndividualCircuit Show page:
             </div>
         )
+        }
     }
 }
