@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom'
 import MenuButton from './MenuButton'
 
 export default class NavBar extends React.Component{
+    logout = () =>{
+        localStorage.clear()
+    }
     render(){
         return(
             <div>
@@ -46,7 +49,7 @@ export default class NavBar extends React.Component{
 
                     <div>
                         <Link to="/"> 
-                        <button className="tiny ui inverted red basic button" onClick={null} type="submit">Logout</button>
+                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">Logout</button>
                         //yet to modify this to forget the token
                         </Link>
                     </div>

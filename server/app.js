@@ -38,15 +38,15 @@ const sequelize = new Sequelize({
 //index -> users
 app.get('/users', (req, res) =>{
     User.findAll({
-       include:[{
-                model: Circuit
-            },
-            {
-                model: Gate
-            },
-            {
-                model: Wire
-            }]
+    //    include:[{
+    //             model: Circuit
+    //         },
+    //         {
+    //             model: Gate
+    //         },
+    //         {
+    //             model: Wire
+    //         }]
     }).then(users => res.json(users))
 })
 
@@ -77,13 +77,6 @@ app.post('/login', (req, res) => {
     })
 })
 
-app.post('/circuits/:id/gates', (req, res)=> {
-    Circuit.findOne({ where: {id : req.params.id}})
-    .then( circuit => {
-        req.body.id 
-    })
-
-})
 
 app.post ('/users', (req, res) => {
     let user = User.build(req.body)
@@ -97,12 +90,18 @@ app.post ('/users', (req, res) => {
 })
 
 
+app.get('/circuits/:id', (req, res) => {
+    Circuit.findByPk(req.params.id)
+    .then( circuit => res.json(circuit))
+})
 
 
+//index of circuits
 app.get('/circuits', (req, res) => {
     Circuit.findAll() 
     .then(circuits=> res.json(circuits))
 })
+
 //post or create a new circuit
 app.post('/circuits', async (req, res) => {
     // console.log(req.body.gates)
@@ -122,9 +121,11 @@ app.post('/circuits', async (req, res) => {
        let newWire = Wire.create({InputID: wire.inputID, OutputID: wire.outputID})
        newWire.setWire(circuit)  
    })
-    console.log('Successfuly created!')
+    console.log('Successfully saved!')
 })
- 
+
+
+
 
 //to update the circuit
 // app.patch('/circuits/:id', async (req, res) => {
