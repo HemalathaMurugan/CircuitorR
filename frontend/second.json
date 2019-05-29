@@ -30,6 +30,7 @@
       "fixedInput1": 0,
       "fixedInput2": 1
     }
+    
   ],
   "wires": [
     {

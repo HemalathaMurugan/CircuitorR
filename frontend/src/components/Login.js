@@ -44,6 +44,7 @@ export default class Login extends React.Component{
           localStorage.setItem('token', user.token) 
           localStorage.setItem('username', username)
           localStorage.setItem('email', email)
+          localStorage.setItem('userId', user.id)
           console.log(localStorage)
         //   localStorage.setItem('token', user.token)
           //this.props.history.push('/')

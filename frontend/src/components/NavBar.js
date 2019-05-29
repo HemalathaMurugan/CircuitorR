@@ -16,6 +16,8 @@ export default class NavBar extends React.Component{
     logout = () =>{
         localStorage.clear()
     }
+
+
     render(){
         return(
             <div>
@@ -44,14 +46,14 @@ export default class NavBar extends React.Component{
                     </div>
 
                     <div>
-                        Logged in as //modify this to show the current username
+                        <Link to="/"> 
+                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">Logout</button>
+                        
+                        </Link>
                     </div>
 
                     <div>
-                        <Link to="/"> 
-                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">Logout</button>
-                        //yet to modify this to forget the token
-                        </Link>
+                        {localStorage.username}'s CircuitorR
                     </div>
                 
                     </Modal.Header>

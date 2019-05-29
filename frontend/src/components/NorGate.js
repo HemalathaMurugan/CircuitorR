@@ -6,7 +6,7 @@ export default class NorGate extends React.Component {
         return(
             <div>
                 <img    id="existing-nor"
-                        src={require('../assets/nor.png')} alt="HTML5"
+                        src={require('../assets/nor1.png')} alt="HTML5"
                         style={{width: "70px",position:"absolute", height:"50px", top: this.props.location.y, left: this.props.location.x}}
                  />
             </div>

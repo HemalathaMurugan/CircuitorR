@@ -115,7 +115,7 @@ export default class  NewCircuit extends React.Component{
       }
       window.socket.emit("gateDrop", gate)
       console.log(gate.id)
-      fetch('http://localhost:3000/gates',{
+      fetch('http://localhost:80/gates',{
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

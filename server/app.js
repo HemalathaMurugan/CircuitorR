@@ -89,6 +89,25 @@ app.post ('/users', (req, res) => {
     })
 })
 
+//to get the circuits belong to one user
+app.get('/my/circuits', (req, res) => {
+    console.log('HERE')
+    const [ _, token ] = req.headers.authorization.split(' ')
+    let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
+    console.log(id)
+    Circuit.findAll()
+    .then(circuits => {
+        let userCircuits = []
+        circuits.forEach( circuit =>{
+            console.log(`${circuit.userId}`, id)
+            if(`${circuit.userId}` === `${id}`){
+                userCircuits.push(circuit)
+            }
+        })
+        
+        res.json(userCircuits)
+    })
+})
 
 app.get('/circuits/:id', (req, res) => {
     Circuit.findByPk(req.params.id)
@@ -100,6 +119,11 @@ app.get('/circuits/:id', (req, res) => {
 app.get('/circuits', (req, res) => {
     Circuit.findAll() 
     .then(circuits=> res.json(circuits))
+})
+
+app.get('/gates', (req, res) => {
+    Gate.findAll()
+    .then(gates => res.json(gates) )
 })
 
 //post or create a new circuit
@@ -125,6 +149,11 @@ app.post('/circuits', async (req, res) => {
 })
 
 
+
+//to get one particular circuit that belongs to a particular user
+app.get('./users/:userId/circuits/:circuitId', (req, res)=> {
+
+})
 
 
 //to update the circuit
