@@ -249,7 +249,7 @@ export default class extends React.Component {
 
        console.log(this.props)
         return (
-            <div id="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>
+            <div name="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>
                 {this.renderExorGates(this.props.gates)}
                 {this.renderExnorGates(this.props.gates)}
                 {this.renderNorGates(this.props.gates)}

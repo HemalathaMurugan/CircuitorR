@@ -3,7 +3,7 @@ import React from 'react'
 export default class NotGate extends React.Component {
     
     render(){
-        let numberOfInputs = 2
+        let numberOfInputs = 1
         let numberOfUserInputs = numberOfInputs - this.props.inputWires.length;
         let selectBoxes = []
         for(let i = 1; i <= numberOfUserInputs; i++){

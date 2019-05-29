@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import Circuit from '../components/Circuit'
-import NewCircuit from '../components/NewCircuit'
+import NewCircuit from '../components/IndividualCircuit'
 import ErrorsContainer from './ErrorsContainer';
 import {Popup} from 'semantic-ui-react'
 
@@ -34,29 +34,18 @@ export default class CircuitContainer extends Component {
     //that one is gonna give a direct output
       const inputGates = this.props.wires.map((wire) => wire.inputID) //this is the inputgate of that particular wire
       const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
-      console.log('inputGates IDs: ',inputGates)
-      console.log('outputGates: ', outputGates)
+      
       let opvalues = [];
       let opvalue = null;
-      let opwire = null;
-      // if(this.props.wires.length>0 && this.props.gates.length>0){
-          outputGates.forEach((gate)=> {
+      outputGates.forEach((gate)=> {
+          let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
           
-              let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
-              
-              opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
-              opvalues.push(opvalue)
-              console.log('Output Values: ', opvalues)
-              
-              //return opvalue
-          })
-          // if (!opvalue){
-          //   return '0'
-          // } else {
-          //   return '1'
-          // }
+          opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
+          opvalues.push(opvalue)
+      })
+      
      console.log('opvalue', opvalue)
-    return opvalue
+    return opvalue ? 1 : 0
   }
 
   getSignal = (wire) => {
@@ -74,7 +63,9 @@ export default class CircuitContainer extends Component {
     if (inputWire2 !== undefined) value2 = this.getSignal(inputWire2)
     else value2 = gate.fixedInput2
     
-console.log('Values', gate, value1, value2)
+    value1 = value1 ? 1 : 0
+    value2 = value2 ? 1 : 0
+
     if (gate.type === "and") {
       return value1 && value2
     } else if (gate.type === "or") {
@@ -94,7 +85,7 @@ console.log('Values', gate, value1, value2)
 
   handleClick = (e) => {
     console.log('Current posotion check:::',e.clientX, e.clientY)
-    // onClick = {(e)=>this.handleClick(e)}>
+    // onClick = {(e)=>this.handleClick(e)}> mousepointer
   }
 
 

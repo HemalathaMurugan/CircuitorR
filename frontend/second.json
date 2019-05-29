@@ -3,73 +3,44 @@
     {
       "type": "or",
       "location": {
-        "x": 84,
-        "y": 137.84375
+        "x": 111,
+        "y": 208.84375
       },
       "fixedInput1": 0,
       "fixedInput2": 0,
       "id": 1
     },
     {
-      "type": "and",
+      "type": "nand",
       "location": {
-        "x": 94,
-        "y": 343.84375
+        "x": 122,
+        "y": 440.84375
       },
       "fixedInput1": 0,
       "fixedInput2": 0,
       "id": 2
     },
     {
-      "type": "not",
+      "type": "exnor",
       "location": {
-        "x": 316,
-        "y": 259.84375
+        "x": 399,
+        "y": 349.84375
       },
       "fixedInput1": 0,
       "fixedInput2": 0,
       "id": 3
-    },
-    {
-      "type": "nor",
-      "location": {
-        "x": 89,
-        "y": 500.84375
-      },
-      "fixedInput1": 0,
-      "fixedInput2": 0,
-      "id": 4
-    },
-    {
-      "type": "exor",
-      "location": {
-        "x": 44,
-        "y": 248.84375
-      },
-      "fixedInput1": 0,
-      "fixedInput2": 0,
-      "id": 5
-    },
-    {
-      "type": "exnor",
-      "location": {
-        "x": 379,
-        "y": 446.84375
-      },
-      "fixedInput1": 0,
-      "fixedInput2": 0,
-      "id": 6
-    },
-    {
-      "type": "nand",
-      "location": {
-        "x": 388,
-        "y": 370.84375
-      },
-      "fixedInput1": 0,
-      "fixedInput2": 0,
-      "id": 7
     }
   ],
-  "wires": []
+  "wires": [
+    {
+      "id": 1,
+      "inputID": 2,
+      "outputID": 3
+    },
+    {
+      "id": 2,
+      "inputID": 1,
+      "outputID": 3
+    }
+  ]
 }

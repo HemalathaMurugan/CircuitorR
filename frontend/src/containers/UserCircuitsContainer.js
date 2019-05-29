@@ -57,10 +57,7 @@ export default class UserCircuitsContainer extends React.Component{
         } else {
         return(
             <div>
-                 A particular user who has logged in when clicks and land here on this page
-                They should be able to circuit cards of all their own circuits
-                //to write a method to get all the circuits that belong this particular user who is logged in}
-                
+                <h3>CircuitorR History of   {`${localStorage.username}`}</h3>
                 {this.state.userCircuits.map( circuit => {
                     return (<CircuitCard circuit={circuit}/>)
                 })}
@@ -70,3 +67,7 @@ export default class UserCircuitsContainer extends React.Component{
         }
     }
 }
+
+// A particular user who has logged in when clicks and land here on this page
+// They should be able to circuit cards of all their own circuits
+// //to write a method to get all the circuits that belong this particular user who is logged in}

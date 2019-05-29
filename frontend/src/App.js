@@ -5,9 +5,12 @@ import Home from './components/Home';
 import NavBar from './components/NavBar';
 import NewUser from './components/NewUser';
 import UserCircuitsContainer from './containers/UserCircuitsContainer';
-import IndividualCircuit from './components/IndividualCircuit';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import NewCircuit from './components/NewCircuit';
+import IndividualCircuit from './components/IndividualCircuit';
+import CircuitShowPage from './components/CircuitShowPage';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+
 
 
 //window.socket = io('http://localhost:80/');
@@ -46,6 +49,8 @@ export default class App extends Component {
               <Route exact path="/circuits" component={UserCircuitsContainer} />
               <Route exact path="/circuits/:id" component={IndividualCircuit} />
               <Route exact path="/newcircuit" component={NewCircuit} />
+              <Route exact path="/circuits/:id" component={CircuitShowPage} />
+             
           </Switch>
       </Router>
       )
