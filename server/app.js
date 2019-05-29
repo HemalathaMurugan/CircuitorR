@@ -104,8 +104,8 @@ app.get('/my/circuits', (req, res) => {
                 userCircuits.push(circuit)
             }
         })
-        
-        res.json(userCircuits)
+
+         res.json(userCircuits)
     })
 })
 
@@ -124,6 +124,27 @@ app.get('/circuits', (req, res) => {
 app.get('/gates', (req, res) => {
     Gate.findAll()
     .then(gates => res.json(gates) )
+})
+
+//get gates that belong to a particular circuit
+app.get('/my/circuits/:id/gates', (req, res) => {
+    //const [ _, token ] = req.headers.authorization.split(' ')
+    //let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
+    
+    Gate.findAll()
+    .then(gates => {
+       // res.json(gates)
+       let userGates = []
+       
+       gates.forEach( gate =>{
+        console.log(`${gate.circuitId}`, `${req.params.id}`)
+            if(`${gate.circuitId}`===`${req.params.id}`){
+                userGates.push(gate)
+            }
+       })
+       console.log(userGates)
+       res.json(userGates)
+     })
 })
 
 //post or create a new circuit
@@ -149,10 +170,9 @@ app.post('/circuits', async (req, res) => {
 })
 
 
-
 //to get one particular circuit that belongs to a particular user
 app.get('./users/:userId/circuits/:circuitId', (req, res)=> {
-
+    
 })
 
 

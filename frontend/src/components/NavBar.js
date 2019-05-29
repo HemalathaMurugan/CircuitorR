@@ -17,8 +17,15 @@ export default class NavBar extends React.Component{
         localStorage.clear()
     }
 
+    loginButtonName = () => {
+        let display = ""
+        localStorage.token===null ? display="Login" : display="Logout"
+        return display
+    }
 
     render(){
+        
+        
         return(
             <div>
                     <Modal.Header
@@ -33,28 +40,24 @@ export default class NavBar extends React.Component{
                     {/* <div>
                         <MenuButton/>
                     </div> */}
-                    <div>
-                    <Link to="/newcircuit">
-                            <button className="tiny ui inverted red basic button" type="submit">New Circuit</button>
-                    </Link>
-                    </div>
-
-                    <div>
                         <Link to="/">
                         <button className="tiny ui inverted red basic button" type="submit">Home</button>
                         </Link>
-                    </div>
-
-                    <div>
+                    
+                        <Link to="/newcircuit">
+                                <button className="tiny ui inverted red basic button" type="submit">New Circuit</button>
+                        </Link> 
+                    
+                   
                         <Link to="/"> 
-                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">Logout</button>
+                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">
+                           {this.loginButtonName()}
+                        </button>
                         
                         </Link>
-                    </div>
-
-                    <div>
-                        {localStorage.username}'s CircuitorR
-                    </div>
+                       
+                        Welcome {localStorage.username===null ? null: localStorage.username}!
+                    
                 
                     </Modal.Header>
                 </div>

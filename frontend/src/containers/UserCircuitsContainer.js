@@ -3,28 +3,46 @@
 
 import React from 'react';
 import { stringify } from 'querystring';
+import CircuitCard from '../components/CircuitCard';
 
 export default class UserCircuitsContainer extends React.Component{
     state = {
         userCircuits: [],
+        clickedCircuit: {},
         currentCircuitGates: [],
         currentCircuitWires: []
     }
 
    
     componentDidMount(){
-            fetch('http://localhost:80/my/circuits',{
+        
+            //get
+            fetch(`http://localhost:80/my/circuits`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
-            })
-            .then( res=> res.json())
-            .then (circuits => {
+            }).then(res=> res.json())
+            .then(circuits=> {
+
                 this.setState({
                     userCircuits: circuits
                 })
             })
+
+            //get
+            fetch(`http://localhost:80/my/circuits/:id/gates`,{
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            }).then(res=> res.json())
+            .then(gates => {
+
+                this.setState({
+                    currentCircuitGates: gates
+                })
+            })
     }
+
     
 
     render(){
@@ -39,10 +57,14 @@ export default class UserCircuitsContainer extends React.Component{
         } else {
         return(
             <div>
-                A particular user whi has logged in when clicks and land here on this page
+                 A particular user who has logged in when clicks and land here on this page
                 They should be able to circuit cards of all their own circuits
                 //to write a method to get all the circuits that belong this particular user who is logged in}
-
+                
+                {this.state.userCircuits.map( circuit => {
+                    return (<CircuitCard circuit={circuit}/>)
+                })}
+               
             </div>
         )
         }
