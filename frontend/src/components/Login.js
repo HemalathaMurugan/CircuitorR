@@ -59,6 +59,13 @@ export default class Login extends React.Component{
       }
 
     render(){
+          if(localStorage.getItem('token') !== null){
+            return(
+                <div>
+                    You are logged in
+                </div>
+            )
+        } else {
        
         return(
             <div className="login-form-container">
@@ -98,6 +105,7 @@ export default class Login extends React.Component{
         
 
     }
+  }
 
    
 }

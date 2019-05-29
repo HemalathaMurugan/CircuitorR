@@ -1,21 +1,27 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import CircuitShowPage from './CircuitShowPage';
+import IndividualCircuit from './IndividualCircuit'
+import { withRouter } from 'react-router-dom'
 
-export default class extends React.Component{
-    
-
-    handelClick = () => {
-        return (
-           
-                <Router>
-                    <Switch>
-                        <Route exact path="/circuits/:id" component={CircuitShowPage}/>
-                    </Switch>
-                </Router>
-           
-        )
+class CircuitCard extends React.Component{
+    state = {
+        currentCircuit: this.props.circuit,
+        clicked: false
     }
+
+    handleClick = () => {
+        // this.setState({
+        //     currentCircuit: {...this.state.currentCircuit, clicked: true}
+        // })
+        console.log('we are here')
+        //return <Route path={`/circuits/${this.props.circuit.id}`} render={() => <IndividualCircuit circuit={this.props.circuit} />} />
+        this.props.history.push({
+            pathname: `/circuits/${this.props.circuit.id}`,
+            state: { currentCircuit: this.props.circuit }
+          })
+    }
+   
 
     render(){
         console.log(this.props.circuit)
@@ -29,7 +35,7 @@ export default class extends React.Component{
                             You have saved a circuit on this card
                         </div>
                         </div>
-                        <div class="ui bottom attached button" onClick={()=>this.handelClick()}>
+                        <div class="ui bottom attached button" onClick={()=>this.handleClick()} >
                         <i class="add icon" ></i>
                         Click Here to view 
                         </div>
@@ -41,3 +47,5 @@ export default class extends React.Component{
     }
 
 }
+
+export default withRouter(CircuitCard)

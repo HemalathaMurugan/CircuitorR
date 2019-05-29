@@ -91,21 +91,17 @@ app.post ('/users', (req, res) => {
 
 //to get the circuits belong to one user
 app.get('/my/circuits', (req, res) => {
-    console.log('HERE')
+    //console.log('HERE')
     const [ _, token ] = req.headers.authorization.split(' ')
     let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
-    console.log(id)
-    Circuit.findAll()
+    //console.log(id)
+    Circuit.findAll({
+        where: {
+            userId: id
+        }
+    })
     .then(circuits => {
-        let userCircuits = []
-        circuits.forEach( circuit =>{
-            console.log(`${circuit.userId}`, id)
-            if(`${circuit.userId}` === `${id}`){
-                userCircuits.push(circuit)
-            }
-        })
-
-         res.json(userCircuits)
+        res.json(circuits)
     })
 })
 
@@ -121,28 +117,37 @@ app.get('/circuits', (req, res) => {
     .then(circuits=> res.json(circuits))
 })
 
+//to create a new circuit
+app.post('/my/circuits', async (req, res)=>{
+    Circuit.create({ built: false, saved: false})
+    .then( newCircuit => res.json(newCircuit))
+})
+
 app.get('/gates', (req, res) => {
     Gate.findAll()
     .then(gates => res.json(gates) )
 })
 
 //get gates that belong to a particular circuit of the current user
-app.get('/my/circuits/:id/gates', (req, res) => {
+app.get('/my/circuits/:id/gates', async (req, res) => {
     //const [ _, token ] = req.headers.authorization.split(' ')
     //let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
-    
+    console.log(req.params)
+    let circuit = await Circuit.findByPk(req.params.id)
+    let myGates = await circuit.getGates()
+    console.log(myGates)
     Gate.findAll()
     .then(gates => {
        // res.json(gates)
        let userGates = []
        
        gates.forEach( gate =>{
-        console.log(`${gate.circuitId}`, `${req.params.id}`)
+        //console.log(`${gate.circuitId}`, `${req.params.id}`)
             if(`${gate.circuitId}`===`${req.params.id}`){
                 userGates.push(gate)
             }
        })
-       console.log(userGates)
+       //console.log(userGates)
        res.json(userGates)
      })
 })
@@ -158,37 +163,41 @@ app.get('/my/circuits/:id/wires', (req, res) => {
        let userWires = []
        
        wires.forEach( wire =>{
-        console.log(`${wire.circuitId}`, `${req.params.id}`)
+        //console.log(`${wire.circuitId}`, `${req.params.id}`)
             if(`${wire.circuitId}`===`${req.params.id}`){
                 userWires.push(wire)
             }
        })
-       console.log(userWires)
+       //console.log(userWires)
        res.json(userWires)
      })
 })
 
 
 //post or create a new circuit
-app.post('/circuits', async (req, res) => {
-    // console.log(req.body.gates)
+app.post('/my/circuits', async (req, res) => {
+   const [ _, token ] = req.headers.authorization.split(' ')
+   let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
+    
    let gates = req.body.gates
    let wires = req.body.wires
-   console.log("I am here"+ gates)
-   console.log("I am here" + wires)
-   let circuit = await Circuit.create({built: req.body.built, saved: req.body.saved})
+   //console.log(id)
+   //console.log(" I am Here: GATES FROM REQ BODY", gates)
+   //console.log("I am here: WIRES FRON REQ BODY", wires)
+   let circuit = await Circuit.create({userId: id, built: req.body.built, saved: req.body.saved})
     //console.log(circuit)
-   gates.forEach( gate => {
+   gates.forEach( async gate => {
         // Gate.create
-       let newGate = Gate.create({fixedInput1: gate.fixedInput1, fixedInput2: gate.fixedInput2,
+       let newGate = await Gate.create({fixedInput1: gate.fixedInput1, fixedInput2: gate.fixedInput2,
                      locationX: gate.location.x, locationY: gate.location.y } )
            newGate.setCircuit(circuit)  //many belongs to one association        
    })
-   wires.forEach( wire => {
-       let newWire = Wire.create({InputID: wire.inputID, OutputID: wire.outputID})
-       newWire.setWire(circuit)  
+   wires.forEach( async wire => {
+       let newWire = await Wire.create({InputID: wire.inputID, OutputID: wire.outputID})
+       newWire.setCircuit(circuit)  
    })
-    console.log('Successfully saved!')
+    //console.log('Successfully saved!')
+  //  res.json()
 })
 
 

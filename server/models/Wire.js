@@ -38,12 +38,12 @@ class Wire extends Model {
 
 
 Wire.init({
-    InputID: {
-        type: DataTypes.STRING,
+    inputID: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
-    OutputID: {
-        type: DataTypes.STRING,
+    outputID: {
+        type: DataTypes.INTEGER,
         allowNull: false// Need alteration based on the output wire modification
     }
 },{

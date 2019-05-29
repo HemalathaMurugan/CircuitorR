@@ -4,16 +4,21 @@
 import React from 'react';
 import { stringify } from 'querystring';
 import CircuitCard from '../components/CircuitCard';
+import IndividualCircuit from '../components/NewCircuit';
 
 export default class UserCircuitsContainer extends React.Component{
     state = {
         userCircuits: [],
         clickedCircuit: {},
-        currentCircuitGates: [],
-        currentCircuitWires: []
+        //currentCircuitGates: [],
+        //currentCircuitWires: []
     }
 
-   
+   renderToIndividualCircuit = () => {
+       let ckt = this.state.userCircuits.find( circuit => circuit.clicked===true)
+       return (<IndividualCircuit circuit={ckt}/>)
+   }
+
     componentDidMount(){
         
             //get
@@ -29,18 +34,7 @@ export default class UserCircuitsContainer extends React.Component{
                 })
             })
 
-            //get
-            fetch(`http://localhost:80/my/circuits/:id/gates`,{
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            }).then(res=> res.json())
-            .then(gates => {
-
-                this.setState({
-                    currentCircuitGates: gates
-                })
-            })
+        
     }
 
     
@@ -48,6 +42,7 @@ export default class UserCircuitsContainer extends React.Component{
     render(){
        
         console.log(this.state.userCircuits)
+        //console.log(this.state.currentgates)
         if(localStorage.getItem('token') === null){
             return(
                 <div>
@@ -61,7 +56,8 @@ export default class UserCircuitsContainer extends React.Component{
                 {this.state.userCircuits.map( circuit => {
                     return (<CircuitCard circuit={circuit}/>)
                 })}
-               
+                {/* {this.renderToIndividualCircuit()} */}
+              {this.renderToIndividualCircuit()}
             </div>
         )
         }

@@ -14,11 +14,11 @@ module.exports = {
         allowNull: false,
       },
       fixedInput1: {
-        type: Sequelize.STRING.BINARY,
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       fixedInput2: {
-        type: Sequelize.STRING.BINARY,
+        type: Sequelize.INTEGER,
         allowNull: true
       },
       locationX: {

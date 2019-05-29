@@ -62,14 +62,14 @@ const Wire = require('./models/Wire')
     
     Wire.create({
         id:1 ,
-        InputID: gate1.id,
-        OutputID: gate3.id,
+        inputID: gate1.id,
+        outputID: gate3.id,
         circuitId: circuit1.id
     })
     Wire.create({
         id: 2,
-        InputID: gate2.id,
-        OutputID: gate3.id,
+        inputID: gate2.id,
+        outputID: gate3.id,
         circuitId: circuit1.id
     })
     // Wire.create({

@@ -76,7 +76,12 @@ Gate.init({
    locationY: {
         type: DataTypes.FLOAT,
         allowNull: false
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
+    
 
 },{
     sequelize,

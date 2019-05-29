@@ -11,11 +11,11 @@ module.exports = {
       },
       inputID: {
           allowNull: false,
-          type: Sequelize.STRING 
+          type: Sequelize.INTEGER 
           //a number. To set outputID to display at times , we have it as string instead of integer
       },
       outputID: {
-          type: Sequelize.STRING,
+          type: Sequelize.INTEGER,
           allowNull: false
       },
       circuitId:{

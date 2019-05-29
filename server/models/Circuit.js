@@ -58,9 +58,6 @@ Circuit.init({
 
 module.exports = Circuit
 
-sequelize.sync()
-//updates the database columns
-
 
 
 Circuit.hasMany(Gate, {as: 'Gates'})
@@ -70,6 +67,9 @@ Gate.belongsTo(Circuit, {foreignKey: 'circuitId'});
 // Wire.belongsToMany(User, { through: Circuit })
 Wire.belongsTo(Circuit, {foreignKey: 'circuitId'});
 User.hasMany(Circuit, {as: 'Circuits'}) //userId comes automatically
+
+sequelize.sync()
+//updates the database columns
 
 
 //if it has hasMany -> you dont have to mention belong to in the child class

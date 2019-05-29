@@ -37,30 +37,69 @@ export default class  NewCircuit extends React.Component{
   }
 
   componentDidMount() {
+    let circuitId;
+    console.log(this.props.location.state)
     let id = this.props.match.params.id
+   
+    console.log('alasfj;alksdjf;adfj;lakfe', circuitId)
     console.log('ID:',id)
     // window.socket.on("connection", () => {
       window.socket.on("renderGate", (gate) => {
         this.setState({ gates: [ ...this.state.gates, gate ]})
       })
     // })
-    fetch('http://localhost:3000/gates') //yet to change backend portnumber; Current port is json server
-      .then(res => res.json())
-      .then((gatesData) => {
-        console.log(gatesData)
-        this.setState({
-          gates: gatesData
-        })
-      })
+    //get
+    fetch(`http://localhost:80/my/circuits/${id}/gates`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res=> res.json())
+        .then(i_gates => {
+            let result = []
+            i_gates.forEach( gate=> {
+              let c_gate = {
+                id: gate.id,
+                type: gate.type,
+                fixedInput1: gate.fixedInput1,
+                fixedInput2: gate.fixedInput2,
+                location: {
+                  x: gate.locationX,
+                  y: gate.locationY
+                }
 
-    fetch('http://localhost:3000/wires') //yet to change backend portnumber; Current port is json server
-      .then(res => res.json())
-      .then((wiresData) => {
-        console.log(wiresData)
-        this.setState({
-          wires:  wiresData
+              }
+              result.push(c_gate)
+            })
+
+            this.setState({
+                gates: result
+            })
         })
-      })
+
+        fetch(`http://localhost:80/my/circuits/${id}/wires`,{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(res=> res.json())
+        .then(i_wires=> {
+
+            this.setState({
+                wires: i_wires
+            })
+        })
+
+    // fetch(`http://localhost:80/my/circuits/${circuitId}/wires`,{
+    //       headers: {
+    //         Authorization: `Bearer ${localStorage.getItem('token')}`
+    //       }
+    //       }) //yet to change backend portnumber; Current port is json server
+    //       .then(res => res.json())
+    //       .then((wiresData) => {
+    //         console.log(wiresData)
+    //         this.setState({
+    //           wires:  wiresData
+    //         })
+    //   })
   }
 
 
@@ -257,16 +296,16 @@ export default class  NewCircuit extends React.Component{
             this.setState({
                 gates: modifiedGates
             })
-        
-        // } else if(inputNumber === 2){
-        //     modifiedGates = this.state.gates.map( gate => 
-        //         gate.id ! ==
-        //         )
-        // }
     }
 
+    handleNewCircuit = () => {
+      
+    }
+
+
   render() {
-    
+    console.log('gates :',this.state.gates)
+    console.log('wires: ', this.state.wires)
     if(localStorage.getItem('token') === null){
         return(
             <div>

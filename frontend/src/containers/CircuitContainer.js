@@ -62,9 +62,9 @@ export default class CircuitContainer extends Component {
     else value1 = gate.fixedInput1
     if (inputWire2 !== undefined) value2 = this.getSignal(inputWire2)
     else value2 = gate.fixedInput2
-    
     value1 = value1 ? 1 : 0
     value2 = value2 ? 1 : 0
+    console.log('VALUES', gate, value1, value2)
 
     if (gate.type === "and") {
       return value1 && value2
@@ -122,22 +122,25 @@ export default class CircuitContainer extends Component {
   saveCircuit = () => {
     this.setState({ saved: true })
     console.log('you reached me')
-    fetch('http://localhost:80/circuits', {
+    fetch('http://localhost:80/my/circuits', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-type': 'application/json'
       },
       body: JSON.stringify({
         gates: this.props.gates,
         wires: this.props.wires,
         saved: this.state.saved,
-        built: this.state.built
+        built: this.state.built,
+        userId: localStorage.userId
       })
     })
   }
 
     render(){
-        console.log(this.props)
+        console.log(this.props.gates)
+        console.log(this.props.wires)
         return(
           <div className="circuit-container">
             <div>

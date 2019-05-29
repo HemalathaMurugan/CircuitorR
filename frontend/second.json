@@ -29,6 +29,26 @@
       "fixedInput1": 0,
       "fixedInput2": 0,
       "id": 3
+    },
+    {
+      "type": "or",
+      "location": {
+        "x": 26,
+        "y": 178.84375
+      },
+      "fixedInput1": 0,
+      "fixedInput2": 0,
+      "id": 4
+    },
+    {
+      "type": "or",
+      "location": {
+        "x": 18,
+        "y": 164.84375
+      },
+      "fixedInput1": 0,
+      "fixedInput2": 0,
+      "id": 5
     }
   ],
   "wires": [
@@ -41,6 +61,16 @@
       "id": 2,
       "inputID": 1,
       "outputID": 3
+    },
+    {
+      "id": 3,
+      "inputID": 4,
+      "outputID": 2
+    },
+    {
+      "id": 4,
+      "inputID": 2,
+      "outputID": 1
     }
   ]
 }
