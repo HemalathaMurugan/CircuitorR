@@ -17,7 +17,7 @@ export default class  NewCircuit extends React.Component{
   state = {
     gates: [],
     wires: [],
-    inputGates: [],
+   //inputGates: [],
     currentlyDraggingGate: {
       offsetX: 0,
       offsetY: 0,
@@ -42,7 +42,7 @@ export default class  NewCircuit extends React.Component{
         this.setState({ gates: [ ...this.state.gates, gate ]})
       })
     // })
-    fetch('http://localhost:3000/gates')
+    fetch('http://localhost:3000/gates') //yet to change backend portnumber; Current port is json server
       .then(res => res.json())
       .then((gatesData) => {
         console.log(gatesData)
@@ -51,7 +51,7 @@ export default class  NewCircuit extends React.Component{
         })
       })
 
-    fetch('http://localhost:3000/wires')
+    fetch('http://localhost:3000/wires') //yet to change backend portnumber; Current port is json server
       .then(res => res.json())
       .then((wiresData) => {
         console.log(wiresData)
@@ -60,6 +60,7 @@ export default class  NewCircuit extends React.Component{
         })
       })
   }
+
 
 
   handleDragStart = (e) => {
@@ -90,21 +91,17 @@ export default class  NewCircuit extends React.Component{
     handleDragEnd = (e) => {
       let circuit = document.getElementById("circuit-created")
       
-      console.log('Before:', e.pageX - circuit.getBoundingClientRect().x, e.clientY - circuit.getBoundingClientRect().y - this.state.currentlyDraggingGate.offsetY )
-      console.log(e.clientY)
-      console.log(e.clientX) 
-      console.log(circuit.getBoundingClientRect().y)
-      console.log(this.state.currentlyDraggingGate.offsetY)
+      
 
       let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDraggingGate.offsetY) + 52
 
       let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDraggingGate.offsetX)      
-      console.log('After: ', finalPositionX, finalPositionY)
+      
 
-      let newFixedInput1 = null;
-      let newFixedInput2 = null;
+      let newFixedInput1 = 0;
+      let newFixedInput2 = 0;
       const gate = {
-        "id": this.state.currentlyDraggingGate.id,
+       // "id": this.state.currentlyDraggingGate.id,
         "type": this.state.currentlyDraggingGate.gateType,
         "location": {
           "x": finalPositionX,
@@ -113,17 +110,21 @@ export default class  NewCircuit extends React.Component{
         "fixedInput1": newFixedInput1,
         "fixedInput2": newFixedInput2
       }
-      window.socket.emit("gateDrop", gate)
-      console.log(gate.id)
-      fetch('http://localhost:80/gates',{
+      
+     
+     
+      fetch('http://localhost:3000/gates',{
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
           Accept: 'application/json'
         },
         body: JSON.stringify(gate)
+      }).then(res => res.json())
+      .then( gate => {
+        window.socket.emit("gateDrop", gate)
       })
-      this.setState({ gates: [ ...this.state.gates, gate ]})
+      //this.setState({ gates: [ ...this.state.gates, gate ]})
 
       //I forgot the setState with the new gate initially. So it was showing up after reloading the page
       //reason being, update was happening on the backend only. So reload could render elements updates in db.json
@@ -240,7 +241,27 @@ export default class  NewCircuit extends React.Component{
   //Ideas for drawing wires: on drag of pointer -> create a rectangular div like the ones we did for wire 
   // and rightside edge and top/bottom(depending on the position of gates and pointers)could be moved 
   //like a dragging with right side edge increasing, can be shown as the pointer is dragged
-
+       
+    changeFixedInput = (gateID, inputNumber, value)=> {
+        console.log(value)
+        let modifiedGates = []
+        let inputFieldName = `fixedInput${inputNumber}`
+        let givenGate = this.state.gates.find( gate => gate.id===gateID)
+            givenGate[inputFieldName] = parseInt(value)
+        
+            modifiedGates = this.state.gates.map( gate => 
+            gate.id !== gateID ? gate : givenGate)
+            //givenGate.fixedInput1 = value
+            this.setState({
+                gates: modifiedGates
+            })
+        
+        // } else if(inputNumber === 2){
+        //     modifiedGates = this.state.gates.map( gate => 
+        //         gate.id ! ==
+        //         )
+        // }
+    }
 
   render() {
     
@@ -275,7 +296,7 @@ export default class  NewCircuit extends React.Component{
                   </Grid.Column>
                   <Grid.Column width={13}>
                     <div className="ui container" >
-                      <CircuitContainer gates={this.state.gates} wires={this.state.wires}/>
+                      <CircuitContainer changeFixedInput={this.changeFixedInput} gates={this.state.gates} wires={this.state.wires}/>
                     </div>
                   </Grid.Column>
                 </Grid.Row>

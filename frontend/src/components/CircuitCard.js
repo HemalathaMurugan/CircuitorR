@@ -13,7 +13,7 @@ export default class extends React.Component{
                         </div>
                         </div>
                         <div class="ui bottom attached button">
-                        <i class="add icon" onClick={()=>{console.log('got here')}}></i>
+                        <i class="add icon" onClick={()=>{console.log('yet to reach circuit show page')}}></i>
                         Click Here to view 
                         </div>
                     </div>

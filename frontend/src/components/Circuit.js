@@ -47,7 +47,12 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "and")
             .map((gate, index) =>
-                <AndGate  actualGate={gate} id={gate.id} location={gate.location} />
+                <AndGate     actualGate={gate}
+                             id={gate.id} 
+                             location={gate.location} 
+                             inputWires={this.findInputWiresFor(gate)}
+                             changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -58,7 +63,13 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "or")
             .map((gate, index) =>
-                <OrGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
+                <OrGate key={index}
+                        actualGate={gate}
+                        id={gate.id} 
+                        location={gate.location}
+                        inputWires={this.findInputWiresFor(gate)}
+                        changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -70,7 +81,13 @@ export default class extends React.Component {
 
         return gates.filter((gate) => gate.type === "nand")
             .map((gate, index) =>
-                <NandGate key={index} actualGate={gate} id={gate.id} location={gate.location} />
+                <NandGate   key={index}
+                            actualGate={gate}
+                            id={gate.id}
+                            location={gate.location} 
+                            inputWires={this.findInputWiresFor(gate)}
+                            changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -81,7 +98,12 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "not")
             .map((gate, index) =>
-                <NotGate actualGate={gate} id={gate.id} location={gate.location} />
+                <NotGate actualGate={gate}
+                         id={gate.id}
+                         location={gate.location} 
+                         inputWires={this.findInputWiresFor(gate)}
+                         changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -92,7 +114,11 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "nor")
             .map((gate, index) =>
-                <NorGate actualGate={gate} id={gate.id} location={gate.location} />
+                <NorGate actualGate={gate}
+                         id={gate.id} location={gate.location}
+                         inputWires={this.findInputWiresFor(gate)}
+                         changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -104,7 +130,12 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "exor")
             .map((gate, index) =>
-                <ExorGate actualGate={gate} id={gate.id} location={gate.location} />
+                <ExorGate   actualGate={gate} 
+                            id={gate.id}
+                            location={gate.location} 
+                            inputWires={this.findInputWiresFor(gate)}
+                            changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -117,7 +148,12 @@ export default class extends React.Component {
         } else{
         return gates.filter((gate) => gate.type === "exnor")
             .map((gate, index) =>
-                <ExnorGate actualGate={gate} id={gate.id} location={gate.location} />
+                <ExnorGate  actualGate={gate}
+                            id={gate.id}
+                            location={gate.location}
+                            inputWires={this.findInputWiresFor(gate)}
+                            changeFixedInput={this.props.changeFixedInput}
+                />
             )
         }
     }
@@ -203,13 +239,15 @@ export default class extends React.Component {
         }
     }
 
+    findInputWiresFor(gate){
+        return this.props.wires.filter( wire => wire.outputID === gate.id)
+    }
 
+   
 
     render() {
 
-        //this.el = document.createElement("div");
-        // const {children} = this.props;
-        // return ReactDOM.createCircuit(children, this.el)
+       console.log(this.props)
         return (
             <div id="circuit-created" style={{ position: 'absolute', width: '100%', height: '100%'}}>
                 {this.renderExorGates(this.props.gates)}
@@ -223,14 +261,6 @@ export default class extends React.Component {
             </div>
         )
 
-        // return(
-        //     <div>
-
-        //         {/* {this.renderAndGates()} */}
-        //         <OrGate ors={this.props.OrGates} />
-        //         <NotGate nots={this.props.NotGates} />
-        //         <Wire wires = {this.props.wires} />
-        //     </div>
-        // )
+       
     }
 }

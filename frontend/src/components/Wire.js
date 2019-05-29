@@ -24,9 +24,9 @@ export default class extends React.Component {
                 left: x,
                 top: y,
                 width: width,
-                height: height
-                // backgroundColor: color,
-                //height: 0
+                height: height,
+                pointerEvents: 'none'
+                //because the wire element overalpped the select options. When none, it fixed the issue
                 
                 }}
                 //all the above code is just to display the wire.

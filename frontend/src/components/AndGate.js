@@ -14,13 +14,27 @@ export default class AndGate extends React.Component {
     // }
 
     render(){
+        console.log(this.props)
+        let numberOfInputs = 2
+        let numberOfUserInputs = numberOfInputs - this.props.inputWires.length;
+        let selectBoxes = []
+        for(let i = 1; i <= numberOfUserInputs; i++){
+            let key = `fixedInput${i}`
+            selectBoxes.push(
+                <select value={this.props.actualGate[key]} style={{ zIndex: 1000}} onChange={ e => this.props.changeFixedInput(this.props.id, i, e.target.value)}>
+                    <option>0</option>
+                    <option>1</option>
+                </select>
+            )
+        }
         return(
-            <div>
+            <div style={{position: "absolute",  top: this.props.location.y, left: this.props.location.x}}>
                 <img    id="existing-and"
                         src={require('../assets/and2.png')} alt="HTML5"
-                        style={{position: "absolute", width: "70px", height:"50px", top: this.props.location.y, left: this.props.location.x}}
+                        style={{width: "70px", height:"50px"}}
                     
                  />
+                 {selectBoxes}
             </div>
         )
     }

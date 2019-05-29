@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import Circuit from '../components/Circuit'
+import NewCircuit from '../components/NewCircuit'
 import ErrorsContainer from './ErrorsContainer';
 import {Popup} from 'semantic-ui-react'
 
@@ -35,18 +36,16 @@ export default class CircuitContainer extends Component {
       const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
       console.log('inputGates IDs: ',inputGates)
       console.log('outputGates: ', outputGates)
-      let opwires = [];
       let opvalues = [];
       let opvalue = null;
       let opwire = null;
       // if(this.props.wires.length>0 && this.props.gates.length>0){
           outputGates.forEach((gate)=> {
           
-              opwire = this.props.wires.find((wire)=> wire.outputID === gate.id)
-              opwires.push(opwire)
-              opvalue = this.getSignal(opwire)
+              let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
+              
+              opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
               opvalues.push(opvalue)
-              console.log('Ouput Wires: ', opwires)
               console.log('Output Values: ', opvalues)
               
               //return opvalue
@@ -56,7 +55,7 @@ export default class CircuitContainer extends Component {
           // } else {
           //   return '1'
           // }
-     
+     console.log('opvalue', opvalue)
     return opvalue
   }
 
@@ -68,18 +67,14 @@ export default class CircuitContainer extends Component {
   }
 
   performGateCalculation = (inputWire1, inputWire2, gate) => {
-    let value1 = null
-    let value2 = null
-    if (gate.fixedInput1 !== undefined && gate.fixedInput2 !== undefined) {
-      value1 = gate.fixedInput1
-      value2 = gate.fixedInput2
-    } else if(gate.fixedInput2 === undefined && gate.fixedInput1 !== undefined){
-        value1 = this.getSignal(inputWire1)
-    }else {
-      if (inputWire1 !== undefined) value1 = this.getSignal(inputWire1)
-      if (inputWire2 !== undefined) value2 = this.getSignal(inputWire2)
-    }
-
+    let value1 = 0
+    let value2 = 0
+    if (inputWire1 !== undefined) value1 = this.getSignal(inputWire1)
+    else value1 = gate.fixedInput1
+    if (inputWire2 !== undefined) value2 = this.getSignal(inputWire2)
+    else value2 = gate.fixedInput2
+    
+console.log('Values', gate, value1, value2)
     if (gate.type === "and") {
       return value1 && value2
     } else if (gate.type === "or") {
@@ -109,42 +104,19 @@ export default class CircuitContainer extends Component {
     console.log('got build click')
     let output;
     if((this.props.wires.length>0) && (this.props.gates.length>0)){
-       this.findInputGates();
+       //this.findInputGates();
        this.setState({
-         output: this.getCircuitOutput()
+         output: this.getCircuitOutput().toString()
        })
     //return <ErrorsContainer output={output}/>
     }
   }
 
-  chooseInput  = () => {
-    return(
-    <select name="inputs">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                           
-    </select>)
-  }
-
-  // findInputGates = () => {
-  //   // this.props.gates.forEach( gate => {
-  //   //   this.props.wires.forEach( wire => {
-  //   //     console.log(gate.location.x)
-  //   //    console.log(document.getElementById("existing-wire").getBoundingClientRect().x)
-  //   //   })
-  //   // })
-  // }
-
-  findInputGates = () =>{
-     let wires = document.getElementsByClassName("wire")
-     console.log(wires)
-     console.log(document.getElementsByClassName("wire"))
-    // for(let i=1; i < this.props.gates.length; i++){
-    //   for(let j=1; j <this.props.wires.length; j++){
-    //     this.props.gates[i].location.x
-    //     console.log()
-    //   }
-    // }
+  renderNewCircuit = () => {
+    return (
+      <NewCircuit changeFixedInput={this.props.changeFixedInput} /> 
+                
+    )
   }
 
   askInput = () => {
@@ -172,26 +144,17 @@ export default class CircuitContainer extends Component {
       })
     })
   }
-// {
-//       "id": 2,
-//       "type": "exor",
-//       "location": {
-//         "x": 355.6875,
-//         "y": 225.53125
-//       },
-//       "fixedInput1": null,
-//       "fixedInput2": null
-//     },
+
     render(){
-        
+        console.log(this.props)
         return(
           <div className="circuit-container">
             <div>
-              {/* {this.askInput()} */}
-                <Circuit gates={this.props.gates} wires={this.props.wires}  
+             
+                <Circuit changeFixedInput={this.props.changeFixedInput} gates={this.props.gates} wires={this.props.wires}  
                 /> 
                 <br></br>
-                
+                {()=>this.renderNewCircuit()}
             </div>
             <div class="topcorner">
                   
