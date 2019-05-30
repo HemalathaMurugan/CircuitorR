@@ -157,7 +157,8 @@ export default class  NewCircuit extends React.Component{
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
-          Accept: 'application/json'
+          Accept: 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(gate)
       }).then(res => res.json())
@@ -269,7 +270,7 @@ export default class  NewCircuit extends React.Component{
       headers: {
         'Content-type': 'application/json',
         Accept: 'application/json',
-        //Authorization: `Bearer ${localStorage.token}`
+        Authorization: `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(newWire)
     })

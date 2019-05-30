@@ -119,7 +119,9 @@ app.get('/circuits', (req, res) => {
 
 //to create a new circuit
 app.post('/my/circuits', async (req, res)=>{
-    Circuit.create({ built: false, saved: false})
+    const [ _, token ] = req.headers.authorization.split(' ')
+    let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
+    Circuit.create({ built: false, saved: false, userId: id})
     .then( newCircuit => res.json(newCircuit))
 })
 
@@ -173,6 +175,7 @@ app.get('/my/circuits/:id/wires', (req, res) => {
 
 //edit i.e., clicking a circuit card and adding gates to it
 app.post('/my/circuits/:id/gates', (req, res) => {
+
     Gate.create({
         type: req.body.type,
         fixedInput1: req.body.fixedInput1,
