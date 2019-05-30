@@ -45,7 +45,16 @@ export default class  NewCircuit extends React.Component{
     console.log('ID:',id)
     // window.socket.on("connection", () => {
       window.socket.on("renderGate", (gate) => {
-        this.setState({ gates: [ ...this.state.gates, gate ]})
+        let newGate = {
+          type: gate.type,
+          fixedInput1: gate.fixedInput1,
+          fixedInput2: gate.fixedInput2,
+          location: {
+            x: gate.locationX,
+            y: gate.locationY
+          }
+        }
+        this.setState({ gates: [ ...this.state.gates, newGate ]})
       })
     // })
     //get
@@ -88,18 +97,6 @@ export default class  NewCircuit extends React.Component{
             })
         })
 
-    // fetch(`http://localhost:80/my/circuits/${circuitId}/wires`,{
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem('token')}`
-    //       }
-    //       }) //yet to change backend portnumber; Current port is json server
-    //       .then(res => res.json())
-    //       .then((wiresData) => {
-    //         console.log(wiresData)
-    //         this.setState({
-    //           wires:  wiresData
-    //         })
-    //   })
   }
 
 
@@ -141,6 +138,7 @@ export default class  NewCircuit extends React.Component{
 
       let newFixedInput1 = 0;
       let newFixedInput2 = 0;
+      let id = this.props.match.params.id
       const gate = {
        // "id": this.state.currentlyDraggingGate.id,
         "type": this.state.currentlyDraggingGate.gateType,
@@ -150,11 +148,12 @@ export default class  NewCircuit extends React.Component{
         },
         "fixedInput1": newFixedInput1,
         "fixedInput2": newFixedInput2
+        
       }
       
      
-     
-      fetch('http://localhost:3000/gates',{
+      
+      fetch(`http://localhost:80/my/circuits/${id}/gates`,{
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -164,8 +163,11 @@ export default class  NewCircuit extends React.Component{
       }).then(res => res.json())
       .then( gate => {
         window.socket.emit("gateDrop", gate)
+          
+         // this.setState({ gates: [ ...this.state.gates, newGate ]})
+        
       })
-      //this.setState({ gates: [ ...this.state.gates, gate ]})
+      
 
       //I forgot the setState with the new gate initially. So it was showing up after reloading the page
       //reason being, update was happening on the backend only. So reload could render elements updates in db.json
@@ -261,12 +263,13 @@ export default class  NewCircuit extends React.Component{
     this.setState({
       wires: [...this.state.wires, newWire]
     })
-
-    fetch('http://localhost:3000/wires', {
+    let id = this.props.match.params.id
+    fetch(`http://localhost:80/my/circuits/${id}/wires`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
+        //Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify(newWire)
     })
@@ -298,9 +301,9 @@ export default class  NewCircuit extends React.Component{
             })
     }
 
-    handleNewCircuit = () => {
-      
-    }
+    // handleNewCircuit = () => {
+    //   fetch('http://localhost')
+    // }
 
 
   render() {

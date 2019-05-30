@@ -132,10 +132,8 @@ app.get('/gates', (req, res) => {
 app.get('/my/circuits/:id/gates', async (req, res) => {
     //const [ _, token ] = req.headers.authorization.split(' ')
     //let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
-    console.log(req.params)
     let circuit = await Circuit.findByPk(req.params.id)
     let myGates = await circuit.getGates()
-    console.log(myGates)
     Gate.findAll()
     .then(gates => {
        // res.json(gates)
@@ -160,7 +158,7 @@ app.get('/my/circuits/:id/wires', (req, res) => {
     Wire.findAll()
     .then(wires => {
        // res.json(gates)
-       let userWires = []
+       let userWires = []//ask josh how to have jwt token authorization here ???
        
        wires.forEach( wire =>{
         //console.log(`${wire.circuitId}`, `${req.params.id}`)
@@ -172,6 +170,28 @@ app.get('/my/circuits/:id/wires', (req, res) => {
        res.json(userWires)
      })
 })
+
+//edit i.e., clicking a circuit card and adding gates to it
+app.post('/my/circuits/:id/gates', (req, res) => {
+    Gate.create({
+        type: req.body.type,
+        fixedInput1: req.body.fixedInput1,
+        fixedInput2: req.body.fixedInput2,
+        locationX: req.body.location.x,
+        locationY: req.body.location.y,
+        circuitId: req.params.id
+    }).then(newGate => res.json(newGate))
+})
+
+//edit i.e., clicking a circuit card and adding wires to it
+app.post('/my/circuits/:id/wires', (req, res) => {
+    Wire.create({
+        inputID: req.body.inputID,
+        outputID: req.body.outputID,
+        circuitId: req.params.id
+    }).then(newWire => res.json(newWire) )
+})
+
 
 
 //post or create a new circuit
