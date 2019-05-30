@@ -34,27 +34,34 @@ export default withRouter(class NavBar extends React.Component{
                             color: "white"
                         }}
                     >
-                    <div className="logo">
-                             <img />       
-                    </div>
-                    {/* <div>
-                        <MenuButton/>
-                    </div> */}
+                        <div className="logo">
+                                <img />       
+                        </div>
+                        {/* <div>
+                            <MenuButton/>
+                        </div> */}
+
+                    
                         <Link to="/">
                         <button className="tiny ui inverted red basic button" type="submit">Home</button>
                         </Link>
                     
                         <button onClick={this.newCircuit} className="tiny ui inverted red basic button" type="submit">New Circuit</button>
-                    
+
+                        <Link to="/circuits">
+                        <button className="tiny ui inverted red basic button" type="submit">My Circuits</button>
+                        </Link>
                    
                         <Link to="/"> 
-                        <button className="tiny ui inverted red basic button" onClick={this.logout} type="submit">
-                           {this.loginButtonName()}
-                        </button>
+                      
                         
                         </Link>
                        
                         Welcome {localStorage.username===null ? null: localStorage.username}!
+
+                        <button class="tiny ui inverted red basic right floated button"  onClick={this.logout} type="submit">
+                           {this.loginButtonName()}
+                        </button>
                     
                 
                     </Modal.Header>

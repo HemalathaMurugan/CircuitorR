@@ -3,7 +3,7 @@
 
 import React from 'react';
 
-export default class IndividualCircuit extends React.Component{
+export default class NewCircuit extends React.Component{
     render(){
         if(localStorage.getItem('token') === null){
             return(
@@ -14,9 +14,11 @@ export default class IndividualCircuit extends React.Component{
         } else {
         return(
             <div>
-                NewCircuit Page
+                
             </div>
         )
         }
     }
 }
+//for some reason the content returned on this div kept appearing along with '/circuits' page .
+//Removed the text content for now. Check whats going on.

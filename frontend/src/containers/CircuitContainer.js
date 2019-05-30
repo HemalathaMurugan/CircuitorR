@@ -153,14 +153,15 @@ export default class CircuitContainer extends Component {
             <div class="topcorner">
                   
                 <div class="ui buttons">
-                    <button class="ui labeled icon button">
-                      <i class="left chevron icon"></i>
-                      Undo
-                    </button>
                     <button onClick={this.handleBuild} class="ui button">
                       <i class="stop icon"></i>
                       Build
                     </button>
+                    {/* <button class="ui labeled icon button">
+                      <i class="left chevron icon"></i>
+                      Undo
+                    </button>
+                    
                     <button class="ui button" onClick={()=>this.saveCircuit()}>
                       <i class="save icon"></i>
                       Save 
@@ -168,8 +169,8 @@ export default class CircuitContainer extends Component {
                     <button class="ui right labeled icon button">
                       Redo
                       <i class="right chevron icon"></i>
-                    </button>
-                  </div>
+                    </button>*/}
+                  </div> 
                   
                   <div >
                     Output: {this.state.output ? this.state.output : null}
