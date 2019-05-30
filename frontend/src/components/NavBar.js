@@ -70,7 +70,7 @@ export default withRouter(class NavBar extends React.Component{
                         <button className="tiny ui inverted red basic button" type="submit">My Circuits</button>
                         </Link>
 
-                                <div class="tiny ui iverted red basic floating dropdown labeled search icon button" onClick={this.toggleActiveRooms}>
+                                <div class="tiny ui inverted red basic floating dropdown labeled search icon button" onClick={this.toggleActiveRooms}>
                                     
                                     <span class="text">Circuits active Now</span>
                                     {

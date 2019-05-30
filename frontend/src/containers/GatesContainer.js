@@ -7,8 +7,8 @@ import React, {Component} from 'react';
 export default class GatesContainer extends Component{
     render(){
         return(
-            <div id="gates-container">Users can choose from these options
-              
+            <div id="gates-container">
+                <h5>Pick up a Gate and drop --> THERE</h5>
                 <img    id="or"
                         draggable = "true" 
                         style={{height:"50px", width:"70px", padding: "0px"}}
@@ -109,7 +109,7 @@ export default class GatesContainer extends Component{
                 WIRE
                 <br></br>
                 
-
+                <h5>Use this wire to connect them</h5>
             </div>
         )
     }

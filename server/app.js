@@ -182,7 +182,7 @@ app.post('/my/circuits/:id/gates', (req, res) => {
         fixedInput2: req.body.fixedInput2,
         locationX: req.body.location.x,
         locationY: req.body.location.y,
-        circuitId: req.params.id
+        circuitId: req.params.id//to remember that this gate belongs to current circuit
     }).then(newGate => {
         io.emit("renderGate", newGate)
         res.json(newGate)
@@ -194,7 +194,7 @@ app.post('/my/circuits/:id/wires', (req, res) => {
     Wire.create({
         inputID: req.body.inputID,
         outputID: req.body.outputID,
-        circuitId: req.params.id
+        circuitId: req.params.id//to remember that this wire belongs to current circuit
     }).then(newWire => {
         io.emit('renderWire', newWire)
         res.json(newWire) 

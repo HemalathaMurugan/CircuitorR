@@ -285,17 +285,20 @@ export default class  NewCircuit extends React.Component{
       circuitId: id
     }
     console.log(newWire)
-    this.setState({
-      wires: [...this.state.wires, newWire]
-    })
+   
 
     if( 
       [null, undefined].includes(newWire.inputID)
         ||
       [null, undefined].includes(newWire.outputID)
+      ||
+      (newWire.inputID===newWire.outputID)
     ){
       return
     }
+    this.setState({
+      wires: [...this.state.wires, newWire]
+    })
     
     fetch(`http://localhost:80/my/circuits/${id}/wires`, {
       method: 'POST',

@@ -40,7 +40,7 @@ export default class CircuitContainer extends Component {
       //outputGates.forEach((gate)=> {
       if(outputGates.length > 1){
         alert('Invalid Circuit')
-        return 0
+        return 'NOPE! That was Invalid.Start a New Circuit Please'
       }
       let gate = outputGates[0]
         let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
@@ -164,10 +164,10 @@ export default class CircuitContainer extends Component {
                     </button>
                     {/* <button class="ui labeled icon button">
                       <i class="left chevron icon"></i>
-                      Undo
-                    </button>
+                      Start again
+                    </button> */}
                     
-                    <button class="ui button" onClick={()=>this.saveCircuit()}>
+                    {/* <button class="ui button" onClick={()=>this.saveCircuit()}>
                       <i class="save icon"></i>
                       Save 
                     </button>
@@ -175,7 +175,7 @@ export default class CircuitContainer extends Component {
                       Redo
                       <i class="right chevron icon"></i>
                     </button>*/}
-                  </div> 
+                  </div>  
                   
                   <div >
                     Output: {this.state.output ? this.state.output : null}
