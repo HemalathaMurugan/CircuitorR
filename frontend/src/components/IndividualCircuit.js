@@ -46,6 +46,7 @@ export default class  NewCircuit extends React.Component{
     // window.socket.on("connection", () => {
       window.socket.on("renderGate", (gate) => {
         let newGate = {
+          id: gate.id,
           type: gate.type,
           fixedInput1: gate.fixedInput1,
           fixedInput2: gate.fixedInput2,
@@ -55,6 +56,14 @@ export default class  NewCircuit extends React.Component{
           }
         }
         this.setState({ gates: [ ...this.state.gates, newGate ]})
+      })
+      window.socket.on('renderWire', (wire)=> {
+        let newWire = {
+          id: wire.id,
+          inputID: wire.inputID,
+          outputID: wire.outputID
+        }
+        this.setState({ wires: [...this.state.wires, newWire]})
       })
     // })
     //get
@@ -273,6 +282,9 @@ export default class  NewCircuit extends React.Component{
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
       body: JSON.stringify(newWire)
+    }).then( res => res.json())
+    .then( wire => {
+      window.socket.emit("wireDrop", wire)
     })
   }
     
@@ -302,9 +314,7 @@ export default class  NewCircuit extends React.Component{
             })
     }
 
-    // handleNewCircuit = () => {
-    //   fetch('http://localhost')
-    // }
+    
 
 
   render() {

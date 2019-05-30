@@ -183,7 +183,10 @@ app.post('/my/circuits/:id/gates', (req, res) => {
         locationX: req.body.location.x,
         locationY: req.body.location.y,
         circuitId: req.params.id
-    }).then(newGate => res.json(newGate))
+    }).then(newGate => {
+        io.emit("renderGate", newGate)
+        res.json(newGate)
+    })
 })
 
 //edit i.e., clicking a circuit card and adding wires to it
@@ -192,7 +195,10 @@ app.post('/my/circuits/:id/wires', (req, res) => {
         inputID: req.body.inputID,
         outputID: req.body.outputID,
         circuitId: req.params.id
-    }).then(newWire => res.json(newWire) )
+    }).then(newWire => {
+        io.emit('renderWire', newWire)
+        res.json(newWire) 
+    })
 })
 
 
@@ -238,10 +244,15 @@ app.get('./users/:userId/circuits/:circuitId', (req, res)=> {
 
 io.on('connection', function (socket) {  //wait for a connection
     socket.on('gateDrop', function (data) { //socket.on evenetlistener is gonna wait for the gatedrop from that particular socket(a client connection that did gateDrop) that made the connection 
-        io.emit("renderGate", data)// once the gatedrop happens its gonna renderGate to all the sockets that are on now
+        // once the gatedrop happens its gonna renderGate to all the sockets that are on now
       });
   });
 
+  io.on('connection', function(socket){
+      socket.on('wireDrop', function(data){
+        
+      })
+  })
 
 
 
