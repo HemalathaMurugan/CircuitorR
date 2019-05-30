@@ -45,6 +45,7 @@ export default class  NewCircuit extends React.Component{
     console.log('ID:',id)
     // window.socket.on("connection", () => {
       window.socket.on("renderGate", (gate) => {
+        
         let newGate = {
           id: gate.id,
           type: gate.type,
@@ -55,7 +56,11 @@ export default class  NewCircuit extends React.Component{
             y: gate.locationY
           }
         }
-        this.setState({ gates: [ ...this.state.gates, newGate ]})
+        // console.log("WHY IS THERE SO MUCH STUUUUUUFFFFFF")
+        // console.log(gate.circuitId, id)
+        if (gate.circuitId === id) {
+          this.setState({ gates: [ ...this.state.gates, newGate ]})
+        }
       })
       window.socket.on('renderWire', (wire)=> {
         let newWire = {
@@ -139,7 +144,6 @@ export default class  NewCircuit extends React.Component{
       let circuit = document.getElementById("circuit-created")
       
       
-
       let finalPositionY = e.clientY - circuit.getBoundingClientRect().y -(2* this.state.currentlyDraggingGate.offsetY) + 52
 
       let finalPositionX = e.clientX - circuit.getBoundingClientRect().x - (2* this.state.currentlyDraggingGate.offsetX)      
@@ -156,7 +160,8 @@ export default class  NewCircuit extends React.Component{
           "y": finalPositionY
         },
         "fixedInput1": newFixedInput1,
-        "fixedInput2": newFixedInput2
+        "fixedInput2": newFixedInput2,
+        "circuitId": id
         
       }
       
@@ -263,17 +268,19 @@ export default class  NewCircuit extends React.Component{
 
   handleWireDragEnd = (e) => {
     console.log('got here- wire drag ENDS')
+    let id = this.props.match.params.id
     let newID = this.state.wires.length + 1
     const newWire = {
       id: newID,
       inputID: this.state.currentlyDraggingWire.inputID,
-      outputID: this.state.currentlyDraggingWire.outputID
+      outputID: this.state.currentlyDraggingWire.outputID,
+      circuitId: id
     }
     console.log(newWire)
     this.setState({
       wires: [...this.state.wires, newWire]
     })
-    let id = this.props.match.params.id
+    
     fetch(`http://localhost:80/my/circuits/${id}/wires`, {
       method: 'POST',
       headers: {
