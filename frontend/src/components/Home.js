@@ -14,8 +14,8 @@ export default class Home extends React.Component{
       
       <div>
         <div class="ui centered card">
-            <div class="image">
-              <img src="/images/avatar2/large/elyse.png" />
+            <div className="image">
+              <img src="../assets/logo.png" />
             </div>
             <div class="content">
               <a class="header">My circuitor</a>

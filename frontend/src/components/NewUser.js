@@ -14,9 +14,13 @@ export default class NewUser extends React.Component {
             )
         } else {
         return(
-            <div className="new-user-form-container">
+           
+            <div style={{}}className="ui inverted segment">
+            
+            <div class="ui inverted form">
                 <h1>Create a New Account</h1>
-                <form>
+                <body style={{textAlign: "center"}}>
+                <form style={{display: "inline-block"}}>
                 <div class="new-user-form">
                     <label for="username"><b>Username</b></label><br/>
                     <input type="text" placeholder="Enter Username" name="username" required/>
@@ -32,6 +36,8 @@ export default class NewUser extends React.Component {
                     <button button className="tiny ui inverted red basic button" type="submit">Submit</button>
                 </div>
                 </form>
+                </body>
+            </div>
             </div>
         )
         }

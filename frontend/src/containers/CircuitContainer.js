@@ -37,12 +37,17 @@ export default class CircuitContainer extends Component {
       
       let opvalues = [];
       let opvalue = null;
-      outputGates.forEach((gate)=> {
-          let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
-          
-          opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
-          opvalues.push(opvalue)
-      })
+      //outputGates.forEach((gate)=> {
+      if(outputGates.length > 1){
+        alert('Invalid Circuit')
+        return 0
+      }
+      let gate = outputGates[0]
+        let [ inputWire1, inputWire2] = this.props.wires.filter((wire)=> wire.outputID === gate.id)
+        
+        opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
+        opvalues.push(opvalue)
+      //})
       
      console.log('opvalue', opvalue)
     return opvalue ? 1 : 0

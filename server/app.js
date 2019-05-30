@@ -241,18 +241,19 @@ app.get('./users/:userId/circuits/:circuitId', (req, res)=> {
 //     let circuit = await Circuit.findByPk(req.params.id)
 //     circuit.update(req.body)
 // })
-
+const rooms = {}
 io.on('connection', function (socket) {  //wait for a connection
     socket.on('gateDrop', function (data) { //socket.on evenetlistener is gonna wait for the gatedrop from that particular socket(a client connection that did gateDrop) that made the connection 
         // once the gatedrop happens its gonna renderGate to all the sockets that are on now
-      });
-  });
-
-  io.on('connection', function(socket){
-      socket.on('wireDrop', function(data){
-        
-      })
-  })
+    });
+    socket.on('wireDrop', function(data){
+    
+    })
+    socket.on("connectToRoom", circuitID => rooms[circuitID] = true)
+    socket.on("getActiveRooms", (whatever, response) => {
+        response(rooms)
+    })
+});
 
 
 

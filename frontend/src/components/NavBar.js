@@ -13,8 +13,21 @@ import { Link, withRouter } from 'react-router-dom'
 import MenuButton from './MenuButton'
 
 export default withRouter(class NavBar extends React.Component{
+    state={
+        activeRooms: [],
+        activeRoomsChecker: false
+    }
+
+    componentDidMount() {
+        window.socket.emit("getActiveRooms", {}, response => {
+            this.setState({activeRooms: Object.keys(response)})
+            console.log(response)
+        })
+    }
+
     logout = () =>{
         localStorage.clear()
+        this.props.history.push('/login')
     }
 
     loginButtonName = () => {
@@ -23,9 +36,14 @@ export default withRouter(class NavBar extends React.Component{
         return display
     }
 
+    toggleActiveRooms = () => {
+        this.setState({activeRoomsChecker: !this.state.activeRoomsChecker})
+    }
+
     render(){
-        
-        
+        console.log(this.state.activeRooms)
+        console.log(this.state.activeRoomsChecker)
+        let path = window.location.href.split('/').pop()
         return(
             <div>
                     <Modal.Header
@@ -51,15 +69,28 @@ export default withRouter(class NavBar extends React.Component{
                         <Link to="/circuits">
                         <button className="tiny ui inverted red basic button" type="submit">My Circuits</button>
                         </Link>
-                   
-                        <Link to="/"> 
-                      
-                        
-                        </Link>
-                       
+
+                                <div class="tiny ui iverted red basic floating dropdown labeled search icon button" onClick={this.toggleActiveRooms}>
+                                    
+                                    <span class="text">Circuits active Now</span>
+                                    {
+                                        this.state.activeRoomsChecker
+                                        ?
+                                            this.state.activeRooms.map (room => {
+                                                return (
+                                                    <div class="item" onClick={()=>this.props.history.push(`/circuits/${room}`)} >
+                                                        <i style={{ visibility: path.includes(room) ? 'visible' : 'hidden' }} class="world icon"></i>{room}
+                                                    </div>
+                                                )
+                                            })
+                                        :
+                                            null
+                                    }
+                                </div>
+             
                         Welcome {localStorage.username===null ? null: localStorage.username}!
 
-                        <button class="tiny ui inverted red basic right floated button"  onClick={this.logout} type="submit">
+                        <button className="tiny ui inverted red basic right floated button"  onClick={this.logout} type="submit">
                            {this.loginButtonName()}
                         </button>
                     
@@ -88,3 +119,4 @@ export default withRouter(class NavBar extends React.Component{
         })
     }
 })
+

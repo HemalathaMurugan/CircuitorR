@@ -36,14 +36,22 @@ export default class  NewCircuit extends React.Component{
     }
   }
 
-  componentDidMount() {
-    let circuitId;
-    console.log(this.props.location.state)
-    let id = this.props.match.params.id
-   
-    console.log('alasfj;alksdjf;adfj;lakfe', circuitId)
+
+  componentDidMount(){
+    this.getCircuit(this.props.match.params.id)
+  }
+
+  componentWillReceiveProps(newProps){
+    if(this.props.match.params.id !== newProps.match.params.id){
+      this.getCircuit(newProps.match.params.id)
+    }
+  }
+
+  getCircuit(id) {
+    
     console.log('ID:',id)
     // window.socket.on("connection", () => {
+      window.socket.emit("connectToRoom", id)
       window.socket.on("renderGate", (gate) => {
         
         let newGate = {
@@ -280,6 +288,14 @@ export default class  NewCircuit extends React.Component{
     this.setState({
       wires: [...this.state.wires, newWire]
     })
+
+    if( 
+      [null, undefined].includes(newWire.inputID)
+        ||
+      [null, undefined].includes(newWire.outputID)
+    ){
+      return
+    }
     
     fetch(`http://localhost:80/my/circuits/${id}/wires`, {
       method: 'POST',
@@ -325,6 +341,9 @@ export default class  NewCircuit extends React.Component{
 
 
   render() {
+    // if (this.state.id !== this.props.params.match.id) {
+    //   fetchGatesandWires()
+    // }
     console.log('gates :',this.state.gates)
     console.log('wires: ', this.state.wires)
     if(localStorage.getItem('token') === null){
@@ -364,17 +383,17 @@ export default class  NewCircuit extends React.Component{
                 </Grid.Row>
 
                 <Grid.Row>
-                  <Grid.Column width={3}>
+                  {/* <Grid.Column width={3}>
                     <InputOptionsContainer gates={this.state.gates} />
-                  </Grid.Column>
-                  <Grid.Column width={10}>
+                  </Grid.Column> */}
+                  {/* <Grid.Column width={10}>
                     Waveforms are to be rendered here. may be with a waveform container
-                  </Grid.Column>
-                  <Grid.Column width={3}>
+                  </Grid.Column> */}
+                  {/* <Grid.Column width={3}>
                     <div id="errors-container">
                       <ErrorsContainer inputGates={this.state.inputGates} />
                     </div>
-                  </Grid.Column>
+                  </Grid.Column> */}
                 </Grid.Row>
               </Grid>
             </Segment>
