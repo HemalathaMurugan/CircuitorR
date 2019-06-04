@@ -22,7 +22,8 @@ export default class UserCircuitsContainer extends React.Component{
     componentDidMount(){
         
             //get
-            fetch(`http://localhost:80/my/circuits`,{
+             fetch(`http://localhost:80/my/circuits`,{
+                //fetch(`http://10.185.0.55:80/my/circuits`,{
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }

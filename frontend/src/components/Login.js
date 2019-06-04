@@ -10,8 +10,12 @@ import {
     Select,
     Modal
   } from "semantic-ui-react";
+  import { withRouter } from 'react-router-dom'
+  import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+  import NewUser from './NewUser'
+  
 
-export default class Login extends React.Component{
+ class Login extends React.Component{
     state = {
         username: '',
         password: '',
@@ -27,6 +31,7 @@ export default class Login extends React.Component{
        let email = e.target.email.value
        
        fetch('http://localhost:80/login',{
+        // fetch('http://10.185.0.55:80/login',{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -58,11 +63,25 @@ export default class Login extends React.Component{
         })
       }
 
+      handleNewAccHandle = () => 
+      {
+        return (
+          <Router>
+            <div className="new-account-form">
+              <Switch>
+                <Route exact path="/newuser" component={NewUser} ></Route>
+              </Switch>
+            </div>
+          </Router>
+        )
+      }
+
     render(){
+      console.log(this.props)
           if(localStorage.getItem('token') !== null){
             return(
                 <div>
-                    You are logged in
+                    You are logged in as {`${localStorage.username}`}
                 </div>
             )
         } else {
@@ -93,12 +112,15 @@ export default class Login extends React.Component{
                 <button button className="tiny ui inverted red basic button" type="submit" onSubmit={()=>this.handleLoginSubmit()}>Login</button>
                 <br/>
                 <h4>No Account Yet?</h4>
-                <Link to="/newaccount">
                 
-                <button button className="tiny ui inverted red basic button" type="submit" >Create New Account</button>
-                </Link>
               </div>
             </Form>
+                <div>
+
+                <Link to="/newuser">
+                <button button className="tiny ui inverted red basic button" type="submit" >Create New Account</button>
+                </Link>
+                </div>
             </Modal.Header>
           </div>
         );
@@ -109,3 +131,7 @@ export default class Login extends React.Component{
 
    
 }
+
+export default withRouter(Login);
+
+//onClick={()=>this.handleNewAccHandle()}

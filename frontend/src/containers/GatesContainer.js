@@ -87,7 +87,7 @@ export default class GatesContainer extends Component{
                 <img    id="nor"
                         draggable = "true" 
                         style={{height:"50px", width:"70px", padding: "0px"}}
-                        src={require('../assets/nor1.png')} 
+                        src={require('../assets/newNor.png')} 
                         onDragStart={(e)=>this.props.handleDragStart(e)}
                         onDragEnd={(e)=> this.props.handleDragEnd(e)}
                 />

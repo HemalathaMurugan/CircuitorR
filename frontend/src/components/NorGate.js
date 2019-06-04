@@ -18,7 +18,7 @@ export default class NorGate extends React.Component {
         return(
             <div style={{position: "absolute",  top: this.props.location.y, left: this.props.location.x}}>
                 <img    id="existing-nor"
-                        src={require('../assets/nor1.png')} alt="HTML5"
+                        src={require('../assets/newNor.png')} alt="HTML5"
                         style={{width: "70px", height:"50px"}}
                  />
                  {selectBoxes}

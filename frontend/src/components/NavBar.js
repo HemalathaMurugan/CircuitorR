@@ -88,8 +88,8 @@ export default withRouter(class NavBar extends React.Component{
                                     }
                                 </div>
              
-                        Welcome {localStorage.username===null ? null: localStorage.username}!
-
+                        {/* Welcome {localStorage.username===null ? null: localStorage.username}! */}
+                            Welcome to CircuitorR!
                         <button className="tiny ui inverted red basic right floated button"  onClick={this.logout} type="submit">
                            {this.loginButtonName()}
                         </button>
@@ -103,7 +103,9 @@ export default withRouter(class NavBar extends React.Component{
     }
 
     newCircuit = e => {
-        fetch('http://localhost:80/my/circuits', {
+       
+        //fetch('http://10.185.0.55:80/my/circuits', {
+            fetch('http://localhost:80/my/circuits', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,

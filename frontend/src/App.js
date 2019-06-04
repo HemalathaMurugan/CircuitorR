@@ -33,7 +33,9 @@ export default class App extends Component {
           <Router>
           <div className="App">
             <Switch>
-              <Route path="/" render={() => <Login saveToken={this.saveToken} />}/>
+              <Route exact path="/" render={() => <Login saveToken={this.saveToken} />}/>
+              <Route exact path="/newuser" component={NewUser} />
+
             </Switch>
           </div>
         </Router>

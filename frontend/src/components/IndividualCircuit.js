@@ -10,7 +10,8 @@ import ReactDOM from 'react-dom'
 import io from 'socket.io-client';
 
 
-window.socket = io('http://localhost:80/');
+ window.socket = io('http://localhost:80/');
+//window.socket = io('http://10.185.0.55:80/');
 
 export default class  NewCircuit extends React.Component{
    
@@ -41,6 +42,7 @@ export default class  NewCircuit extends React.Component{
     this.getCircuit(this.props.match.params.id)
   }
 
+  //clicked circuit path worked after refreshing. Fix:
   componentWillReceiveProps(newProps){
     if(this.props.match.params.id !== newProps.match.params.id){
       this.getCircuit(newProps.match.params.id)
@@ -81,6 +83,7 @@ export default class  NewCircuit extends React.Component{
     // })
     //get
     fetch(`http://localhost:80/my/circuits/${id}/gates`,{
+        //fetch(`http://10.185.0.55:80/my/circuits/${id}/gates`,{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -107,7 +110,8 @@ export default class  NewCircuit extends React.Component{
             })
         })
 
-        fetch(`http://localhost:80/my/circuits/${id}/wires`,{
+         fetch(`http://localhost:80/my/circuits/${id}/wires`,{
+          // fetch(`http://10.185.0.55:80/my/circuits/${id}/wires`,{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -175,7 +179,8 @@ export default class  NewCircuit extends React.Component{
       
      
       
-      fetch(`http://localhost:80/my/circuits/${id}/gates`,{
+       fetch(`http://localhost:80/my/circuits/${id}/gates`,{
+        //fetch(`http://10.185.0.55:80/my/circuits/${id}/gates`,{
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -195,7 +200,7 @@ export default class  NewCircuit extends React.Component{
       //I forgot the setState with the new gate initially. So it was showing up after reloading the page
       //reason being, update was happening on the backend only. So reload could render elements updates in db.json
       //setState would make the changes to appear in the frontend as well. Thats the advantage of setState. 
-      //We can update the changes both on the server and on the frontend with the use of fetch-post request and seState simultaneously
+      //We can update the changes both on the server and on the frontend with the use of fetch-post request and setState simultaneously
 
   }
 
@@ -301,6 +306,7 @@ export default class  NewCircuit extends React.Component{
     })
     
     fetch(`http://localhost:80/my/circuits/${id}/wires`, {
+      // fetch(`http://10.185.0.55:80/my/circuits/${id}/wires`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

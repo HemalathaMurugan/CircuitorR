@@ -104,7 +104,7 @@ export default class CircuitContainer extends Component {
        this.setState({
          output: this.getCircuitOutput().toString()
        })
-    //return <ErrorsContainer output={output}/>
+    //return <ErrorsContainer output={output}/> ---set error contents with or without linking particular error gate/wire
     }
   }
 
@@ -127,7 +127,8 @@ export default class CircuitContainer extends Component {
   saveCircuit = () => {
     this.setState({ saved: true })
     console.log('you reached me')
-    fetch('http://localhost:80/my/circuits', {
+     fetch('http://localhost:80/my/circuits', {
+      //fetch('http://10.185.0.55:80/my/circuits', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -162,19 +163,19 @@ export default class CircuitContainer extends Component {
                       <i class="stop icon"></i>
                       Build
                     </button>
-                    {/* <button class="ui labeled icon button">
+                    <button class="ui labeled icon button">
                       <i class="left chevron icon"></i>
-                      Start again
-                    </button> */}
+                      Undo
+                    </button>
                     
                     {/* <button class="ui button" onClick={()=>this.saveCircuit()}>
                       <i class="save icon"></i>
                       Save 
-                    </button>
-                    <button class="ui right labeled icon button">
-                      Redo
-                      <i class="right chevron icon"></i>
                     </button>*/}
+                    <button class="ui right labeled icon button">
+                      Reset
+                      <i class="right chevron icon"></i>
+                    </button>
                   </div>  
                   
                   <div >
