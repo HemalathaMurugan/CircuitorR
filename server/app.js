@@ -5,6 +5,7 @@ const express = require("express")
 const cors = require('cors');
 const bodyParser = require("body-parser")// this will convert to json file
 //const port = 3002
+const bcrypt = require('bcrypt')
 const faker = require("faker");
 // const server = http.createServer(app);
 // const http = require('http');
@@ -57,9 +58,13 @@ app.get('/users/:id', (req, res) =>{
 })
 
 //create users
-app.post('/users', async (req, res) => {
+app.post('/newuser', (req, res) => {
+    console.log("~~~~GOT HERE~~~~~")
+    console.log(req)
     bcrypt.hash(req.body.password, 10, (err, hash)=>{
-      User.create({username: req.body.username, password_digest: hash, email: req.body.email })
+      let newUser = User.build({username: req.body.username, password_digest: hash, email: req.body.email })
+      newUser.save()
+        .then(newUser => res.json(newUser))
     })   
 })
 

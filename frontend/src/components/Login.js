@@ -57,11 +57,7 @@ import {
         })
       }
     
-      handleChange = (e) => {
-        this.setState({
-          [e.target.username]: e.target.value
-        })
-      }
+      
 
       handleNewAccHandle = () => 
       {
