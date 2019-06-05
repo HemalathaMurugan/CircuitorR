@@ -9,7 +9,7 @@ import IndividualCircuit from '../components/NewCircuit';
 export default class UserCircuitsContainer extends React.Component{
     state = {
         userCircuits: [],
-        clickedCircuit: {},
+        XclickedCircuit: {},
         //currentCircuitGates: [],
         //currentCircuitWires: []
     }
@@ -38,7 +38,25 @@ export default class UserCircuitsContainer extends React.Component{
         
     }
 
-    
+    //if delete was clicked, state of that circuitcard would be -> deleteClicked: true
+    handleDeleteClickedCard = (passed_id) => {
+        console.log('got here - delete click handle ')
+       this.setState({ XclickedCircuit: this.state.userCircuits.find( circuit => circuit.id === passed_id)})
+       let updatedUserCircuits = this.state.userCircuits.filter( circuit => circuit.id!==passed_id)
+       this.setState({
+           userCircuits: updatedUserCircuits
+       })
+        fetch(`http://localhost:80/my/circuits/${passed_id}`,{
+            method: 'DELETE' ,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }   
+        }).then(res => res.json())
+        .then(json => {
+            return json;
+        })
+        console.log(this.state.userCircuits)
+    }
 
     render(){
        
@@ -55,7 +73,7 @@ export default class UserCircuitsContainer extends React.Component{
             <div>
                 <h3>CircuitorR History of   {`${localStorage.username}`}</h3>
                 {this.state.userCircuits.map( circuit => {
-                    return (<CircuitCard circuit={circuit}/>)
+                    return (<CircuitCard circuit={circuit} handleDeleteClickedCard={(id)=>this.handleDeleteClickedCard(id)}/>)
                 })}
                 {/* {this.renderToIndividualCircuit()} */}
               {this.renderToIndividualCircuit()}

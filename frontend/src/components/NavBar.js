@@ -88,8 +88,8 @@ export default withRouter(class NavBar extends React.Component{
                                     }
                                 </div>
              
-                        {/* Welcome {localStorage.username===null ? null: localStorage.username}! */}
-                            Welcome to CircuitorR!
+                        Welcome {localStorage.username===null ? null: localStorage.username}!
+                           
                         <button className="tiny ui inverted red basic right floated button"  onClick={this.logout} type="submit">
                            {this.loginButtonName()}
                         </button>

@@ -57,7 +57,7 @@ app.get('/users/:id', (req, res) =>{
     .then(user => res.json(user))
 })
 
-//create users
+//create new user account
 app.post('/newuser', (req, res) => {
     console.log("~~~~GOT HERE~~~~~")
     console.log(req)
@@ -128,6 +128,17 @@ app.post('/my/circuits', async (req, res)=>{
     let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
     Circuit.create({ built: false, saved: false, userId: id})
     .then( newCircuit => res.json(newCircuit))
+})
+
+//to delete a particular circuit
+app.delete('/my/circuits/:id', async (req, res) => {
+    const [_, token] = req.headers.authorization.split(' ')
+    let { id } = jwt.verify(token, '17eb365ddb4c387e1a9507e77bee1678')
+    Circuit.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then( (result) => res.json(result) )
 })
 
 app.get('/gates', (req, res) => {

@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 class CircuitCard extends React.Component{
     state = {
         currentCircuit: this.props.circuit,
-        clicked: false
+        deleteClicked: false
     }
 
     handleClick = () => {
@@ -22,9 +22,14 @@ class CircuitCard extends React.Component{
           })
     }
    
+    handleDeleteClick = () => {
+        this.setState({ deleteClicked: true})
+        this.props.handleDeleteClickedCard(this.props.circuit.id)
+    }
+   
 
     render(){
-        console.log(this.props.circuit)
+        //console.log(this.props.circuit)
         return(
             <div>
             <div class="ui cards">
@@ -32,7 +37,9 @@ class CircuitCard extends React.Component{
                         <div class="content">
                         <div class="header">Circuit {`${this.props.circuit.id}`}</div>
                         <div class="description">
-                            You have saved a circuit on this card
+                            You have saved this circuit <br></br> 
+                            Click here to delete it
+                            <button type="submit" id="delete-button" onClick={this.handleDeleteClick}>X</button>
                         </div>
                         </div>
                         <div class="ui bottom attached button" onClick={()=>this.handleClick()} >
