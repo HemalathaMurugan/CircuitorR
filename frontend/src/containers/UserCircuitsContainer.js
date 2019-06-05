@@ -10,8 +10,7 @@ export default class UserCircuitsContainer extends React.Component{
     state = {
         userCircuits: [],
         XclickedCircuit: {},
-        //currentCircuitGates: [],
-        //currentCircuitWires: []
+        
     }
 
    renderToIndividualCircuit = () => {
@@ -41,7 +40,7 @@ export default class UserCircuitsContainer extends React.Component{
     //if delete was clicked, state of that circuitcard would be -> deleteClicked: true
     handleDeleteClickedCard = (passed_id) => {
         console.log('got here - delete click handle ')
-       this.setState({ XclickedCircuit: this.state.userCircuits.find( circuit => circuit.id === passed_id)})
+       this.setState({ XclickedCircuit: this.state.userCircuits.find( circuit => circuit.id === passed_id)})//not used at all.
        let updatedUserCircuits = this.state.userCircuits.filter( circuit => circuit.id!==passed_id)
        this.setState({
            userCircuits: updatedUserCircuits
@@ -75,7 +74,7 @@ export default class UserCircuitsContainer extends React.Component{
                 {this.state.userCircuits.map( circuit => {
                     return (<CircuitCard circuit={circuit} handleDeleteClickedCard={(id)=>this.handleDeleteClickedCard(id)}/>)
                 })}
-                {/* {this.renderToIndividualCircuit()} */}
+               
               {this.renderToIndividualCircuit()}
             </div>
         )
@@ -83,6 +82,6 @@ export default class UserCircuitsContainer extends React.Component{
     }
 }
 
-// A particular user who has logged in when clicks and land here on this page
+// A particular user who has logged in when clicks and land here on this page:
 // They should be able to circuit cards of all their own circuits
 // //to write a method to get all the circuits that belong this particular user who is logged in}

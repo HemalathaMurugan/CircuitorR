@@ -18,7 +18,7 @@ export default class Exnorgate extends React.Component {
         return(
             <div style={{position: "absolute",  top: this.props.location.y, left: this.props.location.x}}>
                 <img    id="existing-exnor"
-                        src={require('../assets/xnor.png')} alt="HTML5"
+                        src={require('../assets/newXnor.png')} alt="HTML5"
                         style={{width: "70px", height:"50px"}}
                  />
                  {selectBoxes}

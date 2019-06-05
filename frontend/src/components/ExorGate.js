@@ -18,7 +18,7 @@ export default class ExorGate extends React.Component {
         return(
             <div style={{position: "absolute",  top: this.props.location.y, left: this.props.location.x}}>
                 <img    id="existing-and"
-                        src={require('../assets/exor1.png')} alt="HTML5"
+                        src={require('../assets/newExor.png')} alt="HTML5"
                         style={{ width: "70px", height:"50px"}}
                     
                  />

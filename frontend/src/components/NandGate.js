@@ -18,7 +18,7 @@ export default class NandGate extends React.Component {
         return(
             <div style={{position: "absolute",  top: this.props.location.y, left: this.props.location.x}}>
                 <img    id="existing-nand"
-                        src={require('../assets/nand.png')} alt="HTML5"
+                        src={require('../assets/newNand.png')} alt="HTML5"
                         style={{width: "70px", height:"50px"}}
                  />
                  {selectBoxes}
