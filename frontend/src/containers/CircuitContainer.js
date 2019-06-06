@@ -110,7 +110,34 @@ export default class CircuitContainer extends Component {
   }
 
   handleResetClick = () => {
+    fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/gates`,{
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        gates: []
+        
+      })
+    }).then( res => res.json())
+    .then(json => {
+      return json;
+    })
 
+    fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/wires`,{
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify({
+        wires: []
+        
+      })
+    }).then( res => res.json())
+    .then(json => {
+      return json;
+    })
+    this.props.settingStateAfterReset()
   }
 
  
@@ -183,7 +210,7 @@ export default class CircuitContainer extends Component {
                     </button>
                     <button class="ui right labeled icon button" onClick={this.handleResetClick}>
                       Reset
-                      <i class="right chevron icon"></i>
+                      <i class="right chevron icon" ></i>
                     </button>
                   </div>  
                   

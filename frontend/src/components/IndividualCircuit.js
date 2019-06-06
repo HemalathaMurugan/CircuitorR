@@ -321,7 +321,7 @@ export default class  IndividualCircuit extends React.Component{
       body: JSON.stringify(newWire)
     }).then( res => res.json())
     .then( newWire => {
-      //window.socket.emit("wireDrop", newWire)
+      //window.socket.emit("wireDrop", newWire) Moving this line above so that only valid wires get emitted
       this.setState({
         recentlyDropped: newWire //helps in detection for undo
       })
@@ -370,6 +370,13 @@ export default class  IndividualCircuit extends React.Component{
 
     }
 
+    settingStateAfterReset = () => {
+      this.setState({
+        gates: [],
+        wires: []
+      })
+    }
+
 
   render() {
     // if (this.state.id !== this.props.params.match.id) {
@@ -413,6 +420,7 @@ export default class  IndividualCircuit extends React.Component{
                                         wires={this.state.wires}
                                         currentCircuitId = {this.props.match.params.id}
                                         settingStateAfterUndo = {this.settingStateAfterUndo}
+                                        settingStateAfterReset = {this.settingStateAfterReset}
                         />
                     </div>
                   </Grid.Column>

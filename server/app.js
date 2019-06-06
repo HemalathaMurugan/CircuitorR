@@ -189,7 +189,7 @@ app.get('/my/circuits/:id/wires', (req, res) => {
      })
 })
 
-//edit i.e., clicking a circuit card and adding gates to it
+//edit i.e., clicking a circuit card and after opening the circuit adding gates to it with drag and drop
 app.post('/my/circuits/:id/gates', (req, res) => {
 
     Gate.create({
@@ -290,6 +290,40 @@ app.post('/my/circuits', async (req, res) => {
   //  res.json()
 })
 
+//reset button functionality through patch request;->deleting all the gates of that circuit
+app.patch('/my/circuits/:circuitId/gates', (req, res) => {
+    // Gate.findAll({
+    //     where:{
+    //         circuitID: req.params.circuitId
+    //     }
+    // }).then( gates => {
+    //     gates = req.body.gates //the body has nothing but empty array as gates
+    // })
+
+    Gate.destroy({
+        where: {
+            circuitID: req.params.circuitId
+        }
+    }).then( result => res.json(result))
+})
+
+
+//reset button functionality through patch request;->deleting all the wires of that circuit
+app.patch('/my/circuits/:circuitId/wires', (req, res) => {
+    // Wire.findAll({
+    //     where: {
+    //         circuitID: requestAnimationFrame.params.circuitId
+    //     }
+    // }).then( wires => {
+    //     wires = req.body.wires//the body has nothing but empty array as wires
+    // })
+
+    Wire.destroy({
+        where: {
+            circuitID: req.params.circuitId
+        }
+    }).then( result => res.json(result))
+})
 
 //----------------------------------------------------------
 const rooms = {}
