@@ -117,7 +117,9 @@ export default class CircuitContainer extends Component {
   handleUndoClick = (recentlyDropped) => {
     console.log('got here -> undo is clicked')
     //console.log(this.state.recentlyDropped)
-    if(!recentlyDropped.type){ //this means that it is a wire
+    if(recentlyDropped){
+      //It was throwing error before having the above conditional. 'Cannot read type of null'
+     if(!recentlyDropped.type){ //this means that it is a wire
       console.log('CONFIRM THAT IT IS A WIRE', recentlyDropped.id)
       fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/wires/${recentlyDropped.id}`, {
         method: 'DELETE',
@@ -143,6 +145,7 @@ export default class CircuitContainer extends Component {
      })
      this.props.settingStateAfterUndo("gate", recentlyDropped.id)
     }
+  }
   }
  
 

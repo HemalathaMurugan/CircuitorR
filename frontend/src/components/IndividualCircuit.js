@@ -37,12 +37,11 @@ export default class  IndividualCircuit extends React.Component{
     }
   }
 
-
+ //clicked circuit path worked after refreshing. Fix: following two methods
   componentDidMount(){
     this.getCircuit(this.props.match.params.id)
   }
 
-  //clicked circuit path worked after refreshing. Fix:
   componentWillReceiveProps(newProps){
     if(this.props.match.params.id !== newProps.match.params.id){
       this.getCircuit(newProps.match.params.id)
@@ -66,8 +65,8 @@ export default class  IndividualCircuit extends React.Component{
             y: gate.locationY
           }
         }
-        // console.log("WHY IS THERE SO MUCH STUUUUUUFFFFFF")
-        // console.log(gate.circuitId, id)
+       
+        // console.log('CHECKING MATCH',gate.circuitId, id)
         if (gate.circuitId === id) {
           this.setState({ gates: [ ...this.state.gates, newGate ]})
         }
@@ -80,8 +79,7 @@ export default class  IndividualCircuit extends React.Component{
         }
         this.setState({ wires: [...this.state.wires, newWire]})
       })
-    // })
-    //get
+   
     fetch(`http://localhost:80/my/circuits/${id}/gates`,{
         //fetch(`http://10.185.0.55:80/my/circuits/${id}/gates`,{
             headers: {
@@ -166,7 +164,7 @@ export default class  IndividualCircuit extends React.Component{
       let newFixedInput2 = 0;
       let id = this.props.match.params.id
       const gate = {
-       // "id": this.state.currentlyDraggingGate.id,
+       // "id": this.state.currentlyDraggingGate.id, //id will be automatically generated in sequelize
         "type": this.state.currentlyDraggingGate.gateType,
         "location": {
           "x": finalPositionX,
@@ -307,9 +305,10 @@ export default class  IndividualCircuit extends React.Component{
     ){
       return
     }
-    this.setState({
-      wires: [...this.state.wires, newWire]
-    })
+    window.socket.emit("wireDrop", newWire)
+    // this.setState({--->this line was creating two wires during every drop;Fix: moving websocket line above
+    //   wires: [...this.state.wires, newWire]
+    // })
     
     fetch(`http://localhost:80/my/circuits/${id}/wires`, {
       // fetch(`http://10.185.0.55:80/my/circuits/${id}/wires`, {
@@ -321,14 +320,12 @@ export default class  IndividualCircuit extends React.Component{
       },
       body: JSON.stringify(newWire)
     }).then( res => res.json())
-    .then( wire => {
-      window.socket.emit("wireDrop", wire)
+    .then( newWire => {
+      //window.socket.emit("wireDrop", newWire)
       this.setState({
-        recentlyDropped: wire
+        recentlyDropped: newWire //helps in detection for undo
       })
-    })
-
-    //helps in detection for undo
+    }) 
    
   }
     
