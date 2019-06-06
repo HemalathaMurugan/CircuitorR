@@ -1,0 +1,30 @@
+CIRCUIT CONTAINER: ERRORS AND NOTES 
+
+
+//--------------------
+// const outputWire = this.props.wires.find(wire => wire.outputID === "display")
+    // const outputValue = this.getSignal(outputWire)
+    // if (!outputValue) {
+    //   return "1"
+    // } else {
+    //   return "0"
+    // }----------------------- METHOD2 TO GET OUTPUT -WITHOUT "display" STRING IN THE OUTPUT ID PLACE
+    //------------------------- iterate though all wires . If any gate is there whose id is not in the inputId of the wire
+    //that one is gonna give a direct output
+    //-----------------------------------------
+  // renderIndividualCircuit = () => {
+  //   return (
+  //     <IndividualCircuit changeFixedInput={this.props.changeFixedInput} setRecentlyDropped={(type)=>this.setRecentlyDropped(type)} />             
+  //   )
+  // } ------------------------IndividualCircuit is the parent of circuitcontainer and gatesContainer
+  {/* <img src='../assets/dim.jpeg' class="visible content"/>
+                        <img src='../assets/bulbGlowing.svg' class="hidden content"/> */}
+//===================================================================
+USERCIRCUITSCONTAINER : ERRORS AND NOTES 
+
+//The circuits belonging to one particular user are to be rendered with this component 
+//This is like 'My circuits" page of the user 
+
+// A particular user who has logged in when clicks and land here on this page:
+// They should be able to circuit cards of all their own circuits
+// //to write a method to get all the circuits that belong this particular user who is logged in}

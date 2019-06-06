@@ -138,7 +138,7 @@ app.delete('/my/circuits/:id', async (req, res) => {
         where: {
             id: req.params.id
         }
-    }).then( (result) => res.json(result) )
+    }).then( result => res.json(result) )
 })
 
 app.get('/gates', (req, res) => {
@@ -205,6 +205,31 @@ app.post('/my/circuits/:id/gates', (req, res) => {
     })
 })
 
+//delete a gate if that is the most recently added item -> via clicking the undo button 
+app.delete('/my/circuits/:circuitId/gates/:gateId', async (req, res) => {
+    console.log('got here gate deletion')
+    // let gateToBeDeleted; -------METHOD1
+    // Gate.findAll({
+    //     limit: 1,
+    //     where: {
+    //         // I have no condition actually right now; Having this line for flexibility
+    //     },
+    //     order: [['createdAt', 'DESC']]
+    // }).then(function(gates){
+    //     //gates will be an array of only one gate
+    //     gateToBeDeleted = gates[0]
+    //     res.json()
+    // })----------------------------
+   
+        Gate.destroy({
+            where: {
+                id: req.params.gateId
+            }
+        }).then( result => res.json(result) )
+})
+
+
+
 //edit i.e., clicking a circuit card and adding wires to it
 app.post('/my/circuits/:id/wires', (req, res) => {
     Wire.create({
@@ -217,7 +242,27 @@ app.post('/my/circuits/:id/wires', (req, res) => {
     })
 })
 
+//delete a wire if thats the most recently added one; via undo
+app.delete('/my/circuits/:circuitId/wires/:wireId', async (req, res) => {
 
+    // console.log('got here wire deletion')-----METHOD1
+    // let wireToBeDeleted = {}
+    // Wire.findAll({
+    //     limit: 1,
+    //     where: {
+    //         //No conditions as of now. May be used for future enhancement
+    //     },
+    //     order: [['createdAt', 'DESC']] //will be an array with one wire since limited
+    // }).then(function(wire){
+    //     wireToBeDeleted = wires[0]
+    // })
+
+    Wire.destroy({
+        where: {
+            id: req.params.wireId
+        }
+    }).then( result => res.json(result))
+})
 
 //post or create a new circuit
 app.post('/my/circuits', async (req, res) => {
@@ -246,17 +291,7 @@ app.post('/my/circuits', async (req, res) => {
 })
 
 
-//to get one particular circuit that belongs to a particular user
-app.get('./users/:userId/circuits/:circuitId', (req, res)=> {
-    
-})
-
-
-//to update the circuit
-// app.patch('/circuits/:id', async (req, res) => {
-//     let circuit = await Circuit.findByPk(req.params.id)
-//     circuit.update(req.body)
-// })
+//----------------------------------------------------------
 const rooms = {}
 io.on('connection', function (socket) {  //wait for a connection
     socket.on('gateDrop', function (data) { //socket.on evenetlistener is gonna wait for the gatedrop from that particular socket(a client connection that did gateDrop) that made the connection 

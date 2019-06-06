@@ -102,7 +102,7 @@ const Wire = require('./models/Wire')
         
 // // //             let x_gap = 85 //since gate width is 70, lets maintain a gap of 85px in the x axis between gates
 // // //             let y_gap = 65 //gate height is 50 px. let the gap be 65px
-// // //             //creating 3 gates for eah user
+// // //             //creating 3 gates for each user
 // // //             for(let j=1;j<4;j++){
 // // //                 createGate({
 // // //                     id: j, 

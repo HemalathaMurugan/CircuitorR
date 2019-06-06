@@ -17,7 +17,7 @@ class CircuitCard extends React.Component{
         console.log('we are here')
         //return <Route path={`/circuits/${this.props.circuit.id}`} render={() => <IndividualCircuit circuit={this.props.circuit} />} />
         this.props.history.push({
-            pathname: `/circuits/${this.props.circuit.id}`,
+            pathname: `/circuits/${this.props.circuit.id}`,   //that hits the individualCircuit component
             state: { currentCircuit: this.props.circuit }
           })
     }

@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import Circuit from '../components/Circuit'
-import NewCircuit from '../components/IndividualCircuit'
+import IndividualCircuit from '../components/IndividualCircuit'
 import ErrorsContainer from './ErrorsContainer';
 import {Popup} from 'semantic-ui-react'
 
@@ -10,9 +10,17 @@ export default class CircuitContainer extends Component {
   state = {
     output: null,
     inputGates: [],
-    saved: false,
-    built: false
+    saved: false, //future usage: If user clicks save, the circuit can be found in my circuits. Otherwise No.
+    built: false, //future usage: If built -> coukld not be editted
+    
   }
+
+  
+  
+  getCircuitOutput = () => {
+      // setRecentlyDropped = (type) => {
+  //   this.setState({recentlyDropped: type})
+  // }  ---> this would be the solution if circuitcontainer was the parent of individualcircuit
   
   
   //Please dont remove the following comments at any cost!
@@ -21,23 +29,12 @@ export default class CircuitContainer extends Component {
   //because fetch was not complete. So this.props.wires and this.props.wires were undefined before the fetch even works.
   //so the ternary on the line where the function was invoked fixed the problem.
 
-  
-  getCircuitOutput = () => {
-    // const outputWire = this.props.wires.find(wire => wire.outputID === "display")
-    // const outputValue = this.getSignal(outputWire)
-    // if (!outputValue) {
-    //   return "1"
-    // } else {
-    //   return "0"
-    // }----------------------- METHOD2 TO GET OUTPUT -WITHOUT "display" STRING IN THE OUTPUT ID PLACE
-    //------------------------- iterate though all wires . If any gate is there whose id is not in the inputId of the wire
-    //that one is gonna give a direct output
       const inputGates = this.props.wires.map((wire) => wire.inputID) //this is the inputgate of that particular wire
       const outputGates = this.props.gates.filter((gate) => inputGates.includes(gate.id) === false )
       
       let opvalues = [];
       let opvalue = null;
-      //outputGates.forEach((gate)=> {
+    
       if(outputGates.length > 1){
         alert('Invalid Circuit')
         return 'NOPE! That was Invalid.Start a New Circuit Please'
@@ -47,14 +44,14 @@ export default class CircuitContainer extends Component {
         
         opvalue = this.performGateCalculation(inputWire1, inputWire2, gate)
         opvalues.push(opvalue)
-      //})
+      
       
      console.log('opvalue', opvalue)
     return opvalue ? 1 : 0
   }
 
   getSignal = (wire) => {
-    // console.log(wire)
+    
     const gate = this.props.gates.find(gate => gate.id === wire.inputID)
     const inputWires = this.props.wires.filter(wire => wire.outputID === gate.id)
     return this.performGateCalculation(inputWires[0], inputWires[1], gate)
@@ -108,71 +105,80 @@ export default class CircuitContainer extends Component {
     }
   }
 
-  renderNewCircuit = () => {
-    return (
-      <NewCircuit changeFixedInput={this.props.changeFixedInput} /> 
-                
-    )
+  handleHelpClick = () => {
+
   }
 
-  askInput = () => {
-    return (<i class="minus sign icon"
-               data-content="choose binary input" 
-               onClick={this.chooseInput} 
-               data-variation="mini"
-               data-position-left="200px"
-            ></i>)
+  handleResetClick = () => {
+
   }
 
-  saveCircuit = () => {
-    this.setState({ saved: true })
-    console.log('you reached me')
-     fetch('http://localhost:80/my/circuits', {
-      //fetch('http://10.185.0.55:80/my/circuits', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        gates: this.props.gates,
-        wires: this.props.wires,
-        saved: this.state.saved,
-        built: this.state.built,
-        userId: localStorage.userId
-      })
-    })
+ 
+  handleUndoClick = (recentlyDropped) => {
+    console.log('got here -> undo is clicked')
+    //console.log(this.state.recentlyDropped)
+    if(!recentlyDropped.type){ //this means that it is a wire
+      console.log('CONFIRM THAT IT IS A WIRE', recentlyDropped.id)
+      fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/wires/${recentlyDropped.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }   
+        }).then(res => res.json())
+          .then(json => {
+            return json;
+          })
+          this.props.settingStateAfterUndo("wire", recentlyDropped.id)
+        }
+     else { //this means that it is a gate
+      console.log('CONFIRM THAT IT IS A GATE', recentlyDropped.id)
+      fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/gates/${recentlyDropped.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }   
+       }).then(res => res.json())
+        .then(json => {
+        return json;
+     })
+     this.props.settingStateAfterUndo("gate", recentlyDropped.id)
+    }
   }
+ 
 
     render(){
-        console.log(this.props.gates)
-        console.log(this.props.wires)
+        console.log(this.props.currentCircuitId)
+        console.log(this.props.recentlyDropped)
         return(
           <div className="circuit-container">
             <div>
              
-                <Circuit changeFixedInput={this.props.changeFixedInput} gates={this.props.gates} wires={this.props.wires}  
+                <Circuit 
+                        changeFixedInput={this.props.changeFixedInput}
+                        gates={this.props.gates}
+                        wires={this.props.wires} 
+                        //handleUndoClick={() => this.handleUndoClick(this.props.recentlyDropped)} 
                 /> 
                 <br></br>
-                {()=>this.renderNewCircuit()}
+                {/* {()=>this.renderIndividualCircuit()} */}
             </div>
             <div class="topcorner">
                   
                 <div class="ui buttons">
-                    <button onClick={this.handleBuild} class="ui button">
+                    <button class="ui button" onClick={this.handleBuild} >
                       <i class="stop icon"></i>
                       Build
                     </button>
-                    <button class="ui labeled icon button">
+                    <button  class="ui labeled icon button" onClick={()=>this.handleUndoClick(this.props.recentlyDropped)}>
                       <i class="left chevron icon"></i>
                       Undo
                     </button>
                     
-                    {/* <button class="ui button" onClick={()=>this.saveCircuit()}>
+                    <button class="ui button" onClick={this.handleHelpClick}>
                       <i class="save icon"></i>
-                      Save 
-                    </button>*/}
-                    <button class="ui right labeled icon button">
+                      Help 
+                    </button>
+                    <button class="ui right labeled icon button" onClick={this.handleResetClick}>
                       Reset
                       <i class="right chevron icon"></i>
                     </button>
@@ -180,8 +186,7 @@ export default class CircuitContainer extends Component {
                   
                   <div >
                     Output: {this.state.output ? this.state.output : null}
-                        {/* <img src='../assets/dim.jpeg' class="visible content"/>
-                        <img src='../assets/bulbGlowing.svg' class="hidden content"/> */}
+                      
                   </div>
         
 

@@ -99,6 +99,7 @@ export default class extends React.Component {
         return gates.filter((gate) => gate.type === "not")
             .map((gate, index) =>
                 <NotGate actualGate={gate}
+                         key = {index}
                          id={gate.id}
                          location={gate.location} 
                          inputWires={this.findInputWiresFor(gate)}
@@ -264,3 +265,6 @@ export default class extends React.Component {
        
     }
 }
+
+
+//This file is the circuit show page 

@@ -13,12 +13,12 @@ import io from 'socket.io-client';
  window.socket = io('http://localhost:80/');
 //window.socket = io('http://10.185.0.55:80/');
 
-export default class  NewCircuit extends React.Component{
+export default class  IndividualCircuit extends React.Component{
    
   state = {
     gates: [],
     wires: [],
-   //inputGates: [],
+    recentlyDropped: null, //detect whether gate or wire is the recently formed one-> undo
     currentlyDraggingGate: {
       offsetX: 0,
       offsetY: 0,
@@ -153,6 +153,7 @@ export default class  NewCircuit extends React.Component{
     }
 
     handleDragEnd = (e) => {
+      e.preventDefault()
       let circuit = document.getElementById("circuit-created")
       
       
@@ -191,8 +192,11 @@ export default class  NewCircuit extends React.Component{
       }).then(res => res.json())
       .then( gate => {
         window.socket.emit("gateDrop", gate)
-          
-         // this.setState({ gates: [ ...this.state.gates, newGate ]})
+          //helps in detection of undo
+          this.setState({
+            recentlyDropped: gate
+          })
+         // this.setState({ gates: [ ...this.state.gates, newGate ]}) ---> this line was replaced by window.socket.emit('gateDrop',gate)
         
       })
       
@@ -201,7 +205,9 @@ export default class  NewCircuit extends React.Component{
       //reason being, update was happening on the backend only. So reload could render elements updates in db.json
       //setState would make the changes to appear in the frontend as well. Thats the advantage of setState. 
       //We can update the changes both on the server and on the frontend with the use of fetch-post request and setState simultaneously
-
+      
+      
+   
   }
 
   handleWireDragStart = (e) => {
@@ -249,9 +255,9 @@ export default class  NewCircuit extends React.Component{
       if((wireRectLeft < gateRight) && (wireRectRight > gateLeft) && 
           (wireRectTop < gateBottom) && (wireRectBottom > gateTop)){
         
-          console.log('condition true')
+          //console.log('condition true')
        
-          console.log('mouse Positions x and y: ', e.clientX, e.clientY)
+          //console.log('mouse Positions x and y: ', e.clientX, e.clientY)
           if(this.state.currentlyDraggingWire.inputID === null){
 
                 //this.setState({
@@ -317,7 +323,13 @@ export default class  NewCircuit extends React.Component{
     }).then( res => res.json())
     .then( wire => {
       window.socket.emit("wireDrop", wire)
+      this.setState({
+        recentlyDropped: wire
+      })
     })
+
+    //helps in detection for undo
+   
   }
     
 
@@ -346,15 +358,27 @@ export default class  NewCircuit extends React.Component{
             })
     }
 
-    
+    settingStateAfterUndo = (wireOrGate, UndoId) => {
+        if(wireOrGate === "gate"){
+          let remainingGates = this.state.gates.filter( gate => gate.id!==UndoId)
+          this.setState({
+            gates: remainingGates
+          })
+        } else if(wireOrGate === "wire"){
+          let remainingWires = this.state.wires.filter( wire => wire.id!==UndoId)
+          this.setState({
+            wires: remainingWires
+          })
+        }
+
+    }
 
 
   render() {
     // if (this.state.id !== this.props.params.match.id) {
     //   fetchGatesandWires()
     // }
-    console.log('gates :',this.state.gates)
-    console.log('wires: ', this.state.wires)
+    console.log('RECENTLY DROPPED',this.state.recentlyDropped)
     if(localStorage.getItem('token') === null){
         return(
             <div>
@@ -386,7 +410,13 @@ export default class  NewCircuit extends React.Component{
                   </Grid.Column>
                   <Grid.Column width={13}>
                     <div className="ui container" >
-                      <CircuitContainer changeFixedInput={this.changeFixedInput} gates={this.state.gates} wires={this.state.wires}/>
+                      <CircuitContainer recentlyDropped={this.state.recentlyDropped}
+                                        changeFixedInput={this.changeFixedInput} 
+                                        gates={this.state.gates} 
+                                        wires={this.state.wires}
+                                        currentCircuitId = {this.props.match.params.id}
+                                        settingStateAfterUndo = {this.settingStateAfterUndo}
+                        />
                     </div>
                   </Grid.Column>
                 </Grid.Row>

@@ -1,10 +1,9 @@
-//The circuits belonging to one particular user are to be rendered with this component 
-//This is like 'My circuits" page of the user 
+
 
 import React from 'react';
 import { stringify } from 'querystring';
 import CircuitCard from '../components/CircuitCard';
-import IndividualCircuit from '../components/NewCircuit';
+import IndividualCircuit from '../components/IndividualCircuit';
 
 export default class UserCircuitsContainer extends React.Component{
     state = {
@@ -12,11 +11,6 @@ export default class UserCircuitsContainer extends React.Component{
         XclickedCircuit: {},
         
     }
-
-   renderToIndividualCircuit = () => {
-       let ckt = this.state.userCircuits.find( circuit => circuit.clicked===true)
-       return (<IndividualCircuit circuit={ckt}/>)
-   }
 
     componentDidMount(){
         
@@ -74,14 +68,8 @@ export default class UserCircuitsContainer extends React.Component{
                 {this.state.userCircuits.map( circuit => {
                     return (<CircuitCard circuit={circuit} handleDeleteClickedCard={(id)=>this.handleDeleteClickedCard(id)}/>)
                 })}
-               
-              {this.renderToIndividualCircuit()}
             </div>
         )
         }
     }
 }
-
-// A particular user who has logged in when clicks and land here on this page:
-// They should be able to circuit cards of all their own circuits
-// //to write a method to get all the circuits that belong this particular user who is logged in}
