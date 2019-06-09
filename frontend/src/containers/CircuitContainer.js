@@ -122,6 +122,7 @@ export default class CircuitContainer extends Component {
     }).then( res => res.json())
     .then(json => {
       return json;
+      // this.props.settingStateAfterReset()
     })
 
     fetch(`http://localhost:80/my/circuits/${this.props.currentCircuitId}/wires`,{
@@ -138,6 +139,7 @@ export default class CircuitContainer extends Component {
       return json;
     })
     this.props.settingStateAfterReset()
+    this.setState({ output: 'All reset! Build a new one'})
   }
 
  
@@ -173,6 +175,7 @@ export default class CircuitContainer extends Component {
      this.props.settingStateAfterUndo("gate", recentlyDropped.id)
     }
   }
+  this.setState({ output: 'You made a new change. Build once you are ready'})
   }
  
 

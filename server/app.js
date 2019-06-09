@@ -334,6 +334,15 @@ io.on('connection', function (socket) {  //wait for a connection
     socket.on('wireDrop', function(data){
     
     })
+    socket.on('undoGateDrop', function(data){
+        //adding this to realize undo after a gateDrop in the sockets that are on
+    })
+    socket.on('undoWireDrop', function(data){
+        //adding this to realize undo after a wireDrop in the sockets that are on
+    })
+    socket.on('resetEmit', function(data){
+        //adding this to realize a reset happening in any turned on sockets 
+    })
     socket.on("connectToRoom", circuitID => rooms[circuitID] = true)
     socket.on("getActiveRooms", (whatever, response) => {
         response(rooms)

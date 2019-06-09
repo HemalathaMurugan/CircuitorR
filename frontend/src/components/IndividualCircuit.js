@@ -358,6 +358,7 @@ export default class  IndividualCircuit extends React.Component{
     settingStateAfterUndo = (wireOrGate, UndoId) => {
         if(wireOrGate === "gate"){
           let remainingGates = this.state.gates.filter( gate => gate.id!==UndoId)
+          //window.socket.emit()
           this.setState({
             gates: remainingGates
           })
@@ -443,9 +444,7 @@ export default class  IndividualCircuit extends React.Component{
             </Segment>
            
           </header>
-        </div>
-        
-      
+        </div>  
       
     );
     }
