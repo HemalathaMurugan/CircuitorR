@@ -33,15 +33,10 @@ export default class Home extends React.Component{
           <br></br>
           <h4 align="center">And</h4>
           <h4 align="center">Or</h4>
-          
           <h4 align="center">Not</h4>
-          
-          <h4 align="center">ExOr</h4>
-          
-          <h4 align="center">Nand</h4>
-          
-          <h4 align="center">Nor</h4>
-         
+          <h4 align="center">ExOr</h4> 
+          <h4 align="center">Nand</h4>  
+          <h4 align="center">Nor</h4>    
           <h4 align="center">ExNor</h4>
           
           You can play around with these logic gates and check their functionalities. 
